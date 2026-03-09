@@ -273,8 +273,11 @@ export default function Dashboard() {
               </button>
             ))}
             <div className="pt-4 mt-4 border-t border-emerald-100 space-y-1">
+              <Link href="/agentes" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-emerald-50 rounded-xl transition-colors text-sm">
+                <span className="material-icons-outlined text-xl">smart_toy</span>Agentes IA
+              </Link>
               <a className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-emerald-50 rounded-xl transition-colors text-sm" href="https://wa.me/12763294935">
-                <span className="material-icons-outlined text-xl">smart_toy</span>Asistente IA
+                <span className="material-icons-outlined text-xl">chat</span>Hablar con Aura
               </a>
               <Link href="/" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-emerald-50 rounded-xl transition-colors text-sm">
                 <span className="material-icons-outlined text-xl">home</span>Inicio

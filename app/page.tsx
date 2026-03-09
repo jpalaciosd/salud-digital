@@ -17,7 +17,7 @@ export default function Home() {
             <Link href="/" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Inicio</Link>
             <Link href="#servicios" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Servicios</Link>
             <Link href="/cursos" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Cursos</Link>
-            <Link href="#sedes" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Sedes</Link>
+            <Link href="/agentes" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Agentes IA</Link>
             <Link href="#contacto" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Contacto</Link>
           </nav>
           <div className="flex items-center gap-4">
@@ -159,6 +159,81 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="px-10 py-5 rounded-full bg-[#13ec5b] text-[#102216] font-extrabold text-xl hover:shadow-2xl hover:shadow-[#13ec5b]/40 transition-all">Registrarme Gratis</button>
             <a href="https://wa.me/12763294935" className="px-10 py-5 rounded-full bg-[#102216] text-white font-extrabold text-xl hover:bg-slate-800 transition-all">💬 Hablar con Asesor IA</a>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Agents Section */}
+      <section className="py-20 bg-gradient-to-br from-[#0a1a10] via-[#102216] to-[#0d2818]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6">
+              <span className="material-icons-outlined text-[#13ec5b] text-lg">smart_toy</span>
+              <span className="text-sm text-white/80">Inteligencia Artificial</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+              Nuestros <span className="text-[#13ec5b]">Agentes IA</span>
+            </h2>
+            <p className="text-lg text-white/50 max-w-2xl mx-auto">
+              Asistentes inteligentes que te acompañan en tu formación y bienestar de salud, disponibles 24/7.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Aura */}
+            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-[#13ec5b]/30 transition-all group">
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-[#13ec5b]/30 shrink-0">
+                  <img src="/agents/aura.png" alt="Aura" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    Aura
+                    <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded-full uppercase">Activo</span>
+                  </h3>
+                  <p className="text-sm text-[#13ec5b]">Agente Académico</p>
+                </div>
+              </div>
+              <p className="text-sm text-white/60 mb-6 leading-relaxed">
+                Tu mentora virtual. Te guía paso a paso por cada módulo, evalúa tu comprensión y registra tu progreso automáticamente.
+              </p>
+              <a href="https://wa.me/12763294935?text=Hola%20Aura" target="_blank" rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#13ec5b] text-[#102216] font-bold text-sm hover:opacity-90 transition">
+                <span className="material-icons-outlined text-lg">chat</span>
+                Hablar con Aura
+              </a>
+            </div>
+
+            {/* Dr. Nova */}
+            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-sky-400/30 transition-all group">
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-sky-400/30 shrink-0">
+                  <img src="/agents/medico.png" alt="Dr. Nova" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    Dr. Nova
+                    <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-[10px] font-bold rounded-full uppercase">Próximamente</span>
+                  </h3>
+                  <p className="text-sm text-sky-400">Agente Médico — Triage IA</p>
+                </div>
+              </div>
+              <p className="text-sm text-white/60 mb-6 leading-relaxed">
+                Tu asistente de salud. Evalúa síntomas, consulta tu historial clínico, recuerda tus medicamentos y te conecta con el profesional indicado.
+              </p>
+              <button disabled
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 text-white/40 font-bold text-sm cursor-not-allowed">
+                <span className="material-icons-outlined text-lg">schedule</span>
+                Próximamente
+              </button>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/agentes" className="inline-flex items-center gap-2 text-[#13ec5b] font-bold text-sm hover:underline">
+              Ver más sobre nuestros agentes
+              <span className="material-icons-outlined text-lg">arrow_forward</span>
+            </Link>
           </div>
         </div>
       </section>
