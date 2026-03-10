@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
 import { getAllUsers } from "@/lib/auth";
+import { CURSOS_CATALOGO } from "@/lib/cursos-data";
 
 const API_SECRET = process.env.PROGRESO_API_SECRET || "salud-digital-progreso-2026";
 
@@ -29,13 +30,12 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { telefono, cursoId, cursoNombre, moduloCompletado, totalModulos, moduloIdx, temaIdx, nota, detalle } = body;
+    const { telefono, cursoId, cursoNombre, moduloCompletado, totalModulos, moduloIdx, temaIdx, nota, detalle, moduloCompleto } = body;
 
     if (!telefono || !cursoId) {
       return NextResponse.json({ error: "telefono y cursoId son requeridos" }, { status: 400 });
     }
 
-    // Find user by phone
     const users = await getAllUsers();
     const normalizedPhone = telefono.replace(/\D/g, "").slice(-10);
     const user = users.find((u) => {
@@ -73,10 +73,9 @@ export async function POST(req: NextRequest) {
       contentType: "application/json",
     });
 
-    // ── Sync: mark the specific completed item in inscripciones ──
+    // ── Sync: mark completed items in inscripciones ──
     try {
       const mIdx = moduloIdx ?? 0;
-      const tIdx = temaIdx ?? 0;
 
       const { blobs: inscBlobs } = await list({ prefix: "inscripciones/" });
       for (const blob of inscBlobs) {
@@ -84,24 +83,42 @@ export async function POST(req: NextRequest) {
         if (!res.ok) continue;
         const insc = await res.json();
 
-        // Match by userId AND cursoId
         if (insc.userId !== user.id || insc.cursoId !== cursoId) continue;
 
         const completedItems: string[] = [...(insc.completedItems || [])];
-        const key = `${mIdx}:${tIdx}`;
+        let changed = false;
 
-        if (!completedItems.includes(key)) {
-          completedItems.push(key);
+        if (moduloCompleto) {
+          // Mark ALL items in the completed module
+          const cursoData = CURSOS_CATALOGO.find(c => c.id === cursoId);
+          const modulo = cursoData?.modulos[mIdx];
+          if (modulo) {
+            for (let ti = 0; ti < modulo.items.length; ti++) {
+              const key = `${mIdx}:${ti}`;
+              if (!completedItems.includes(key)) {
+                completedItems.push(key);
+                changed = true;
+              }
+            }
+          }
+        } else {
+          const key = `${mIdx}:${temaIdx ?? 0}`;
+          if (!completedItems.includes(key)) {
+            completedItems.push(key);
+            changed = true;
+          }
+        }
+
+        if (changed) {
           insc.completedItems = completedItems;
           insc.ultimaActividad = new Date().toISOString();
-
           await put(`inscripciones/${insc.id}.json`, JSON.stringify(insc), {
             access: "public",
             addRandomSuffix: false,
             allowOverwrite: true,
             contentType: "application/json",
           });
-          console.log(`[Sync] Marked item ${key} for inscripcion ${insc.id}`);
+          console.log(`[Sync] Marked ${moduloCompleto ? `module ${mIdx} complete` : `item ${mIdx}:${temaIdx}`} for inscripcion ${insc.id}`);
         }
         break;
       }
