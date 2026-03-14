@@ -65,7 +65,8 @@ export async function POST(req: NextRequest) {
   }
 
   const medicos = users.filter((u) => u.rol === "medico");
-  if (medicoId && !medicos.some((m) => m.id === medicoId)) {
+  const medicoIdValido = medicoId && medicoId.trim() !== "" && medicoId !== "Por asignar";
+  if (medicoIdValido && !medicos.some((m) => m.id === medicoId)) {
     return NextResponse.json(
       { error: "El médico indicado no existe" },
       { status: 400 }
@@ -85,7 +86,7 @@ export async function POST(req: NextRequest) {
     id: crypto.randomUUID(),
     pacienteId: user.id,
     pacienteNombre: `${user.nombre} ${user.apellido}`,
-    medicoId: medicoId || undefined,
+    medicoId: medicoIdValido ? medicoId : undefined,
     medicoNombre: medicoNombreFinal,
     especialidad,
     fecha,
