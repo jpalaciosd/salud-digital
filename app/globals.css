@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #13ec5b;
-  --color-bg-light: #f6f8f6;
-  --color-bg-dark: #102216;
-  --color-slate: #1a2e21;
+  --color-primary: #1d4ed8;
+  --color-bg-light: #f1f5f9;
+  --color-bg-dark: #1e3a8a;
+  --color-slate: #1e293b;
 }
 
 body { font-family: 'Manrope', sans-serif; }
 
 .hero-gradient {
-  background: linear-gradient(135deg, rgba(19, 236, 91, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.06) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
 .btn-primary {
@@ -24,4 +24,24 @@ body { font-family: 'Manrope', sans-serif; }
 .btn-primary:hover {
   opacity: 0.9;
   transform: scale(1.03);
+}
+
+/* Dashboard: paleta por perfil (azules salud) */
+.theme-dash-paciente {
+  --dash-accent: #0284c7;
+  --dash-accent-light: #e0f2fe;
+  --dash-accent-dark: #0c4a6e;
+  --dash-accent-muted: #7dd3fc;
+  --dash-border: #bae6fd;
+  --dash-text: #0369a1;
+  --dash-text-dark: #0c4a6e;
+}
+.theme-dash-medico {
+  --dash-accent: #1d4ed8;
+  --dash-accent-light: #dbeafe;
+  --dash-accent-dark: #1e3a8a;
+  --dash-accent-muted: #93c5fd;
+  --dash-border: #bfdbfe;
+  --dash-text: #1d4ed8;
+  --dash-text-dark: #1e3a8a;
 }

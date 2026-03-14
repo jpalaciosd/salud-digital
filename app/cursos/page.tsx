@@ -19,36 +19,36 @@ export default function Cursos() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#13ec5b]/10">
+      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#1d4ed8]/10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#13ec5b] rounded-lg flex items-center justify-center">
-              <span className="material-icons-outlined text-[#102216]">health_and_safety</span>
+            <div className="w-10 h-10 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
+              <span className="material-icons-outlined text-white">health_and_safety</span>
             </div>
-            <span className="text-xl font-bold tracking-tight uppercase">Salud<span className="text-[#13ec5b]">Digital</span></span>
+            <span className="text-xl font-bold tracking-tight uppercase">Salud<span className="text-[#1d4ed8]">Digital</span></span>
           </div>
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Inicio</Link>
-            <Link href="/cursos" className="text-sm font-semibold text-[#13ec5b]">Cursos</Link>
-            <Link href="/dashboard" className="text-sm font-semibold hover:text-[#13ec5b] transition-colors">Dashboard</Link>
+            <Link href="/" className="text-sm font-semibold hover:text-[#1d4ed8] transition-colors">Inicio</Link>
+            <Link href="/cursos" className="text-sm font-semibold text-[#1d4ed8]">Cursos</Link>
+            <Link href="/dashboard" className="text-sm font-semibold hover:text-[#1d4ed8] transition-colors">Dashboard</Link>
           </nav>
-          <Link href="/dashboard" className="px-6 py-2.5 rounded-full bg-[#13ec5b] text-[#102216] font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#13ec5b]/20">
+          <Link href="/dashboard" className="px-6 py-2.5 rounded-full bg-[#1d4ed8] text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#1d4ed8]/20">
             Mi Portal
           </Link>
         </div>
       </header>
 
       {/* Hero Cursos */}
-      <section className="py-16 px-6" style={{ background: 'linear-gradient(135deg, #102216 0%, #1a3a2a 100%)' }}>
+      <section className="py-16 px-6" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #0c4a6e 100%)' }}>
         <div className="max-w-7xl mx-auto text-center text-white">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13ec5b]/20 text-[#13ec5b] text-xs font-bold uppercase tracking-wider mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1d4ed8]/20 text-[#1d4ed8] text-xs font-bold uppercase tracking-wider mb-6">
             <span className="material-icons-outlined text-sm">school</span>
             Plataforma Educativa
           </div>
-          <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">Cursos de Salud <span className="text-[#13ec5b]">Especializados</span></h1>
+          <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">Cursos de Salud <span className="text-[#1d4ed8]">Especializados</span></h1>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">Aprende de profesionales certificados con el apoyo de nuestro tutor IA por WhatsApp. Certificados avalados por instituciones de salud.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/12763294935?text=Hola! Quiero información sobre los cursos de salud" className="px-8 py-4 rounded-xl bg-[#13ec5b] text-[#102216] font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+            <a href="https://wa.me/12763294935?text=Hola! Quiero información sobre los cursos de salud" className="px-8 py-4 rounded-xl bg-[#1d4ed8] text-white font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
               💬 Tutor IA por WhatsApp
             </a>
           </div>
@@ -65,7 +65,7 @@ export default function Cursos() {
             { valor: "95%", label: "Tasa de satisfacción" },
           ].map((stat, i) => (
             <div key={i}>
-              <p className="text-3xl font-extrabold text-[#13ec5b]">{stat.valor}</p>
+              <p className="text-3xl font-extrabold text-[#1d4ed8]">{stat.valor}</p>
               <p className="text-sm text-slate-500">{stat.label}</p>
             </div>
           ))}
@@ -77,14 +77,14 @@ export default function Cursos() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {cursos.map((curso) => (
-              <div key={curso.id} className="bg-white p-6 rounded-2xl border border-slate-100 hover:border-[#13ec5b]/50 hover:shadow-lg transition-all group">
+              <div key={curso.id} className="bg-white p-6 rounded-2xl border border-slate-100 hover:border-[#1d4ed8]/50 hover:shadow-lg transition-all group">
                 <div className="flex justify-between items-start mb-4">
                   <span className="text-5xl">{curso.img}</span>
                   {curso.tag && (
                     <span className={`px-3 py-1 rounded-full text-xs font-bold ${
                       curso.tag === "Popular" ? "bg-amber-100 text-amber-700" :
                       curso.tag === "Nuevo" ? "bg-blue-100 text-blue-700" :
-                      "bg-emerald-100 text-emerald-700"
+                      "bg-blue-100 text-blue-700"
                     }`}>{curso.tag}</span>
                   )}
                 </div>
@@ -97,8 +97,8 @@ export default function Cursos() {
                 </div>
                 <p className="text-xs text-slate-400 mb-4">👨‍⚕️ {curso.instructor}</p>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-                  <span className={`text-lg font-extrabold ${curso.precio === "Gratis" ? "text-[#13ec5b]" : "text-[#102216]"}`}>{curso.precio}</span>
-                  <button className="px-6 py-2 rounded-lg bg-[#13ec5b] text-[#102216] font-bold text-sm hover:opacity-90 transition-all">
+                  <span className={`text-lg font-extrabold ${curso.precio === "Gratis" ? "text-[#1d4ed8]" : "text-white"}`}>{curso.precio}</span>
+                  <button className="px-6 py-2 rounded-lg bg-[#1d4ed8] text-white font-bold text-sm hover:opacity-90 transition-all">
                     {curso.precio === "Gratis" ? "Inscribirme" : "Comprar"}
                   </button>
                 </div>
@@ -109,11 +109,11 @@ export default function Cursos() {
       </section>
 
       {/* CTA WhatsApp Tutor */}
-      <section className="py-16 px-6 bg-[#102216]">
+      <section className="py-16 px-6 bg-[#1e3a8a]">
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-3xl font-bold mb-4">🤖 Aprende con nuestro Tutor IA</h2>
           <p className="text-lg text-slate-400 mb-8">Nuestro agente de IA por WhatsApp te acompaña en tu aprendizaje: resuelve dudas, explica temas y evalúa tu progreso en tiempo real.</p>
-          <a href="https://wa.me/12763294935?text=Hola! Quiero empezar a aprender con el Tutor IA" className="inline-block px-10 py-5 rounded-full bg-[#13ec5b] text-[#102216] font-extrabold text-xl hover:shadow-2xl hover:shadow-[#13ec5b]/40 transition-all">
+          <a href="https://wa.me/12763294935?text=Hola! Quiero empezar a aprender con el Tutor IA" className="inline-block px-10 py-5 rounded-full bg-[#1d4ed8] text-white font-extrabold text-xl hover:shadow-2xl hover:shadow-[#1d4ed8]/40 transition-all">
             💬 Conectar con Tutor IA
           </a>
         </div>
