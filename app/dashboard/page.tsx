@@ -492,6 +492,9 @@ export default function Dashboard() {
                           <p className="text-xs text-slate-500">{c.especialidad} • {c.tipo}</p>
                           <p className="text-xs font-medium mt-1">{formatDate(c.fecha)} — {c.hora}</p>
                           <p className="text-xs text-slate-400 mt-1">{c.motivo}</p>
+                          {isMedico && c.estado === "confirmada" && c.medicoNombre && c.medicoNombre !== "Por asignar" && (
+                            <p className="text-xs text-emerald-600 font-medium mt-1.5">Aceptada por: {c.medicoNombre}</p>
+                          )}
                         </div>
                         <div className="flex flex-wrap items-center gap-2 self-start">
                           <span className={`px-3 py-1 text-xs font-bold rounded-full ${
