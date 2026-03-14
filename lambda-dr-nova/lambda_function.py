@@ -7,7 +7,6 @@ genera respuesta con OpenAI y opcionalmente agenda cita en Vercel.
 import os
 import json
 import urllib.parse
-import re
 import requests
 from requests.auth import HTTPBasicAuth
 import boto3
@@ -119,7 +118,7 @@ def contiene_agendar_cita(texto: str) -> bool:
 
 
 def extraer_datos_cita(texto: str) -> dict | None:
-    """Extrae medicoId, medicoNombre, especialidad, fecha, hora, tipo, motivo de la respuesta."""
+    """Extrae datos de cita. Acepta typo 'medicold' como medicoId; si falta medicoNombre y medicoId=Por asignar, usa Por asignar."""
     lines = texto.splitlines()
     in_block = False
     data = {}
@@ -131,16 +130,21 @@ def extraer_datos_cita(texto: str) -> dict | None:
             key, _, value = line.strip().partition("=")
             key = key.strip().lower()
             value = value.strip()
+            if key == "medicold":
+                key = "medicoid"
             if key in ("medicoid", "mediconombre", "especialidad", "fecha", "hora", "tipo", "motivo", "notas"):
                 data[key] = value
         elif in_block and line.strip() and "=" not in line:
             break
-    if not data.get("mediconombre") or not data.get("fecha") or not data.get("hora") or not data.get("tipo") or not data.get("motivo"):
+    medico_nombre = data.get("mediconombre")
+    if not medico_nombre and data.get("medicoid") == "Por asignar":
+        medico_nombre = "Por asignar"
+    if not medico_nombre or not data.get("fecha") or not data.get("hora") or not data.get("tipo") or not data.get("motivo"):
         return None
     return {
         "medicoId": data.get("medicoid") or "",
-        "medicoNombre": data.get("mediconombre", ""),
-        "especialidad": data.get("especialidad", "Medicina general"),
+        "medicoNombre": medico_nombre,
+        "especialidad": data.get("especialidad") or "Medicina general",
         "fecha": data.get("fecha", ""),
         "hora": data.get("hora", ""),
         "tipo": data.get("tipo", "teleconsulta"),
@@ -150,7 +154,7 @@ def extraer_datos_cita(texto: str) -> dict | None:
 
 
 def quitar_bloque_agendar_cita(texto: str) -> str:
-    """Elimina la línea [AGENDAR_CITA] y las líneas key=value siguientes del mensaje al usuario."""
+    """Elimina [AGENDAR_CITA] y las líneas key=value (incluye medicold) del mensaje al usuario."""
     lines = texto.splitlines()
     out = []
     in_block = False
@@ -158,8 +162,10 @@ def quitar_bloque_agendar_cita(texto: str) -> str:
         if "[AGENDAR_CITA]" in line:
             in_block = True
             continue
-        if in_block and "=" in line and line.strip().lower().startswith(("medicoid", "mediconombre", "especialidad", "fecha", "hora", "tipo", "motivo", "notas")):
-            continue
+        if in_block and "=" in line:
+            key = line.strip().split("=")[0].strip().lower()
+            if key in ("medicoid", "medicold", "mediconombre", "especialidad", "fecha", "hora", "tipo", "motivo", "notas"):
+                continue
         if in_block and line.strip() == "":
             in_block = False
         if not in_block:
@@ -169,11 +175,12 @@ def quitar_bloque_agendar_cita(texto: str) -> str:
 
 def crear_cita_vercel(telefono: str, payload: dict) -> bool:
     if not VERCEL_URL or not DR_NOVA_API_SECRET:
+        print("[Vercel] Falta VERCEL_URL o DR_NOVA_API_SECRET")
         return False
     url = f"{VERCEL_URL}/api/agente/cita"
     body = {
         "telefono": telefono,
-        "medicoNombre": payload.get("medicoNombre"),
+        "medicoNombre": payload.get("medicoNombre") or "Por asignar",
         "especialidad": payload.get("especialidad"),
         "fecha": payload.get("fecha"),
         "hora": payload.get("hora"),
@@ -181,8 +188,9 @@ def crear_cita_vercel(telefono: str, payload: dict) -> bool:
         "motivo": payload.get("motivo"),
         "notas": payload.get("notas"),
     }
-    if payload.get("medicoId"):
-        body["medicoId"] = payload["medicoId"]
+    medico_id = payload.get("medicoId")
+    if medico_id and medico_id.strip() and medico_id != "Por asignar":
+        body["medicoId"] = medico_id
     body = {k: v for k, v in body.items() if v is not None}
     try:
         r = requests.post(
@@ -217,8 +225,20 @@ def lambda_handler(event, context):
 
         telefono = normalize_phone(from_number)
         patient_context_str = fetch_datos_paciente(telefono)
-        system_prompt = build_system_prompt(patient_context_str)
 
+        if patient_context_str is None:
+            base_url = VERCEL_URL or "https://salud-digital-iota.vercel.app"
+            registro_url = f"{base_url.rstrip('/')}/registro" if base_url.startswith("http") else "https://salud-digital-iota.vercel.app/registro"
+            mensaje_no_registrado = (
+                "Hola. Soy *Dr. Nova*, tu asistente de salud de SaludDigital.\n\n"
+                "Para poder atenderte necesitas estar registrado en la plataforma con *este número de WhatsApp*.\n\n"
+                f"Regístrate aquí: {registro_url}\n\n"
+                "Cuando estés registrado, escríbeme de nuevo."
+            )
+            enviar_mensaje_twilio(from_number, mensaje_no_registrado)
+            return {"statusCode": 200, "body": json.dumps({"ok": True, "accion": "no_registrado"})}
+
+        system_prompt = build_system_prompt(patient_context_str)
         historial_mensajes, _ = obtener_historial(from_number)
         historial_mensajes.append({"role": "user", "content": message_body})
 
