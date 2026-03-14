@@ -151,6 +151,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Cursos Disponibles */}
+      <section className="py-24 bg-[#f6f8f6]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl font-extrabold mb-4">Nuestros <span className="text-[#13ec5b]">Cursos</span></h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">Programas de formación en salud guiados por profesionales y asistidos por inteligencia artificial. Aprende a tu ritmo, desde cualquier lugar.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { emoji: "🩺", titulo: "Taller de Primeros Auxilios", instructor: "Dra. María López", modulos: 8, horas: 8, desc: "Técnicas esenciales de primeros auxilios para situaciones de emergencia." },
+              { emoji: "🛡️", titulo: "Taller: Seguridad del Paciente", instructor: "Dr. Roberto Sánchez", modulos: 6, horas: 6, desc: "Protocolos de seguridad clínica y prevención de eventos adversos." },
+              { emoji: "🧠", titulo: "Salud Mental y Manejo de Crisis", instructor: "Ps. Andrea Martínez", modulos: 4, horas: 6, desc: "Estrategias de regulación emocional, grounding y primeros auxilios psicológicos." },
+              { emoji: "🩺", titulo: "Técnico de Enfermería en Salud Mental", instructor: "Enf. Jefe Carlos Mendoza", modulos: 4, horas: 8, desc: "Observación clínica, desescalada verbal, contención segura y autocuidado." },
+            ].map((c, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 hover:border-[#13ec5b]/50 hover:shadow-lg transition-all group">
+                <div className="text-4xl mb-4">{c.emoji}</div>
+                <h3 className="font-bold text-lg mb-1 group-hover:text-[#13ec5b] transition-colors">{c.titulo}</h3>
+                <p className="text-sm text-[#13ec5b] font-medium mb-2">{c.instructor}</p>
+                <p className="text-sm text-slate-500 mb-4 leading-relaxed">{c.desc}</p>
+                <div className="flex items-center gap-3 text-xs text-slate-400 mb-4">
+                  <span className="flex items-center gap-1"><span className="material-icons-outlined text-sm">menu_book</span>{c.modulos} módulos</span>
+                  <span className="flex items-center gap-1"><span className="material-icons-outlined text-sm">schedule</span>{c.horas}h</span>
+                </div>
+                <Link href="/registro" className="block w-full text-center py-2.5 rounded-xl bg-[#13ec5b]/10 text-[#13ec5b] font-bold text-sm hover:bg-[#13ec5b] hover:text-[#102216] transition-all">
+                  Inscribirme
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/cursos" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#13ec5b] text-[#102216] font-bold hover:opacity-90 transition">
+              Ver todos los cursos
+              <span className="material-icons-outlined">arrow_forward</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section id="contacto" className="py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
