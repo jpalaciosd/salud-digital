@@ -42,8 +42,8 @@ const agentes = [
     ],
     canal: "WhatsApp",
     canalIcon: "medical_services",
-    canalLink: "#",
-    estado: "Próximamente",
+    canalLink: "https://wa.me/17433306127?text=Hola%20Dr.%20Nova",
+    estado: "Activo",
   },
 ];
 

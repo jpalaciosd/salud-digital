@@ -213,7 +213,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
                     Dr. Nova
-                    <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-[10px] font-bold rounded-full uppercase">Próximamente</span>
+                    <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded-full uppercase">Activo</span>
                   </h3>
                   <p className="text-sm text-sky-400">Agente Médico — Triage IA</p>
                 </div>
@@ -221,11 +221,15 @@ export default function Home() {
               <p className="text-sm text-white/60 mb-6 leading-relaxed">
                 Tu asistente de salud. Evalúa síntomas, consulta tu historial clínico, recuerda tus medicamentos y te conecta con el profesional indicado.
               </p>
-              <button disabled
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 text-white/40 font-bold text-sm cursor-not-allowed">
-                <span className="material-icons-outlined text-lg">schedule</span>
-                Próximamente
-              </button>
+              <a
+                href="https://wa.me/17433306127?text=Hola%20Dr.%20Nova"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-sky-500 text-white font-bold text-sm hover:opacity-90 transition"
+              >
+                <span className="material-icons-outlined text-lg">medical_services</span>
+                Hablar con Dr. Nova
+              </a>
             </div>
           </div>
 
