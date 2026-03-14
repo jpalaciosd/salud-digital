@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/lib/AuthContext";
 
-interface Medico { id: string; nombre: string; apellido: string; documento: string; }
+interface Medico { id: string; nombre: string; apellido: string; documento: string; avatarUrl?: string; descripcionProfesional?: string; }
 interface Paciente { id: string; nombre: string; apellido: string; email: string; documento: string; telefono?: string; }
 interface Cita { id: string; pacienteId: string; pacienteNombre: string; medicoId?: string; medicoNombre: string; especialidad: string; fecha: string; hora: string; tipo: string; estado: string; motivo: string; }
 interface Formula { id: string; pacienteId: string; pacienteNombre: string; medicoNombre: string; medicamentos: { nombre: string; dosis: string; frecuencia: string; duracionDias: number; via: string; cantidad: string }[]; estado: string; fechaEmision: string; fechaVencimiento: string; diagnostico: string; observaciones?: string; }
@@ -34,6 +34,8 @@ export default function Dashboard() {
   const [showCrearFormula, setShowCrearFormula] = useState(false);
   const [showCrearHistoria, setShowCrearHistoria] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [citaEnAccion, setCitaEnAccion] = useState<string | null>(null);
+  const [errorCita, setErrorCita] = useState<string | null>(null);
   // Course detail
   const [cursoActivo, setCursoActivo] = useState<string | null>(null);
   const [cursoDetalle, setCursoDetalle] = useState<CursoDetalle | null>(null);
@@ -51,13 +53,14 @@ export default function Dashboard() {
   const isMedico = user?.rol === "medico" || user?.rol === "admin";
 
   const fetchData = useCallback(async () => {
+    const opts = { cache: "no-store" as RequestCache };
     const [citasR, formulasR, historiaR, inscR, cursosR, medicosR] = await Promise.all([
-      fetch("/api/citas").then(r => r.ok ? r.json() : { citas: [] }),
-      fetch("/api/formulas").then(r => r.ok ? r.json() : { formulas: [] }),
-      fetch("/api/historia").then(r => r.ok ? r.json() : { registros: [] }),
-      fetch("/api/inscripciones").then(r => r.ok ? r.json() : { inscripciones: [] }),
-      fetch("/api/cursos").then(r => r.ok ? r.json() : { cursos: [] }),
-      fetch("/api/medicos").then(r => r.ok ? r.json() : { medicos: [] }),
+      fetch("/api/citas", opts).then(r => r.ok ? r.json() : { citas: [] }),
+      fetch("/api/formulas", opts).then(r => r.ok ? r.json() : { formulas: [] }),
+      fetch("/api/historia", opts).then(r => r.ok ? r.json() : { registros: [] }),
+      fetch("/api/inscripciones", opts).then(r => r.ok ? r.json() : { inscripciones: [] }),
+      fetch("/api/cursos", opts).then(r => r.ok ? r.json() : { cursos: [] }),
+      fetch("/api/medicos", opts).then(r => r.ok ? r.json() : { medicos: [] }),
     ]);
     setCitas(citasR.citas || []);
     setFormulas(formulasR.formulas || []);
@@ -67,13 +70,13 @@ export default function Dashboard() {
     setMedicos(medicosR.medicos || []);
 
     if (isMedico) {
-      const pacR = await fetch("/api/pacientes").then(r => r.ok ? r.json() : { pacientes: [] });
+      const pacR = await fetch("/api/pacientes", opts).then(r => r.ok ? r.json() : { pacientes: [] });
       setPacientes(pacR.pacientes || []);
     }
 
     // Fetch WhatsApp progress
     if (user?.userId) {
-      const progR = await fetch(`/api/progreso?userId=${user.userId}`).then(r => r.ok ? r.json() : { progreso: [] });
+      const progR = await fetch(`/api/progreso?userId=${user.userId}`, opts).then(r => r.ok ? r.json() : { progreso: [] });
       setProgresoWA(progR.progreso || []);
     }
   }, [isMedico]);
@@ -149,21 +152,53 @@ export default function Dashboard() {
   };
 
   const actualizarEstadoCita = async (id: string, estado: string) => {
-    await fetch(`/api/citas/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ estado }),
-    });
-    fetchData();
+    if (citaEnAccion) return;
+    setErrorCita(null);
+    setCitaEnAccion(id);
+    try {
+      const res = await fetch(`/api/citas/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ estado }),
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setErrorCita(data?.error || "No se pudo actualizar la cita. Intenta de nuevo.");
+        return;
+      }
+      const data = await res.json();
+      if (data.cita) {
+        setCitas(prev => prev.map(c => c.id === data.cita.id ? data.cita : c));
+      }
+    } finally {
+      setCitaEnAccion(null);
+    }
   };
 
   const aceptarCita = async (id: string) => {
-    await fetch(`/api/citas/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ accion: "aceptar" }),
-    });
-    fetchData();
+    if (citaEnAccion) return;
+    setErrorCita(null);
+    setCitaEnAccion(id);
+    try {
+      const res = await fetch(`/api/citas/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ accion: "aceptar" }),
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setErrorCita(data?.error || "No se pudo aceptar la cita. Intenta de nuevo.");
+        return;
+      }
+      const data = await res.json();
+      if (data.cita) {
+        setCitas(prev => prev.map(c => c.id === data.cita.id ? data.cita : c));
+      }
+    } finally {
+      setCitaEnAccion(null);
+    }
   };
 
   const abrirCurso = async (cursoId: string) => {
@@ -437,6 +472,18 @@ export default function Dashboard() {
                 )}
               </div>
 
+              {errorCita && (
+                <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2">
+                    <span className="material-icons-outlined text-lg">error_outline</span>
+                    {errorCita}
+                  </span>
+                  <button type="button" onClick={() => setErrorCita(null)} className="p-1 rounded hover:bg-red-100" aria-label="Cerrar">
+                    <span className="material-icons-outlined text-lg">close</span>
+                  </button>
+                </div>
+              )}
+
               {/* Agendar Modal — patient selects from registered doctors */}
               {showAgendarCita && (
                 <Modal onClose={() => setShowAgendarCita(false)}>
@@ -485,17 +532,40 @@ export default function Dashboard() {
                 <Empty icon="event_busy" title="Sin citas" subtitle={isMedico ? "Tus pacientes aún no han agendado citas" : "Agenda tu primera cita"} />
               ) : (
                 <div className="space-y-3">
-                  {citas.map((c) => (
+                  {citas.map((c) => {
+                    const medicoAsignado = !isMedico && c.medicoId ? medicos.find((m) => m.id === c.medicoId) : null;
+                    const mostrarInfoMedico = !isMedico && (c.estado === "confirmada" || c.estado === "completada") && (medicoAsignado || (c.medicoNombre && c.medicoNombre !== "Por asignar"));
+                    return (
                     <div key={c.id} className="bg-white p-4 lg:p-5 rounded-xl border border-[var(--dash-border)]">
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                        <div>
-                          <h4 className="font-bold text-sm lg:text-base">{isMedico ? `Paciente: ${c.pacienteNombre}` : c.medicoNombre}</h4>
-                          <p className="text-xs text-slate-500">{c.especialidad} • {c.tipo}</p>
-                          <p className="text-xs font-medium mt-1">{formatDate(c.fecha)} — {c.hora}</p>
-                          <p className="text-xs text-slate-400 mt-1">{c.motivo}</p>
-                          {isMedico && c.estado === "confirmada" && c.medicoNombre && c.medicoNombre !== "Por asignar" && (
-                            <p className="text-xs text-[var(--dash-text)] font-medium mt-1.5">Aceptada por: {c.medicoNombre}</p>
-                          )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start gap-3">
+                            {/* Foto y datos del médico asignado (solo paciente, cita confirmada/completada) */}
+                            {mostrarInfoMedico && medicoAsignado && (
+                              <div className="shrink-0 flex flex-col items-center gap-1">
+                                {medicoAsignado.avatarUrl ? (
+                                  <img src={medicoAsignado.avatarUrl} alt={c.medicoNombre} className="w-14 h-14 rounded-xl object-cover border-2 border-[var(--dash-border)]" />
+                                ) : (
+                                  <div className="w-14 h-14 rounded-xl bg-[var(--dash-accent-light)] flex items-center justify-center text-[var(--dash-accent)] font-bold text-lg">
+                                    {(medicoAsignado.nombre?.[0] || "")}{(medicoAsignado.apellido?.[0] || "")}
+                                  </div>
+                                )}
+                                <span className="text-[10px] text-slate-400 font-medium">Tu profesional</span>
+                              </div>
+                            )}
+                            <div className="min-w-0">
+                              <h4 className="font-bold text-sm lg:text-base">{isMedico ? `Paciente: ${c.pacienteNombre}` : c.medicoNombre}</h4>
+                              <p className="text-xs text-slate-500">{c.especialidad} • {c.tipo}</p>
+                              <p className="text-xs font-medium mt-1">{formatDate(c.fecha)} — {c.hora}</p>
+                              <p className="text-xs text-slate-400 mt-1">{c.motivo}</p>
+                              {isMedico && c.estado === "confirmada" && c.medicoNombre && c.medicoNombre !== "Por asignar" && (
+                                <p className="text-xs text-[var(--dash-text)] font-medium mt-1.5">Aceptada por: {c.medicoNombre}</p>
+                              )}
+                              {mostrarInfoMedico && medicoAsignado?.descripcionProfesional && (
+                                <p className="text-xs text-slate-600 mt-2 leading-relaxed max-w-md">{medicoAsignado.descripcionProfesional}</p>
+                              )}
+                            </div>
+                          </div>
                         </div>
                         <div className="flex flex-wrap items-center gap-2 self-start">
                           <span className={`px-3 py-1 text-xs font-bold rounded-full ${
@@ -509,30 +579,66 @@ export default function Dashboard() {
                           {/* Médico: Aceptar (asigna la cita a este médico) o Rechazar pendientes */}
                           {isMedico && c.estado === "pendiente" && (
                             <>
-                              <button onClick={() => aceptarCita(c.id)} className="px-2.5 py-1 bg-[var(--dash-accent-light)] text-[var(--dash-text)] rounded text-[10px] font-bold hover:opacity-90 flex items-center gap-1">
-                                <span className="material-icons-outlined text-xs">check</span>Aceptar
+                              <button
+                                onClick={() => aceptarCita(c.id)}
+                                disabled={citaEnAccion === c.id}
+                                className="w-8 h-8 flex items-center justify-center bg-[var(--dash-accent-light)] text-[var(--dash-text)] rounded text-[10px] font-bold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
+                                title="Aceptar"
+                              >
+                                {citaEnAccion === c.id ? (
+                                  <span className="material-icons-outlined text-base animate-spin">progress_activity</span>
+                                ) : (
+                                  <span className="material-icons-outlined text-base">check</span>
+                                )}
                               </button>
-                              <button onClick={() => actualizarEstadoCita(c.id, "rechazada")} className="px-2.5 py-1 bg-red-100 text-red-700 rounded text-[10px] font-bold hover:bg-red-200 flex items-center gap-1">
-                                <span className="material-icons-outlined text-xs">close</span>Rechazar
+                              <button
+                                onClick={() => actualizarEstadoCita(c.id, "rechazada")}
+                                disabled={citaEnAccion === c.id}
+                                className="w-8 h-8 flex items-center justify-center bg-red-100 text-red-700 rounded text-[10px] font-bold hover:bg-red-200 disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
+                                title="Rechazar"
+                              >
+                                {citaEnAccion === c.id ? (
+                                  <span className="material-icons-outlined text-base animate-spin">progress_activity</span>
+                                ) : (
+                                  <span className="material-icons-outlined text-base">close</span>
+                                )}
                               </button>
                             </>
                           )}
                           {/* Médico: Completar confirmadas */}
                           {isMedico && c.estado === "confirmada" && (
-                            <button onClick={() => actualizarEstadoCita(c.id, "completada")} className="px-2.5 py-1 bg-blue-100 text-blue-700 rounded text-[10px] font-bold hover:bg-blue-200 flex items-center gap-1">
-                              <span className="material-icons-outlined text-xs">done_all</span>Completar
+                            <button
+                              onClick={() => actualizarEstadoCita(c.id, "completada")}
+                              disabled={citaEnAccion === c.id}
+                              className="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-700 rounded text-[10px] font-bold hover:bg-blue-200 disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
+                              title="Completar"
+                            >
+                              {citaEnAccion === c.id ? (
+                                <span className="material-icons-outlined text-base animate-spin">progress_activity</span>
+                              ) : (
+                                <span className="material-icons-outlined text-base">done_all</span>
+                              )}
                             </button>
                           )}
                           {/* Paciente: Cancelar pendientes o confirmadas */}
                           {!isMedico && (c.estado === "pendiente" || c.estado === "confirmada") && (
-                            <button onClick={() => actualizarEstadoCita(c.id, "cancelada")} className="px-2.5 py-1 bg-red-50 text-red-600 rounded text-[10px] font-bold hover:bg-red-100 flex items-center gap-1">
-                              <span className="material-icons-outlined text-xs">cancel</span>Cancelar
+                            <button
+                              onClick={() => actualizarEstadoCita(c.id, "cancelada")}
+                              disabled={citaEnAccion === c.id}
+                              className="w-8 h-8 flex items-center justify-center bg-red-50 text-red-600 rounded text-[10px] font-bold hover:bg-red-100 disabled:opacity-60 disabled:cursor-not-allowed shrink-0"
+                              title="Cancelar"
+                            >
+                              {citaEnAccion === c.id ? (
+                                <span className="material-icons-outlined text-base animate-spin">progress_activity</span>
+                              ) : (
+                                <span className="material-icons-outlined text-base">cancel</span>
+                              )}
                             </button>
                           )}
                         </div>
                       </div>
                     </div>
-                  ))}
+                  ); })}
                 </div>
               )}
             </div>

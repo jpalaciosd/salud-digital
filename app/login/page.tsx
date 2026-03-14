@@ -113,7 +113,7 @@ function LoginForm() {
           <div className="mt-6 text-center">
             <p className="text-gray-400 text-sm">
               ¿No tienes cuenta?{" "}
-              <Link href="/registro" className="text-[#1d4ed8] hover:underline font-medium">
+              <Link href="/registro" className="text-sky-200 hover:text-white hover:underline font-medium transition-colors">
                 Regístrate aquí
               </Link>
             </p>
@@ -124,7 +124,7 @@ function LoginForm() {
         <p className="text-center text-gray-500 text-xs mt-6">
           © 2026 SaludDigital — Plataforma segura de salud
           <br />
-          <span className="text-gray-600">Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span></span>
+          <span className="text-gray-400">Powered by <span className="font-semibold text-sky-200">AINovaX</span></span>
         </p>
       </div>
     </div>

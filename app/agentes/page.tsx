@@ -76,26 +76,26 @@ export default function AgentesPage() {
       <section className="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6">
           <span className="material-symbols-outlined text-[#1d4ed8] text-lg">smart_toy</span>
-          <span className="text-sm text-white/80">Inteligencia Artificial al servicio de tu salud</span>
+          <span className="text-sm text-white">Inteligencia Artificial al servicio de tu salud</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Conoce a nuestros <span className="text-[#1d4ed8]">Agentes IA</span>
         </h1>
-        <p className="text-lg text-white/60 max-w-2xl mx-auto">
+        <p className="text-lg text-white/90 max-w-2xl mx-auto">
           Dos asistentes inteligentes que te acompañan en tu formación académica y en tu bienestar de salud, disponibles 24/7 por WhatsApp.
         </p>
       </section>
 
       {/* Agents */}
       <section className="max-w-6xl mx-auto px-4 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {agentes.map((agente) => (
             <div
               key={agente.nombre}
-              className="bg-white rounded-3xl overflow-hidden shadow-2xl shadow-black/20"
+              className="bg-white rounded-3xl overflow-hidden shadow-2xl shadow-black/20 flex flex-col h-full"
             >
               {/* Top section with avatar */}
-              <div className={`bg-gradient-to-br ${agente.bgGradient} p-8 pb-6 relative`}>
+              <div className={`bg-gradient-to-br ${agente.bgGradient} p-8 pb-6 relative shrink-0`}>
                 <div className="flex items-start gap-5">
                   <div className="w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden border-4 border-white shadow-lg shrink-0">
                     <Image
@@ -128,11 +128,11 @@ export default function AgentesPage() {
               </div>
 
               {/* Capabilities */}
-              <div className="p-8 pt-6">
+              <div className="p-8 pt-6 flex flex-col flex-1 min-h-0">
                 <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
                   Capacidades
                 </h3>
-                <div className="space-y-3">
+                <div className="space-y-3 flex-1">
                   {agente.capacidades.map((cap, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <div
@@ -152,7 +152,7 @@ export default function AgentesPage() {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-8">
+                <div className="mt-auto pt-8">
                   {agente.estado === "Activo" ? (
                     <a
                       href={agente.canalLink}
@@ -182,7 +182,7 @@ export default function AgentesPage() {
         {/* How it works */}
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            ¿Cómo <span className="text-[#1d4ed8]">funciona</span>?
+            ¿Cómo <span className="text-sky-200">funciona</span>?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -209,16 +209,16 @@ export default function AgentesPage() {
                 key={item.step}
                 className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
               >
-                <div className="w-12 h-12 bg-[#1d4ed8]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="material-symbols-outlined text-[#1d4ed8] text-2xl">
+                <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="material-symbols-outlined text-sky-200 text-2xl">
                     {item.icon}
                   </span>
                 </div>
-                <div className="inline-flex items-center justify-center w-7 h-7 bg-[#1d4ed8] rounded-full text-white font-bold text-xs mb-3">
+                <div className="inline-flex items-center justify-center w-7 h-7 bg-sky-400 rounded-full text-white font-bold text-xs mb-3">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-white/60">{item.desc}</p>
+                <p className="text-sm text-white/90">{item.desc}</p>
               </div>
             ))}
           </div>

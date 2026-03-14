@@ -11,6 +11,8 @@ export async function GET() {
       nombre: u.nombre,
       apellido: u.apellido,
       documento: u.documento,
+      avatarUrl: u.avatarUrl,
+      descripcionProfesional: u.descripcionProfesional,
     }));
   return NextResponse.json({ medicos });
 }

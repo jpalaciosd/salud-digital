@@ -206,13 +206,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6">
-              <span className="material-icons-outlined text-[#1d4ed8] text-lg">smart_toy</span>
-              <span className="text-sm text-white/80">Inteligencia Artificial</span>
+              <span className="material-icons-outlined text-sky-200 text-lg">smart_toy</span>
+              <span className="text-sm text-white">Inteligencia Artificial</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-              Nuestros <span className="text-[#1d4ed8]">Agentes IA</span>
+              Nuestros <span className="text-sky-200">Agentes IA</span>
             </h2>
-            <p className="text-lg text-white/50 max-w-2xl mx-auto">
+            <p className="text-lg text-white/90 max-w-2xl mx-auto">
               Asistentes inteligentes que te acompañan en tu formación y bienestar de salud, disponibles 24/7.
             </p>
           </div>
@@ -229,10 +229,10 @@ export default function Home() {
                     Aura
                     <span className="px-2 py-0.5 bg-blue-400/20 text-blue-300 text-[10px] font-bold rounded-full uppercase">Activo</span>
                   </h3>
-                  <p className="text-sm text-[#1d4ed8]">Agente Académico</p>
+                  <p className="text-sm text-sky-200">Agente Académico</p>
                 </div>
               </div>
-              <p className="text-sm text-white/60 mb-6 leading-relaxed">
+              <p className="text-sm text-white/90 mb-6 leading-relaxed">
                 Tu mentora virtual. Te guía paso a paso por cada módulo, evalúa tu comprensión y registra tu progreso automáticamente.
               </p>
               <a href="https://wa.me/12763294935?text=Hola%20Aura" target="_blank" rel="noopener noreferrer"
@@ -253,10 +253,10 @@ export default function Home() {
                     Dr. Nova
                     <span className="px-2 py-0.5 bg-blue-400/20 text-blue-300 text-[10px] font-bold rounded-full uppercase">Activo</span>
                   </h3>
-                  <p className="text-sm text-sky-400">Agente Médico — Triage IA</p>
+                  <p className="text-sm text-sky-200">Agente Médico — Triage IA</p>
                 </div>
               </div>
-              <p className="text-sm text-white/60 mb-6 leading-relaxed">
+              <p className="text-sm text-white/90 mb-6 leading-relaxed">
                 Tu asistente de salud. Evalúa síntomas, consulta tu historial clínico, recuerda tus medicamentos y te conecta con el profesional indicado.
               </p>
               <a
@@ -272,7 +272,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-10">
-            <Link href="/agentes" className="inline-flex items-center gap-2 text-[#1d4ed8] font-bold text-sm hover:underline">
+            <Link href="/agentes" className="inline-flex items-center gap-2 text-sky-200 font-bold text-sm hover:underline hover:text-white">
               Ver más sobre nuestros agentes
               <span className="material-icons-outlined text-lg">arrow_forward</span>
             </Link>

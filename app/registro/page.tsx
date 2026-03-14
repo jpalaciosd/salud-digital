@@ -17,14 +17,17 @@ export default function RegistroPage() {
     confirmPassword: "",
     tipoDocumento: "CC",
     documento: "",
-    rol: "paciente",
+    rol: "paciente" as "paciente" | "medico" | "estudiante",
     telefono: "",
+    fotoMedico: "",
+    descripcionProfesional: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const update = (field: string, value: string) =>
     setForm((f) => ({ ...f, [field]: value }));
+  const isMedico = form.rol === "medico";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +39,12 @@ export default function RegistroPage() {
     }
 
     setLoading(true);
-    const result = await register(form);
+    const payload = {
+      ...form,
+      avatarUrl: isMedico ? (form.fotoMedico?.trim() || undefined) : undefined,
+      descripcionProfesional: isMedico ? (form.descripcionProfesional?.trim() || undefined) : undefined,
+    };
+    const result = await register(payload);
     if (result.success) {
       // Auto-login after registration
       const loginResult = await login(form.email, form.password);
@@ -158,11 +166,42 @@ export default function RegistroPage() {
                 onChange={(e) => update("rol", e.target.value)}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#1d4ed8]/50 transition"
               >
-                <option value="paciente" className="bg-[white]">Paciente</option>
-                <option value="medico" className="bg-[white]">Médico</option>
-                <option value="estudiante" className="bg-[white]">Estudiante</option>
+                <option value="paciente" className="bg-slate-800">Paciente</option>
+                <option value="medico" className="bg-slate-800">Médico</option>
+                <option value="estudiante" className="bg-slate-800">Estudiante</option>
               </select>
             </div>
+
+            {/* Solo para médicos: foto y descripción profesional */}
+            {isMedico && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">URL de tu foto de perfil (opcional)</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl">image</span>
+                    <input
+                      type="url"
+                      value={form.fotoMedico}
+                      onChange={(e) => update("fotoMedico", e.target.value)}
+                      placeholder="https://ejemplo.com/mi-foto.jpg"
+                      className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Los pacientes verán esta foto cuando agenden una cita contigo.</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Descripción profesional (opcional)</label>
+                  <textarea
+                    value={form.descripcionProfesional}
+                    onChange={(e) => update("descripcionProfesional", e.target.value)}
+                    placeholder="Ej: Médico general con 10 años de experiencia, especial interés en prevención y medicina familiar..."
+                    rows={3}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition resize-none"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Esta información genera confianza en los pacientes.</p>
+                </div>
+              </>
+            )}
 
             {/* Teléfono */}
             <div>
@@ -210,7 +249,7 @@ export default function RegistroPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#1d4ed8] hover:bg-[#10d44f] text-white font-bold rounded-xl transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
+              className="w-full py-3 bg-[#1d4ed8] hover:bg-[#2563eb] text-white font-bold rounded-xl transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
             >
               {loading ? (
                 <>
@@ -232,7 +271,7 @@ export default function RegistroPage() {
           <div className="mt-6 text-center">
             <p className="text-gray-400 text-sm">
               ¿Ya tienes cuenta?{" "}
-              <Link href="/login" className="text-[#1d4ed8] hover:underline font-medium">
+              <Link href="/login" className="text-sky-200 hover:text-white hover:underline font-medium transition-colors">
                 Inicia sesión
               </Link>
             </p>
@@ -241,7 +280,7 @@ export default function RegistroPage() {
 
         <p className="text-center text-gray-500 text-xs mt-6">
           © 2026 SaludDigital<br />
-          <span className="text-gray-600">Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span></span>
+          <span className="text-gray-400">Powered by <span className="font-semibold text-sky-200">AINovaX</span></span>
         </p>
       </div>
     </div>
