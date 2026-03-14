@@ -16,6 +16,10 @@ export interface User {
   tipoDocumento: string;
   rol: "paciente" | "medico" | "estudiante" | "admin";
   telefono?: string;
+  /** URL de la foto de perfil (principalmente para médicos). */
+  avatarUrl?: string;
+  /** Descripción profesional / bio (solo médicos). */
+  descripcionProfesional?: string;
   createdAt: string;
 }
 
@@ -73,6 +77,8 @@ export async function registerUser(data: {
   tipoDocumento: string;
   rol: "paciente" | "medico" | "estudiante" | "admin";
   telefono?: string;
+  avatarUrl?: string;
+  descripcionProfesional?: string;
 }): Promise<{ success: boolean; error?: string; user?: User }> {
   const existing = await getUserByEmail(data.email);
   if (existing) {
@@ -91,6 +97,8 @@ export async function registerUser(data: {
     tipoDocumento: data.tipoDocumento,
     rol: data.rol,
     telefono: data.telefono,
+    avatarUrl: data.avatarUrl,
+    descripcionProfesional: data.descripcionProfesional,
     passwordHash,
     createdAt: new Date().toISOString(),
   };

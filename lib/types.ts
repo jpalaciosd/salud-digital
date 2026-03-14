@@ -8,6 +8,8 @@ export interface User {
   tipoDocumento: string;
   rol: "paciente" | "medico" | "estudiante" | "admin";
   telefono?: string;
+  avatarUrl?: string;
+  descripcionProfesional?: string;
   createdAt: string;
 }
 

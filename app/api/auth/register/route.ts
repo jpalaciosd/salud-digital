@@ -4,7 +4,7 @@ import { registerUser } from "@/lib/auth";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, password, nombre, apellido, documento, tipoDocumento, rol, telefono } = body;
+    const { email, password, nombre, apellido, documento, tipoDocumento, rol, telefono, avatarUrl, descripcionProfesional } = body;
 
     if (!email || !password || !nombre || !apellido || !documento || !tipoDocumento) {
       return NextResponse.json(
@@ -29,6 +29,8 @@ export async function POST(req: NextRequest) {
       tipoDocumento,
       rol: rol || "paciente",
       telefono,
+      avatarUrl: avatarUrl || undefined,
+      descripcionProfesional: descripcionProfesional || undefined,
     });
 
     if (!result.success) {
