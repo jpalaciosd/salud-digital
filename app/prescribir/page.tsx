@@ -12,23 +12,23 @@ export default function Prescribir() {
   return (
     <div className="min-h-screen flex flex-col" style={{ fontFamily: "'Manrope', sans-serif" }}>
       {/* Header */}
-      <header className="bg-white border-b border-[#13ec5b]/20 px-4 lg:px-6 py-3 sticky top-0 z-50">
+      <header className="bg-white border-b border-[#1d4ed8]/20 px-4 lg:px-6 py-3 sticky top-0 z-50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link href="/dashboard">
-              <div className="w-8 h-8 bg-[#13ec5b] rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
                 <span className="material-icons-outlined text-white text-xl">medication</span>
               </div>
             </Link>
-            <span className="font-bold text-base lg:text-lg tracking-tight">Prescribe<span className="text-[#13ec5b]">Direct</span></span>
-            <span className="hidden sm:inline-block px-2 py-0.5 bg-[#13ec5b]/10 text-[#13ec5b] text-[10px] font-bold uppercase rounded border border-[#13ec5b]/20 ml-2">MIPRES</span>
+            <span className="font-bold text-base lg:text-lg tracking-tight">Prescribe<span className="text-[#1d4ed8]">Direct</span></span>
+            <span className="hidden sm:inline-block px-2 py-0.5 bg-[#1d4ed8]/10 text-[#1d4ed8] text-[10px] font-bold uppercase rounded border border-[#1d4ed8]/20 ml-2">MIPRES</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden sm:block text-right">
               <p className="text-xs font-semibold">{user?.nombre} {user?.apellido}</p>
               <p className="text-[10px] text-slate-500 capitalize">{user?.rol}</p>
             </div>
-            <div className="w-9 h-9 rounded-full bg-[#13ec5b]/20 flex items-center justify-center text-[#13ec5b] font-bold text-xs">
+            <div className="w-9 h-9 rounded-full bg-[#1d4ed8]/20 flex items-center justify-center text-[#1d4ed8] font-bold text-xs">
               {(user?.nombre?.[0] || "D")}{(user?.apellido?.[0] || "r")}
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function Prescribir() {
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
               <div className="bg-slate-50 px-4 lg:px-6 py-3 border-b border-slate-200 flex justify-between items-center">
                 <h3 className="text-sm font-bold flex items-center gap-2">
-                  <span className="material-icons-outlined text-[#13ec5b] text-lg">add_circle</span>
+                  <span className="material-icons-outlined text-[#1d4ed8] text-lg">add_circle</span>
                   Prescripción
                 </h3>
                 <span className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Paso 1/2</span>
@@ -86,7 +86,7 @@ export default function Prescribir() {
                   <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Buscar Medicamento</label>
                   <div className="relative">
                     <span className="material-icons-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                    <input className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-[#13ec5b] focus:border-[#13ec5b] text-sm" placeholder="Nombre del medicamento..." type="text" />
+                    <input className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-[#1d4ed8] focus:border-[#1d4ed8] text-sm" placeholder="Nombre del medicamento..." type="text" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -134,12 +134,12 @@ export default function Prescribir() {
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
               <div className="bg-slate-50 px-4 lg:px-6 py-3 border-b border-slate-200">
                 <h3 className="text-sm font-bold flex items-center gap-2">
-                  <span className="material-icons-outlined text-[#13ec5b] text-lg">description</span>
+                  <span className="material-icons-outlined text-[#1d4ed8] text-lg">description</span>
                   Justificación Clínica
                 </h3>
               </div>
               <div className="p-4 lg:p-6">
-                <textarea className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-[#13ec5b]" placeholder="Describa la necesidad médica..." rows={3}></textarea>
+                <textarea className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-[#1d4ed8]" placeholder="Describa la necesidad médica..." rows={3}></textarea>
                 <div className="mt-2 flex items-center gap-2">
                   <span className="material-icons-outlined text-amber-500 text-sm">info</span>
                   <p className="text-[10px] text-slate-500 italic">Requerido para autorización EPS.</p>
@@ -155,13 +155,13 @@ export default function Prescribir() {
                 { icon: "water_drop", nombre: "Insulina Glargina 100 U/ml", detalle: "15 U diarias al acostarse - 30 días" },
               ].map((med, i) => (
                 <div key={i} className="bg-white rounded-xl border border-slate-200 p-3 lg:p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#13ec5b]/10 rounded-lg flex items-center justify-center text-[#13ec5b] shrink-0">
+                  <div className="w-10 h-10 bg-[#1d4ed8]/10 rounded-lg flex items-center justify-center text-[#1d4ed8] shrink-0">
                     <span className="material-icons-outlined">{med.icon}</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start">
                       <h4 className="text-sm font-bold truncate">{med.nombre}</h4>
-                      <span className="text-[10px] font-bold text-[#13ec5b] shrink-0 ml-2">Activo</span>
+                      <span className="text-[10px] font-bold text-[#1d4ed8] shrink-0 ml-2">Activo</span>
                     </div>
                     <p className="text-xs text-slate-500 truncate">{med.detalle}</p>
                   </div>
@@ -188,7 +188,7 @@ export default function Prescribir() {
               <span className="material-icons-outlined text-amber-500 text-lg">security</span>
               Verificación de Seguridad
             </h3>
-            <span className="w-2 h-2 rounded-full bg-[#13ec5b] animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-[#1d4ed8] animate-pulse"></span>
           </div>
           <div className="p-6">
             <SafetyPanel />
@@ -202,12 +202,12 @@ export default function Prescribir() {
           <div className="flex flex-wrap items-center gap-4 lg:gap-8">
             <label className="inline-flex items-center cursor-pointer">
               <input type="checkbox" checked={sendPatient} onChange={() => setSendPatient(!sendPatient)} className="sr-only peer" />
-              <div className="w-9 h-5 bg-slate-200 rounded-full peer peer-checked:bg-[#13ec5b] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full relative"></div>
+              <div className="w-9 h-5 bg-slate-200 rounded-full peer peer-checked:bg-[#1d4ed8] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full relative"></div>
               <span className="ml-2 text-[10px] lg:text-xs font-bold text-slate-600 uppercase">Enviar al Paciente</span>
             </label>
             <label className="inline-flex items-center cursor-pointer">
               <input type="checkbox" checked={bridgePharmacy} onChange={() => setBridgePharmacy(!bridgePharmacy)} className="sr-only peer" />
-              <div className="w-9 h-5 bg-slate-200 rounded-full peer peer-checked:bg-[#13ec5b] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full relative"></div>
+              <div className="w-9 h-5 bg-slate-200 rounded-full peer peer-checked:bg-[#1d4ed8] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full relative"></div>
               <span className="ml-2 text-[10px] lg:text-xs font-bold text-slate-600 uppercase">Red de Farmacias</span>
             </label>
           </div>
@@ -215,7 +215,7 @@ export default function Prescribir() {
             <button className="flex-1 sm:flex-none bg-slate-100 text-slate-600 px-4 lg:px-6 py-2.5 rounded-lg text-xs lg:text-sm font-bold hover:bg-slate-200 transition">
               Borrador
             </button>
-            <button className="flex-1 sm:flex-none bg-[#13ec5b] text-slate-900 px-4 lg:px-8 py-2.5 rounded-lg text-xs lg:text-sm font-bold hover:shadow-lg transition flex items-center justify-center gap-2">
+            <button className="flex-1 sm:flex-none bg-[#1d4ed8] text-slate-900 px-4 lg:px-8 py-2.5 rounded-lg text-xs lg:text-sm font-bold hover:shadow-lg transition flex items-center justify-center gap-2">
               <span className="material-icons-outlined text-lg">verified_user</span>
               Emitir Fórmula
             </button>
@@ -242,8 +242,8 @@ function SafetyPanel() {
       </div>
       <div>
         <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">Alergias</h4>
-        <div className="bg-[#13ec5b]/5 border border-[#13ec5b]/20 p-3 lg:p-4 rounded-xl flex items-center gap-3">
-          <span className="material-icons-outlined text-[#13ec5b] text-xl">check_circle</span>
+        <div className="bg-[#1d4ed8]/5 border border-[#1d4ed8]/20 p-3 lg:p-4 rounded-xl flex items-center gap-3">
+          <span className="material-icons-outlined text-[#1d4ed8] text-xl">check_circle</span>
           <p className="text-xs font-medium">Sin conflictos de alergia detectados.</p>
         </div>
       </div>
@@ -261,7 +261,7 @@ function SafetyPanel() {
         </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500">Metformina 850mg</span>
-          <span className="text-[#13ec5b] font-bold">EN STOCK</span>
+          <span className="text-[#1d4ed8] font-bold">EN STOCK</span>
         </div>
         <div className="flex items-center justify-between text-[11px] mt-1">
           <span className="text-slate-500">Insulina Glargina</span>

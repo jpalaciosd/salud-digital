@@ -22,15 +22,15 @@ export default function UserNav() {
   const initials = `${user.nombre?.[0] || ""}${user.apellido?.[0] || ""}`.toUpperCase();
 
   return (
-    <nav className="bg-[#102216] border-b border-white/10 px-4 py-3">
+    <nav className="bg-[#1e3a8a] border-b border-white/10 px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#13ec5b] rounded-lg flex items-center justify-center">
-              <span className="material-icons-outlined text-[#102216] text-xl">favorite</span>
+            <div className="w-8 h-8 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
+              <span className="material-icons-outlined text-white text-xl">favorite</span>
             </div>
             <span className="text-lg font-bold text-white">
-              Salud<span className="text-[#13ec5b]">Digital</span>
+              Salud<span className="text-[#1d4ed8]">Digital</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
@@ -51,7 +51,7 @@ export default function UserNav() {
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 transition"
           >
-            <div className="w-9 h-9 bg-[#13ec5b]/20 rounded-full flex items-center justify-center text-[#13ec5b] font-bold text-sm">
+            <div className="w-9 h-9 bg-[#1d4ed8]/20 rounded-full flex items-center justify-center text-[#1d4ed8] font-bold text-sm">
               {initials}
             </div>
             <div className="hidden sm:block text-left">
@@ -62,7 +62,7 @@ export default function UserNav() {
           </button>
 
           {menuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-[#1a2e21] border border-white/10 rounded-xl shadow-xl z-50 py-2">
+            <div className="absolute right-0 mt-2 w-48 bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 py-2">
               <div className="px-4 py-2 border-b border-white/10">
                 <p className="text-sm text-white font-medium">{user.email}</p>
               </div>

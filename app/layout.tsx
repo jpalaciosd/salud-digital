@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
       </head>
-      <body className="font-display antialiased bg-[#f6f8f6] text-[#1a2e21]">
+      <body className="font-display antialiased bg-[#f1f5f9] text-[#1e293b]">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

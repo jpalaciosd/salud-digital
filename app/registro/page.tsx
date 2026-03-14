@@ -53,16 +53,16 @@ export default function RegistroPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1a10] via-[#102216] to-[#0d2818] flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0c4a6e] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-lg">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#13ec5b] rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined text-[#102216] text-3xl">cardiology</span>
+            <div className="w-12 h-12 bg-[#1d4ed8] rounded-xl flex items-center justify-center">
+              <span className="material-symbols-outlined text-white text-3xl">cardiology</span>
             </div>
             <span className="text-2xl font-bold text-white">
-              Salud<span className="text-[#13ec5b]">Digital</span>
+              Salud<span className="text-[#1d4ed8]">Digital</span>
             </span>
           </Link>
         </div>
@@ -90,7 +90,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("nombre", e.target.value)}
                   placeholder="Juan"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
               <div>
@@ -101,7 +101,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("apellido", e.target.value)}
                   placeholder="Pérez"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
             </div>
@@ -117,7 +117,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("email", e.target.value)}
                   placeholder="correo@ejemplo.com"
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
             </div>
@@ -129,12 +129,12 @@ export default function RegistroPage() {
                 <select
                   value={form.tipoDocumento}
                   onChange={(e) => update("tipoDocumento", e.target.value)}
-                  className="w-full px-3 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full px-3 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 >
-                  <option value="CC" className="bg-[#102216]">C.C.</option>
-                  <option value="TI" className="bg-[#102216]">T.I.</option>
-                  <option value="CE" className="bg-[#102216]">C.E.</option>
-                  <option value="PP" className="bg-[#102216]">Pasaporte</option>
+                  <option value="CC" className="bg-[white]">C.C.</option>
+                  <option value="TI" className="bg-[white]">T.I.</option>
+                  <option value="CE" className="bg-[white]">C.E.</option>
+                  <option value="PP" className="bg-[white]">Pasaporte</option>
                 </select>
               </div>
               <div className="col-span-2">
@@ -145,7 +145,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("documento", e.target.value)}
                   placeholder="1234567890"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
             </div>
@@ -156,11 +156,11 @@ export default function RegistroPage() {
               <select
                 value={form.rol}
                 onChange={(e) => update("rol", e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#13ec5b]/50 transition"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#1d4ed8]/50 transition"
               >
-                <option value="paciente" className="bg-[#102216]">Paciente</option>
-                <option value="medico" className="bg-[#102216]">Médico</option>
-                <option value="estudiante" className="bg-[#102216]">Estudiante</option>
+                <option value="paciente" className="bg-[white]">Paciente</option>
+                <option value="medico" className="bg-[white]">Médico</option>
+                <option value="estudiante" className="bg-[white]">Estudiante</option>
               </select>
             </div>
 
@@ -174,7 +174,7 @@ export default function RegistroPage() {
                   value={form.telefono}
                   onChange={(e) => update("telefono", e.target.value)}
                   placeholder="3001234567"
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function RegistroPage() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
               <div>
@@ -202,7 +202,7 @@ export default function RegistroPage() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
                 />
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function RegistroPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#13ec5b] hover:bg-[#10d44f] text-[#102216] font-bold rounded-xl transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
+              className="w-full py-3 bg-[#1d4ed8] hover:bg-[#10d44f] text-white font-bold rounded-xl transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
             >
               {loading ? (
                 <>
@@ -232,7 +232,7 @@ export default function RegistroPage() {
           <div className="mt-6 text-center">
             <p className="text-gray-400 text-sm">
               ¿Ya tienes cuenta?{" "}
-              <Link href="/login" className="text-[#13ec5b] hover:underline font-medium">
+              <Link href="/login" className="text-[#1d4ed8] hover:underline font-medium">
                 Inicia sesión
               </Link>
             </p>
@@ -241,7 +241,7 @@ export default function RegistroPage() {
 
         <p className="text-center text-gray-500 text-xs mt-6">
           © 2026 SaludDigital<br />
-          <span className="text-gray-600">Powered by <span className="font-semibold text-[#13ec5b]">AINovaX</span></span>
+          <span className="text-gray-600">Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span></span>
         </p>
       </div>
     </div>

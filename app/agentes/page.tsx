@@ -9,9 +9,9 @@ const agentes = [
     descripcion:
       "Tu mentora virtual de IFIAS. Aura te guía paso a paso por cada módulo de tu programa académico, enseña los temas con ejemplos prácticos, evalúa tu comprensión con preguntas de aplicación y registra tu progreso automáticamente en la plataforma.",
     avatar: "/agents/aura.png",
-    color: "#13ec5b",
-    bgGradient: "from-emerald-50 to-teal-50",
-    borderColor: "border-emerald-200",
+    color: "#1d4ed8",
+    bgGradient: "from-blue-50 to-sky-50",
+    borderColor: "border-blue-200",
     capacidades: [
       "Enseñanza personalizada tema por tema",
       "Evaluaciones prácticas de comprensión",
@@ -49,23 +49,23 @@ const agentes = [
 
 export default function AgentesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1a10] via-[#102216] to-[#0d2818]">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0c4a6e]">
       {/* Header */}
       <header className="border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#13ec5b] rounded-lg flex items-center justify-center">
-              <span className="material-symbols-outlined text-[#102216] text-lg">cardiology</span>
+            <div className="w-8 h-8 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
+              <span className="material-symbols-outlined text-white text-lg">cardiology</span>
             </div>
             <span className="text-lg font-bold text-white">
-              Salud<span className="text-[#13ec5b]">Digital</span>
+              Salud<span className="text-[#1d4ed8]">Digital</span>
             </span>
           </Link>
           <div className="flex gap-3">
             <Link href="/login" className="px-4 py-2 text-sm text-white/70 hover:text-white transition">
               Iniciar Sesión
             </Link>
-            <Link href="/registro" className="px-4 py-2 bg-[#13ec5b] text-[#102216] rounded-xl text-sm font-bold hover:bg-[#10d44f] transition">
+            <Link href="/registro" className="px-4 py-2 bg-[#1d4ed8] text-white rounded-xl text-sm font-bold hover:bg-[#2563eb] transition">
               Registrarse
             </Link>
           </div>
@@ -75,11 +75,11 @@ export default function AgentesPage() {
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6">
-          <span className="material-symbols-outlined text-[#13ec5b] text-lg">smart_toy</span>
+          <span className="material-symbols-outlined text-[#1d4ed8] text-lg">smart_toy</span>
           <span className="text-sm text-white/80">Inteligencia Artificial al servicio de tu salud</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Conoce a nuestros <span className="text-[#13ec5b]">Agentes IA</span>
+          Conoce a nuestros <span className="text-[#1d4ed8]">Agentes IA</span>
         </h1>
         <p className="text-lg text-white/60 max-w-2xl mx-auto">
           Dos asistentes inteligentes que te acompañan en tu formación académica y en tu bienestar de salud, disponibles 24/7 por WhatsApp.
@@ -112,7 +112,7 @@ export default function AgentesPage() {
                       <span
                         className={`px-2.5 py-0.5 text-[10px] font-bold rounded-full uppercase ${
                           agente.estado === "Activo"
-                            ? "bg-emerald-100 text-emerald-700"
+                            ? "bg-blue-100 text-blue-700"
                             : "bg-amber-100 text-amber-700"
                         }`}
                       >
@@ -182,7 +182,7 @@ export default function AgentesPage() {
         {/* How it works */}
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-white text-center mb-12">
-            ¿Cómo <span className="text-[#13ec5b]">funciona</span>?
+            ¿Cómo <span className="text-[#1d4ed8]">funciona</span>?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -209,12 +209,12 @@ export default function AgentesPage() {
                 key={item.step}
                 className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
               >
-                <div className="w-12 h-12 bg-[#13ec5b]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="material-symbols-outlined text-[#13ec5b] text-2xl">
+                <div className="w-12 h-12 bg-[#1d4ed8]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="material-symbols-outlined text-[#1d4ed8] text-2xl">
                     {item.icon}
                   </span>
                 </div>
-                <div className="inline-flex items-center justify-center w-7 h-7 bg-[#13ec5b] rounded-full text-[#102216] font-bold text-xs mb-3">
+                <div className="inline-flex items-center justify-center w-7 h-7 bg-[#1d4ed8] rounded-full text-white font-bold text-xs mb-3">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
@@ -228,7 +228,7 @@ export default function AgentesPage() {
         <div className="mt-16 text-center">
           <p className="text-white/30 text-xs">
             © 2026 SaludDigital — Powered by{" "}
-            <span className="font-semibold text-[#13ec5b]">AINovaX</span>
+            <span className="font-semibold text-[#1d4ed8]">AINovaX</span>
           </p>
         </div>
       </section>

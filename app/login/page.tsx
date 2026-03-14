@@ -30,16 +30,16 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1a10] via-[#102216] to-[#0d2818] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0c4a6e] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#13ec5b] rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined text-[#102216] text-3xl">cardiology</span>
+            <div className="w-12 h-12 bg-[#1d4ed8] rounded-xl flex items-center justify-center">
+              <span className="material-symbols-outlined text-white text-3xl">cardiology</span>
             </div>
             <span className="text-2xl font-bold text-white">
-              Salud<span className="text-[#13ec5b]">Digital</span>
+              Salud<span className="text-[#1d4ed8]">Digital</span>
             </span>
           </Link>
         </div>
@@ -67,7 +67,7 @@ function LoginForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="correo@ejemplo.com"
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 focus:ring-1 focus:ring-[#13ec5b]/30 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 focus:ring-1 focus:ring-[#1d4ed8]/30 transition"
                 />
               </div>
             </div>
@@ -83,7 +83,7 @@ function LoginForm() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#13ec5b]/50 focus:ring-1 focus:ring-[#13ec5b]/30 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 focus:ring-1 focus:ring-[#1d4ed8]/30 transition"
                 />
               </div>
             </div>
@@ -91,7 +91,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#13ec5b] hover:bg-[#10d44f] text-[#102216] font-bold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[#1d4ed8] hover:bg-[#2563eb] text-white font-bold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -113,7 +113,7 @@ function LoginForm() {
           <div className="mt-6 text-center">
             <p className="text-gray-400 text-sm">
               ¿No tienes cuenta?{" "}
-              <Link href="/registro" className="text-[#13ec5b] hover:underline font-medium">
+              <Link href="/registro" className="text-[#1d4ed8] hover:underline font-medium">
                 Regístrate aquí
               </Link>
             </p>
@@ -124,7 +124,7 @@ function LoginForm() {
         <p className="text-center text-gray-500 text-xs mt-6">
           © 2026 SaludDigital — Plataforma segura de salud
           <br />
-          <span className="text-gray-600">Powered by <span className="font-semibold text-[#13ec5b]">AINovaX</span></span>
+          <span className="text-gray-600">Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span></span>
         </p>
       </div>
     </div>
@@ -133,7 +133,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#102216] flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-[#13ec5b] border-t-transparent rounded-full"></div></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#1e293b] flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-[#1d4ed8] border-t-transparent rounded-full"></div></div>}>
       <LoginForm />
     </Suspense>
   );
