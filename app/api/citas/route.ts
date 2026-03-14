@@ -39,16 +39,17 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { medicoNombre, especialidad, fecha, hora, tipo, motivo } = body;
 
-  if (!medicoNombre || !especialidad || !fecha || !hora || !tipo || !motivo) {
-    return NextResponse.json({ error: "Campos requeridos faltantes" }, { status: 400 });
+  if (!especialidad || !fecha || !hora || !tipo || !motivo) {
+    return NextResponse.json({ error: "Campos requeridos: especialidad, fecha, hora, tipo, motivo" }, { status: 400 });
   }
 
+  const medicoNombreFinal = medicoNombre || "Por asignar";
   const cita: Cita = {
     id: crypto.randomUUID(),
     pacienteId: body.pacienteId || user.userId,
     pacienteNombre: body.pacienteNombre || `${user.nombre} ${user.apellido}`,
     medicoId: body.medicoId,
-    medicoNombre,
+    medicoNombre: medicoNombreFinal,
     especialidad,
     fecha,
     hora,

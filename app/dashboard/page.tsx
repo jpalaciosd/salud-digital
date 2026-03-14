@@ -82,16 +82,15 @@ export default function Dashboard() {
 
   // ── Actions ──
   const agendarCita = async () => {
-    const medico = medicos.find(m => m.id === citaForm.medicoId);
-    if (!medico) return;
+    const medico = citaForm.medicoId ? medicos.find(m => m.id === citaForm.medicoId) : null;
     setSaving(true);
     await fetch("/api/citas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...citaForm,
-        medicoNombre: `Dr. ${medico.nombre} ${medico.apellido}`,
-        medicoId: medico.id,
+        medicoNombre: medico ? `Dr. ${medico.nombre} ${medico.apellido}` : "Por asignar",
+        medicoId: medico?.id,
       }),
     });
     setSaving(false);
@@ -154,6 +153,15 @@ export default function Dashboard() {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ estado }),
+    });
+    fetchData();
+  };
+
+  const aceptarCita = async (id: string) => {
+    await fetch(`/api/citas/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accion: "aceptar" }),
     });
     fetchData();
   };
@@ -436,7 +444,7 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Seleccionar Médico</label>
                       <select value={citaForm.medicoId} onChange={e => setCitaForm({...citaForm, medicoId: e.target.value})} className="w-full p-2.5 border border-slate-200 rounded-lg text-sm">
-                        <option value="">-- Seleccione un médico --</option>
+                        <option value="">-- Sin asignar (un médico aceptará después) --</option>
                         {medicos.map(m => <option key={m.id} value={m.id}>Dr. {m.nombre} {m.apellido}</option>)}
                       </select>
                       {medicos.length === 0 && <p className="text-xs text-amber-600 mt-1">No hay médicos registrados aún</p>}
@@ -465,7 +473,7 @@ export default function Dashboard() {
                   </div>
                   <div className="flex gap-3 mt-6">
                     <button onClick={() => setShowAgendarCita(false)} className="flex-1 py-2.5 border border-slate-200 rounded-xl text-sm font-bold">Cancelar</button>
-                    <button onClick={agendarCita} disabled={saving || !citaForm.medicoId || !citaForm.fecha || !citaForm.hora || !citaForm.motivo || !citaForm.especialidad} className="flex-1 py-2.5 bg-[#13ec5b] text-[#102216] rounded-xl text-sm font-bold disabled:opacity-50">
+                    <button onClick={agendarCita} disabled={saving || !citaForm.fecha || !citaForm.hora || !citaForm.motivo || !citaForm.especialidad} className="flex-1 py-2.5 bg-[#13ec5b] text-[#102216] rounded-xl text-sm font-bold disabled:opacity-50">
                       {saving ? "Guardando..." : "Agendar"}
                     </button>
                   </div>
@@ -494,10 +502,10 @@ export default function Dashboard() {
                             c.estado === "cancelada" ? "bg-slate-100 text-slate-500" :
                             "bg-slate-100 text-slate-500"
                           }`}>{c.estado}</span>
-                          {/* Médico: Aceptar o Rechazar pendientes */}
+                          {/* Médico: Aceptar (asigna la cita a este médico) o Rechazar pendientes */}
                           {isMedico && c.estado === "pendiente" && (
                             <>
-                              <button onClick={() => actualizarEstadoCita(c.id, "confirmada")} className="px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded text-[10px] font-bold hover:bg-emerald-200 flex items-center gap-1">
+                              <button onClick={() => aceptarCita(c.id)} className="px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded text-[10px] font-bold hover:bg-emerald-200 flex items-center gap-1">
                                 <span className="material-icons-outlined text-xs">check</span>Aceptar
                               </button>
                               <button onClick={() => actualizarEstadoCita(c.id, "rechazada")} className="px-2.5 py-1 bg-red-100 text-red-700 rounded text-[10px] font-bold hover:bg-red-200 flex items-center gap-1">
