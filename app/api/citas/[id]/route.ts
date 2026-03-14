@@ -17,11 +17,22 @@ export async function PATCH(
     const { id } = await context.params;
     const body = await req.json();
 
-    // Direct approach: fetch existing, merge, put back
     const existing = await getById<Cita>("citas", id);
     if (!existing) return NextResponse.json({ error: "Cita no encontrada" }, { status: 404 });
 
-    const updated = { ...existing, ...body, id: existing.id };
+    let updated: Cita;
+
+    if (body.accion === "aceptar" && (user.rol === "medico" || user.rol === "admin")) {
+      updated = {
+        ...existing,
+        id: existing.id,
+        medicoId: user.userId,
+        medicoNombre: `${user.nombre} ${user.apellido}`,
+        estado: "confirmada",
+      };
+    } else {
+      updated = { ...existing, ...body, id: existing.id };
+    }
 
     await put(`citas/${id}.json`, JSON.stringify(updated), {
       access: "public",

@@ -40,11 +40,11 @@ export async function POST(req: NextRequest) {
     notas,
   } = body;
 
-  if (!telefono || !medicoNombre || !especialidad || !fecha || !hora || !tipo || !motivo) {
+  if (!telefono || !especialidad || !fecha || !hora || !tipo || !motivo) {
     return NextResponse.json(
       {
         error:
-          "Faltan campos requeridos: telefono, medicoNombre, especialidad, fecha, hora, tipo, motivo",
+          "Faltan campos requeridos: telefono, especialidad, fecha, hora, tipo, motivo",
       },
       { status: 400 }
     );
@@ -80,12 +80,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const medicoNombreFinal = medicoNombre || "Por asignar";
   const cita: Cita = {
     id: crypto.randomUUID(),
     pacienteId: user.id,
     pacienteNombre: `${user.nombre} ${user.apellido}`,
     medicoId: medicoId || undefined,
-    medicoNombre,
+    medicoNombre: medicoNombreFinal,
     especialidad,
     fecha,
     hora,
