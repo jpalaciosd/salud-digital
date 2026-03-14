@@ -39,10 +39,10 @@ export default function RegistroPage() {
     }
 
     setLoading(true);
-    const payload = {
+    const payload: Record<string, string> = {
       ...form,
-      avatarUrl: isMedico ? (form.fotoMedico?.trim() || undefined) : undefined,
-      descripcionProfesional: isMedico ? (form.descripcionProfesional?.trim() || undefined) : undefined,
+      avatarUrl: isMedico ? (form.fotoMedico?.trim() || "") : "",
+      descripcionProfesional: isMedico ? (form.descripcionProfesional?.trim() || "") : "",
     };
     const result = await register(payload);
     if (result.success) {
