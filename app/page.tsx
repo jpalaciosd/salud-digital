@@ -52,12 +52,14 @@ export default function Home() {
               </Link>
             </div>
             <div className="flex items-center gap-4 pt-4">
-              <div className="flex -space-x-3">
-                <img className="w-12 h-12 rounded-full border-4 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPUr-l9qM9ZtY052_yT1Ha9XW-cw7Kd-pYoWiLTfUmWSHjuMka2tXcJd_boMsb1T5bId1rnuCmNzi8JsBQhuAnR3MW8YS-lFiuHNCjz0ssxf88vLfXD59VKZ8_PVoB7E9c-iDH4gM7IvHOT_4P_qwjoXP7IM4439Yyx8QY-UP3WRqbpyt1orA0FCfvflOVrMLmms1MSpxvKPHH06sGoTPJswI8q5bWe5cb2pCAFGhhhKcMvxUPWdl57_iuepZp4nl9rb-Ha3RJQOV7" alt="Doctor 1" />
-                <img className="w-12 h-12 rounded-full border-4 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE1x55JaAYhEy0Y2Wgt-JHSiP1BxrfhvkumHA-XifJkMVEJ5Br-FBqGQ4TR-onN24kYYu_AL2LjBiYrQVyb_MFCn2Oh_9fACop5XAfFTMcu60nrlT4RDlNgTE5mwQPd5gKx4Q0fEkV3gn-08KwAF7NMbu5fQitnD84ISotnOOtmAa0gEmKtivi9bgCSchCTBPxV2R9wZQKrOn3ArUD7r5fXnAv49jv3X27TIqqgRn3LCXXnHvh6YGewEdJ2VQb42wdyaMgnweZrtQ9" alt="Doctor 2" />
-                <img className="w-12 h-12 rounded-full border-4 border-white object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1Wbg59TiIuZW-5SE39YuWH2KcOI57QdClMmb3Mi3oXDhC4IKUMrR3pNS14IdU7pLinKoW6ZlOgsxlqK66adj5wEXaUnOPQKjL4nFA02NGiVZTx8TCHVW3Ck3KEY7OgW5ocxbpksyb9KuqopTCv_G_9yGvw4DIIOdYo-4hKXPzzYct7VoWycGzsEs8wZCs7NvIjbxwRes4n27xY_-wCaX51hWK9kzga2eLbusvUnjhnoRMA06WUNE6RaNag5g5aOMxfoRFRALYxRvx" alt="Doctor 3" />
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  <span className="material-icons-outlined text-[#1d4ed8] text-lg">verified</span>
+                  <span className="material-icons-outlined text-[#1d4ed8] text-lg">lock</span>
+                  <span className="material-icons-outlined text-[#1d4ed8] text-lg">shield</span>
+                </div>
+                <p className="text-sm font-medium text-slate-500">Datos protegidos con cifrado · Conforme a <span className="text-slate-900 font-bold">Ley 1581</span></p>
               </div>
-              <p className="text-sm font-medium text-slate-500">Más de <span className="text-slate-900 font-bold">50,000</span> pacientes atendidos</p>
             </div>
           </div>
           <div className="relative">
@@ -73,10 +75,18 @@ export default function Home() {
       {/* Trust Bar */}
       <section className="py-12 bg-white border-y border-[#1d4ed8]/5">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-center text-xs font-bold text-slate-400 uppercase tracking-widest mb-8">Respaldados por las instituciones de salud líderes en Colombia</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all">
-            {["EPS SURA", "SANITAS", "MINSALUD", "FUNDACIÓN SC", "COLMÉDICA"].map((name) => (
-              <div key={name} className="text-2xl font-black text-slate-400">{name}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { icon: "school", num: "4", label: "Cursos disponibles" },
+              { icon: "smart_toy", num: "2", label: "Agentes IA activos" },
+              { icon: "lock", num: "100%", label: "Datos cifrados" },
+              { icon: "video_call", num: "24/7", label: "Teleconsulta disponible" },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center gap-1">
+                <span className="material-icons-outlined text-[#1d4ed8] text-2xl">{item.icon}</span>
+                <span className="text-2xl font-extrabold text-slate-900">{item.num}</span>
+                <span className="text-xs text-slate-400 font-medium">{item.label}</span>
+              </div>
             ))}
           </div>
         </div>
@@ -111,17 +121,20 @@ export default function Home() {
           <h2 className="text-4xl font-bold mb-12 leading-tight text-center">Servicios de Salud <span className="text-[#1d4ed8]">Especializados</span></h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { num: "01", titulo: "Medicina General Digital", desc: "Atención primaria inmediata para síntomas comunes y prevención, disponible vía chat o video." },
-              { num: "02", titulo: "Monitoreo de Crónicos", desc: "Seguimiento constante para diabetes, hipertensión y enfermedades respiratorias con dispositivos IoT." },
-              { num: "03", titulo: "Gestión de Medicamentos", desc: "Renovación de fórmulas y envío de medicamentos a domicilio en todo el territorio nacional." },
-              { num: "04", titulo: "Triage IA por WhatsApp", desc: "Nuestro agente de IA realiza un triage inicial y te redirige al profesional adecuado según tu necesidad." },
-              { num: "05", titulo: "Video Consulta", desc: "Consultas especializadas por video con médicos certificados, desde la comodidad de tu hogar." },
-              { num: "06", titulo: "Cursos de Salud", desc: "Plataforma educativa con cursos especializados en salud, impartidos por profesionales y asistidos por IA." },
+              { num: "01", titulo: "Teleconsulta Médica", desc: "Consultas por videollamada con profesionales de salud registrados, desde cualquier lugar de Colombia.", activo: true },
+              { num: "02", titulo: "Triage IA por WhatsApp", desc: "Nuestro agente Dr. Nova evalúa tus síntomas, revisa tu historial y te conecta con el profesional adecuado.", activo: true },
+              { num: "03", titulo: "Historia Clínica Digital", desc: "Tu historial médico, fórmulas y citas en un solo lugar, accesible para ti y tu médico tratante de forma segura.", activo: true },
+              { num: "04", titulo: "Cursos de Salud con IA", desc: "Programas de formación guiados por Aura, nuestra mentora IA, con evaluación y certificado digital.", activo: true },
+              { num: "05", titulo: "Gestión de Fórmulas Médicas", desc: "Prescripción digital de medicamentos por parte del médico, con detalle de dosis y frecuencia.", activo: true },
+              { num: "06", titulo: "Monitoreo de Crónicos", desc: "Seguimiento continuo para pacientes con diabetes, hipertensión y enfermedades respiratorias.", activo: false },
             ].map((s, i) => (
-              <div key={i} className="flex gap-4 items-start p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div key={i} className="flex gap-4 items-start p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors relative">
                 <div className="w-12 h-12 shrink-0 bg-[#1d4ed8] text-white rounded-lg flex items-center justify-center font-bold">{s.num}</div>
                 <div>
-                  <h4 className="font-bold text-xl mb-2">{s.titulo}</h4>
+                  <h4 className="font-bold text-xl mb-2 flex items-center gap-2">
+                    {s.titulo}
+                    {!s.activo && <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full uppercase">Próximamente</span>}
+                  </h4>
                   <p className="text-slate-400">{s.desc}</p>
                 </div>
               </div>
