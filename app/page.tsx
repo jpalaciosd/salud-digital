@@ -21,7 +21,7 @@ export default function Home() {
             <Link href="#contacto" className="text-sm font-semibold hover:text-[#1d4ed8] transition-colors">Contacto</Link>
           </nav>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="px-6 py-2.5 rounded-full bg-[#1d4ed8] text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#1d4ed8]/20">
+            <Link href="/login" className="px-6 py-2.5 rounded-full bg-[#1d4ed8] text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#1d4ed8]/20">
               Iniciar Sesión
             </Link>
           </div>
@@ -43,10 +43,10 @@ export default function Home() {
               Transformamos la atención médica en Colombia a través de un modelo híbrido que prioriza la empatía humana y la precisión digital para pacientes crónicos.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 rounded-xl bg-[#1d4ed8] text-white font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
-                Agendar Consulta
+              <Link href="/registro" className="px-8 py-4 rounded-xl bg-[#1d4ed8] text-white font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+                Registrarme
                 <span className="material-icons-outlined">arrow_forward</span>
-              </button>
+              </Link>
               <Link href="/cursos" className="px-8 py-4 rounded-xl border-2 border-slate-200 font-bold text-lg hover:bg-slate-50 transition-colors text-center">
                 Ver Cursos de Salud
               </Link>
@@ -206,10 +206,10 @@ export default function Home() {
       <section id="contacto" className="py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-extrabold mb-6">¿Listo para transformar tu cuidado de salud?</h2>
-          <p className="text-xl text-slate-500 mb-10">Únete a miles de colombianos que ya gestionan su salud de manera inteligente y humana.</p>
+          <p className="text-xl text-slate-500 mb-10">Únete a quienes ya gestionan su salud de manera inteligente y humana.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-10 py-5 rounded-full bg-[#1d4ed8] text-white font-extrabold text-xl hover:shadow-2xl hover:shadow-[#1d4ed8]/40 transition-all">Registrarme Gratis</button>
-            <a href="https://wa.me/12763294935" className="px-10 py-5 rounded-full bg-[white] text-white font-extrabold text-xl hover:bg-slate-700 transition-all">💬 Hablar con Asesor IA</a>
+            <Link href="/registro" className="px-10 py-5 rounded-full bg-[#1d4ed8] text-white font-extrabold text-xl hover:shadow-2xl hover:shadow-[#1d4ed8]/40 transition-all">Registrarme Gratis</Link>
+            <a href="https://wa.me/12763294935?text=Hola%2C%20quiero%20información" target="_blank" rel="noopener noreferrer" className="px-10 py-5 rounded-full bg-slate-800 text-white font-extrabold text-xl hover:bg-slate-700 transition-all">💬 Hablar con Asesor IA</a>
           </div>
         </div>
       </section>
@@ -304,22 +304,23 @@ export default function Home() {
                 </div>
                 <span className="text-lg font-bold tracking-tight uppercase">Salud<span className="text-[#1d4ed8]">Digital</span></span>
               </div>
-              <p className="text-slate-500 max-w-sm mb-6">Proveedor líder de servicios de salud digital en Colombia. Autorizado por el Ministerio de Salud y Protección Social.</p>
+              <p className="text-slate-500 max-w-sm mb-6">Plataforma de salud digital en Colombia. Teleconsultas, formación con IA y gestión clínica en un solo lugar.</p>
             </div>
             <div>
-              <h5 className="font-bold mb-6">Compañía</h5>
+              <h5 className="font-bold mb-6">Plataforma</h5>
               <ul className="space-y-4 text-slate-500">
-                <li><a className="hover:text-[#1d4ed8]" href="#">Sobre Nosotros</a></li>
-                <li><a className="hover:text-[#1d4ed8]" href="#">Carreras</a></li>
-                <li><a className="hover:text-[#1d4ed8]" href="#">Blog de Salud</a></li>
+                <li><Link className="hover:text-[#1d4ed8]" href="/cursos">Cursos</Link></li>
+                <li><Link className="hover:text-[#1d4ed8]" href="/agentes">Agentes IA</Link></li>
+                <li><Link className="hover:text-[#1d4ed8]" href="/registro">Registrarse</Link></li>
+                <li><Link className="hover:text-[#1d4ed8]" href="/login">Iniciar Sesión</Link></li>
               </ul>
             </div>
             <div>
-              <h5 className="font-bold mb-6">Legal</h5>
+              <h5 className="font-bold mb-6">Contacto</h5>
               <ul className="space-y-4 text-slate-500">
-                <li><a className="hover:text-[#1d4ed8]" href="#">Términos de Servicio</a></li>
-                <li><a className="hover:text-[#1d4ed8]" href="#">Política de Privacidad</a></li>
-                <li><a className="hover:text-[#1d4ed8]" href="#">PQRS</a></li>
+                <li><a className="hover:text-[#1d4ed8]" href="https://wa.me/12763294935?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Aura</a></li>
+                <li><a className="hover:text-[#1d4ed8]" href="https://wa.me/17433306127?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Dr. Nova</a></li>
+                <li><a className="hover:text-[#1d4ed8]" href="mailto:contacto@saluddigital.co">contacto@saluddigital.co</a></li>
               </ul>
             </div>
           </div>
