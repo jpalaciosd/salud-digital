@@ -84,50 +84,58 @@ function AvatarCard({ agente }: { agente: typeof agentes[0] }) {
     >
       {/* Avatar section */}
       <div className="relative p-8 pb-4 flex flex-col items-center">
-        {/* Animated rings behind avatar */}
-        <div className="relative">
-          <div
-            className="absolute inset-0 rounded-full animate-ping-slow opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{
-              border: `2px solid ${agente.ringColor}`,
-              transform: "scale(1.3)",
-              animationDuration: "2s",
-            }}
-          />
-          <div
-            className="absolute inset-0 rounded-full animate-ping-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            style={{
-              border: `1px solid ${agente.ringColor}`,
-              transform: "scale(1.6)",
-              animationDuration: "2.5s",
-              animationDelay: "0.3s",
-            }}
-          />
-          <div
-            className="absolute inset-0 rounded-full animate-ping-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            style={{
-              border: `1px solid ${agente.ringColor}`,
-              transform: "scale(1.9)",
-              animationDuration: "3s",
-              animationDelay: "0.6s",
-            }}
-          />
+        {/* Animated avatar container */}
+        <div className="relative w-40 h-40 md:w-48 md:h-48">
+          {/* Orbiting sparkles — always active */}
+          <div className="absolute inset-0 animate-orbit" style={{ animationDuration: "10s" }}>
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: agente.color, boxShadow: `0 0 8px ${agente.glowColor}` }} />
+          </div>
+          <div className="absolute inset-0 animate-orbit animation-delay-3000" style={{ animationDuration: "14s" }}>
+            <div className="w-1.5 h-1.5 rounded-full bg-white/60" style={{ boxShadow: `0 0 6px white` }} />
+          </div>
+          <div className="absolute inset-0 animate-orbit animation-delay-1500" style={{ animationDuration: "18s", animationDirection: "reverse" }}>
+            <div className="w-1 h-1 rounded-full" style={{ backgroundColor: agente.color, boxShadow: `0 0 4px ${agente.glowColor}` }} />
+          </div>
 
-          {/* Glow effect */}
+          {/* Pulsating glow — always active */}
           <div
-            className="absolute -inset-4 rounded-full blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"
+            className="absolute -inset-3 rounded-full blur-2xl animate-glow-pulse"
             style={{ backgroundColor: agente.glowColor }}
           />
 
-          {/* Avatar image */}
-          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white/20 group-hover:border-white/40 transition-all duration-500 shadow-2xl animate-float">
-            <Image
-              src={agente.avatar}
-              alt={agente.nombre}
-              width={160}
-              height={160}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+          {/* Heartbeat ring — always active */}
+          <div
+            className="absolute -inset-2 rounded-full animate-heartbeat-ring"
+            style={{ border: `2px solid ${agente.ringColor}`, "--ring-color": agente.glowColor } as React.CSSProperties}
+          />
+          <div
+            className="absolute -inset-5 rounded-full animate-heartbeat-ring animation-delay-1000"
+            style={{ border: `1px solid ${agente.ringColor}`, "--ring-color": agente.glowColor } as React.CSSProperties}
+          />
+
+          {/* Sparkle dots — always active */}
+          <div className="absolute -top-1 right-2 w-2 h-2 rounded-full animate-sparkle" style={{ backgroundColor: agente.color, boxShadow: `0 0 6px ${agente.glowColor}` }} />
+          <div className="absolute bottom-2 -left-1 w-1.5 h-1.5 rounded-full animate-sparkle animation-delay-1000" style={{ backgroundColor: agente.color, boxShadow: `0 0 4px ${agente.glowColor}` }} />
+          <div className="absolute top-4 -right-2 w-1 h-1 rounded-full animate-sparkle animation-delay-2000" style={{ backgroundColor: "white", boxShadow: "0 0 4px white" }} />
+
+          {/* Avatar image with breathing + float */}
+          <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-white/20 group-hover:border-white/50 transition-all duration-500 shadow-2xl animate-breathe" style={{ animationDuration: "4s" }}>
+            <div className="w-full h-full animate-float" style={{ animationDuration: "6s" }}>
+              <Image
+                src={agente.avatar}
+                alt={agente.nombre}
+                width={192}
+                height={192}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              {/* Shimmer effect — always active */}
+              <div className="absolute inset-0 overflow-hidden rounded-full">
+                <div
+                  className="absolute -inset-full w-[200%] h-full bg-gradient-to-r from-transparent via-white/15 to-transparent animate-shimmer"
+                  style={{ animationDuration: "5s" }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -211,7 +219,11 @@ export default function AgentesPage() {
       <style jsx global>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
+          50% { transform: translateY(-8px); }
+        }
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.03); }
         }
         @keyframes ping-slow {
           0% { transform: scale(1); opacity: 0.5; }
@@ -222,10 +234,41 @@ export default function AgentesPage() {
           33% { transform: translate(30px, -50px) scale(1.1); }
           66% { transform: translate(-20px, 20px) scale(0.9); }
         }
+        @keyframes shimmer {
+          0% { transform: translateX(-150%) rotate(25deg); }
+          100% { transform: translateX(150%) rotate(25deg); }
+        }
+        @keyframes heartbeat-ring {
+          0% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 0 var(--ring-color); }
+          50% { transform: scale(1.05); opacity: 0.3; box-shadow: 0 0 20px 10px var(--ring-color); }
+          100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 0 var(--ring-color); }
+        }
+        @keyframes sparkle {
+          0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+          50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        @keyframes orbit {
+          0% { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+          100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
+        }
+        @keyframes glow-pulse {
+          0%, 100% { opacity: 0.3; transform: scale(0.95); }
+          50% { opacity: 0.6; transform: scale(1.05); }
+        }
         .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-breathe { animation: breathe 4s ease-in-out infinite; }
         .animate-ping-slow { animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
         .animate-blob { animation: blob 8s infinite; }
+        .animate-shimmer { animation: shimmer 4s ease-in-out infinite; }
+        .animate-heartbeat-ring { animation: heartbeat-ring 3s ease-in-out infinite; }
+        .animate-sparkle { animation: sparkle 3s ease-in-out infinite; }
+        .animate-orbit { animation: orbit 12s linear infinite; }
+        .animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+        .animation-delay-500 { animation-delay: 0.5s; }
+        .animation-delay-1000 { animation-delay: 1s; }
+        .animation-delay-1500 { animation-delay: 1.5s; }
         .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-3000 { animation-delay: 3s; }
         .animation-delay-4000 { animation-delay: 4s; }
       `}</style>
 

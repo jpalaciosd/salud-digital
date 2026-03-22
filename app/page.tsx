@@ -1,9 +1,16 @@
 "use client";
 import Link from "next/link";
 
+const animStyles = `
+@keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+@keyframes shimmer { 0%{transform:translateX(-150%) rotate(25deg)} 100%{transform:translateX(150%) rotate(25deg)} }
+@keyframes sparkle { 0%,100%{opacity:0;transform:scale(0) rotate(0deg)} 50%{opacity:1;transform:scale(1) rotate(180deg)} }
+`;
+
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <style dangerouslySetInnerHTML={{ __html: animStyles }} />
       {/* Header */}
       <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#1d4ed8]/10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -234,12 +241,14 @@ export default function Home() {
             {/* Aura */}
             <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-[#1d4ed8]/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10">
               <div className="flex items-center gap-4 mb-5">
-                <div className="relative shrink-0">
-                  <div className="absolute -inset-2 rounded-xl bg-[#1d4ed8]/0 group-hover:bg-[#1d4ed8]/20 blur-xl transition-all duration-500" />
-                  <div className="absolute -inset-1 rounded-xl border border-[#1d4ed8]/0 group-hover:border-[#1d4ed8]/30 group-hover:animate-pulse transition-all duration-500" />
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-white/20 group-hover:border-[#1d4ed8]/50 transition-all duration-500">
+                <div className="relative shrink-0 w-16 h-16">
+                  <div className="absolute -inset-1 rounded-xl bg-[#1d4ed8]/20 blur-lg animate-pulse" style={{animationDuration:"3s"}} />
+                  <div className="absolute -inset-0.5 rounded-xl border border-[#1d4ed8]/30 animate-pulse" style={{animationDuration:"2s"}} />
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-[#1d4ed8]/40 shadow-lg shadow-blue-500/20" style={{animation:"breathe 4s ease-in-out infinite"}}>
                     <img src="/agents/aura.png" alt="Aura" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" style={{animation:"shimmer 5s ease-in-out infinite"}} />
                   </div>
+                  <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-blue-400" style={{animation:"sparkle 3s ease-in-out infinite", boxShadow:"0 0 4px rgba(29,78,216,0.5)"}} />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
@@ -262,12 +271,14 @@ export default function Home() {
             {/* Dr. Nova */}
             <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-sky-400/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10">
               <div className="flex items-center gap-4 mb-5">
-                <div className="relative shrink-0">
-                  <div className="absolute -inset-2 rounded-xl bg-sky-400/0 group-hover:bg-sky-400/20 blur-xl transition-all duration-500" />
-                  <div className="absolute -inset-1 rounded-xl border border-sky-400/0 group-hover:border-sky-400/30 group-hover:animate-pulse transition-all duration-500" />
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-white/20 group-hover:border-sky-400/50 transition-all duration-500">
+                <div className="relative shrink-0 w-16 h-16">
+                  <div className="absolute -inset-1 rounded-xl bg-sky-400/20 blur-lg animate-pulse" style={{animationDuration:"3s",animationDelay:"1s"}} />
+                  <div className="absolute -inset-0.5 rounded-xl border border-sky-400/30 animate-pulse" style={{animationDuration:"2s",animationDelay:"0.5s"}} />
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-sky-400/40 shadow-lg shadow-sky-500/20" style={{animation:"breathe 4s ease-in-out infinite",animationDelay:"1s"}}>
                     <img src="/agents/medico.png" alt="Dr. Nova" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" style={{animation:"shimmer 5s ease-in-out infinite",animationDelay:"2s"}} />
                   </div>
+                  <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-sky-400" style={{animation:"sparkle 3s ease-in-out infinite",animationDelay:"1.5s",boxShadow:"0 0 4px rgba(14,165,233,0.5)"}} />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
