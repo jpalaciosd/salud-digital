@@ -232,10 +232,14 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Aura */}
-            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-[#1d4ed8]/30 transition-all group">
+            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-[#1d4ed8]/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10">
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-[#1d4ed8]/30 shrink-0">
-                  <img src="/agents/aura.png" alt="Aura" className="w-full h-full object-cover" />
+                <div className="relative shrink-0">
+                  <div className="absolute -inset-2 rounded-xl bg-[#1d4ed8]/0 group-hover:bg-[#1d4ed8]/20 blur-xl transition-all duration-500" />
+                  <div className="absolute -inset-1 rounded-xl border border-[#1d4ed8]/0 group-hover:border-[#1d4ed8]/30 group-hover:animate-pulse transition-all duration-500" />
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-white/20 group-hover:border-[#1d4ed8]/50 transition-all duration-500">
+                    <img src="/agents/aura.png" alt="Aura" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
@@ -256,10 +260,14 @@ export default function Home() {
             </div>
 
             {/* Dr. Nova */}
-            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-sky-400/30 transition-all group">
+            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-sky-400/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10">
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-sky-400/30 shrink-0">
-                  <img src="/agents/medico.png" alt="Dr. Nova" className="w-full h-full object-cover" />
+                <div className="relative shrink-0">
+                  <div className="absolute -inset-2 rounded-xl bg-sky-400/0 group-hover:bg-sky-400/20 blur-xl transition-all duration-500" />
+                  <div className="absolute -inset-1 rounded-xl border border-sky-400/0 group-hover:border-sky-400/30 group-hover:animate-pulse transition-all duration-500" />
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-white/20 group-hover:border-sky-400/50 transition-all duration-500">
+                    <img src="/agents/medico.png" alt="Dr. Nova" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
