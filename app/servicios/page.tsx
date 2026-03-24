@@ -28,10 +28,8 @@ export default function Servicios() {
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#1d4ed8]/10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
-              <span className="material-icons-outlined text-white">health_and_safety</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight">Salud<span className="text-[#1d4ed8]">Digital</span></span>
+            <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
+            <span className="text-xl font-bold tracking-tight">ISSI</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-sm font-semibold hover:text-[#1d4ed8] transition-colors">Inicio</Link>
@@ -174,10 +172,8 @@ export default function Servicios() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div>
               <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-[#1d4ed8] rounded flex items-center justify-center">
-                  <span className="material-icons-outlined text-white text-sm">health_and_safety</span>
-                </div>
-                <span className="text-lg font-bold tracking-tight">Salud<span className="text-[#1d4ed8]">Digital</span></span>
+                <img src="/logo-issi.png" alt="ISSI" className="w-8 h-8 rounded-full" />
+                <span className="text-lg font-bold tracking-tight">ISSI</span>
               </div>
               <p className="text-sm text-slate-500 leading-relaxed">Líderes en telemedicina y seguimiento crónico en Colombia.</p>
             </div>
@@ -208,7 +204,7 @@ export default function Servicios() {
             </div>
           </div>
           <div className="mt-16 pt-8 border-t border-slate-100 text-center text-xs text-slate-400">
-            <p>© 2026 SaludDigital Colombia. Todos los derechos reservados.</p>
+            <p>© 2026 ISSI — Instituto Superior de Salud Integral. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>

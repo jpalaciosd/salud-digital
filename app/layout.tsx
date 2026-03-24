@@ -3,7 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/lib/AuthContext";
 
 export const metadata: Metadata = {
-  title: "SaludDigital | Salud Humana Potenciada por Tecnología",
+  title: "ISSI | Instituto Superior de Salud Integral",
   description: "IPS Virtual - Transformamos la atención médica en Colombia a través de un modelo híbrido que prioriza la empatía humana y la precisión digital.",
 };
 

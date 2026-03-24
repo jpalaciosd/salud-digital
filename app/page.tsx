@@ -14,11 +14,9 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#1d4ed8]/10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
-              <span className="material-icons-outlined text-white">health_and_safety</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight uppercase">Salud<span className="text-[#1d4ed8]">Digital</span></span>
+          <div className="flex items-center gap-3">
+            <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
+            <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
           </div>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-sm font-semibold hover:text-[#1d4ed8] transition-colors">Inicio</Link>
@@ -344,7 +342,7 @@ export default function Home() {
             </div>
           </div>
           <div className="pt-8 border-t border-slate-200 text-center">
-            <p className="text-sm text-slate-500">© 2026 SaludDigital Colombia. Todos los derechos reservados.</p>
+            <p className="text-sm text-slate-500">© 2026 ISSI — Instituto Superior de Salud Integral. Todos los derechos reservados.</p>
             <p className="text-xs text-slate-400 mt-1">Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span></p>
           </div>
         </div>

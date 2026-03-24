@@ -276,11 +276,9 @@ export default function AgentesPage() {
       <header className="border-b border-white/10 relative z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
-              <span className="material-symbols-outlined text-white text-lg">cardiology</span>
-            </div>
+            <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
             <span className="text-lg font-bold text-white">
-              Salud<span className="text-sky-300">Digital</span>
+              ISSI
             </span>
           </Link>
           <div className="flex gap-3">
@@ -341,7 +339,7 @@ export default function AgentesPage() {
 
         <div className="mt-16 text-center">
           <p className="text-white/30 text-xs">
-            © 2026 SaludDigital — Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span>
+            © 2026 ISSI — Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span>
           </p>
         </div>
       </section>

@@ -301,10 +301,8 @@ export default function Dashboard() {
         <div className="flex flex-col h-full p-5">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[var(--dash-accent)] rounded-lg flex items-center justify-center">
-                <span className="material-icons-outlined text-white text-lg">health_and_safety</span>
-              </div>
-              <span className="text-lg font-bold tracking-tight text-[var(--dash-text-dark)]">SaludDigital</span>
+              <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
+              <span className="text-lg font-bold tracking-tight text-[var(--dash-text-dark)]">ISSI</span>
             </div>
             <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1 text-slate-400"><span className="material-icons-outlined">close</span></button>
           </div>

@@ -35,11 +35,9 @@ function LoginForm() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#1d4ed8] rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined text-white text-3xl">cardiology</span>
-            </div>
+            <img src="/logo-issi.png" alt="ISSI" className="w-14 h-14 rounded-full" />
             <span className="text-2xl font-bold text-white">
-              Salud<span className="text-[#1d4ed8]">Digital</span>
+              ISSI
             </span>
           </Link>
         </div>
@@ -122,7 +120,7 @@ function LoginForm() {
 
         {/* Footer */}
         <p className="text-center text-gray-500 text-xs mt-6">
-          © 2026 SaludDigital — Plataforma segura de salud
+          © 2026 ISSI — Plataforma segura de salud
           <br />
           <span className="text-gray-400">Powered by <span className="font-semibold text-sky-200">AINovaX</span></span>
         </p>
