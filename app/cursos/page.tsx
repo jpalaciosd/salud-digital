@@ -4,15 +4,10 @@ import { useAuth } from "@/lib/AuthContext";
 import UserNav from "@/lib/UserNav";
 
 const cursos = [
-  { id: 1, titulo: "Primeros Auxilios Básicos", desc: "Aprende técnicas esenciales de primeros auxilios para responder ante emergencias médicas comunes.", modulos: 12, duracion: "24 horas", nivel: "Básico", instructor: "Dra. María López", img: "🩺", precio: "Gratis", tag: "Popular" },
-  { id: 2, titulo: "Nutrición y Dieta Saludable", desc: "Descubre los fundamentos de una alimentación balanceada y cómo diseñar planes nutricionales.", modulos: 8, duracion: "16 horas", nivel: "Básico", instructor: "Dr. Andrés Gómez", img: "🥗", precio: "$120.000", tag: "" },
-  { id: 3, titulo: "Manejo del Estrés y Ansiedad", desc: "Técnicas probadas para gestionar el estrés y mejorar tu bienestar emocional en el día a día.", modulos: 10, duracion: "20 horas", nivel: "Intermedio", instructor: "Dra. Laura Martínez", img: "🧘", precio: "$89.000", tag: "Nuevo" },
-  { id: 4, titulo: "Cuidado del Paciente Crónico", desc: "Formación completa sobre el manejo y acompañamiento de pacientes con enfermedades crónicas.", modulos: 6, duracion: "12 horas", nivel: "Avanzado", instructor: "Dr. Alejandro Posada", img: "❤️", precio: "$150.000", tag: "" },
-  { id: 5, titulo: "Salud Mental y Bienestar", desc: "Comprende los aspectos fundamentales de la salud mental y aprende estrategias de autocuidado.", modulos: 9, duracion: "18 horas", nivel: "Básico", instructor: "Dra. Carolina Vélez", img: "🧠", precio: "Gratis", tag: "Popular" },
-  { id: 6, titulo: "Prevención de Enfermedades", desc: "Conoce las principales estrategias de prevención y detección temprana de enfermedades comunes.", modulos: 7, duracion: "14 horas", nivel: "Básico", instructor: "Dr. Felipe Ríos", img: "🛡️", precio: "$75.000", tag: "" },
-  { id: 7, titulo: "Farmacología Básica", desc: "Introducción a los principios farmacológicos y el uso responsable de medicamentos.", modulos: 10, duracion: "20 horas", nivel: "Intermedio", instructor: "Dra. Patricia Sánchez", img: "💊", precio: "$130.000", tag: "" },
-  { id: 8, titulo: "Atención Prehospitalaria", desc: "Protocolos y procedimientos para la atención de emergencias antes de llegar al hospital.", modulos: 15, duracion: "30 horas", nivel: "Avanzado", instructor: "Dr. Ricardo Morales", img: "🚑", precio: "$200.000", tag: "Certificado" },
-  { id: 9, titulo: "Salud Pública y Epidemiología", desc: "Fundamentos de salud pública, epidemiología y estrategias de control de enfermedades.", modulos: 11, duracion: "22 horas", nivel: "Intermedio", instructor: "Dra. Ana Rodríguez", img: "📊", precio: "$110.000", tag: "" },
+  { id: 1, titulo: "Taller de Primeros Auxilios", desc: "Técnicas esenciales de primeros auxilios para situaciones de emergencia: CPR, DEA, control de hemorragias, vendajes y entablillados.", modulos: 8, duracion: "8 horas", nivel: "Básico", instructor: "Dra. María López", img: "🩺", precio: "Gratis", tag: "Popular" },
+  { id: 2, titulo: "Taller: Seguridad del Paciente", desc: "Protocolos de seguridad clínica y prevención de eventos adversos en entornos de salud.", modulos: 6, duracion: "6 horas", nivel: "Intermedio", instructor: "Dr. Roberto Sánchez", img: "🛡️", precio: "Gratis", tag: "" },
+  { id: 3, titulo: "Salud Mental y Manejo de Crisis", desc: "Estrategias de regulación emocional, grounding y primeros auxilios psicológicos para situaciones de crisis.", modulos: 4, duracion: "6 horas", nivel: "Básico", instructor: "Ps. Andrea Martínez", img: "🧠", precio: "Gratis", tag: "Nuevo" },
+  { id: 4, titulo: "Curso de Enfermería en Salud Mental", desc: "Observación clínica, desescalada verbal, contención segura y autocuidado para profesionales de enfermería.", modulos: 4, duracion: "8 horas", nivel: "Intermedio", instructor: "Enf. Jefe Carlos Mendoza", img: "🏥", precio: "Gratis", tag: "" },
 ];
 
 export default function Cursos() {
