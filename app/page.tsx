@@ -66,11 +66,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative hidden lg:flex items-center justify-center">
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#0f2847]/20 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#c5a044]/20 rounded-full blur-3xl"></div>
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-              <img className="w-full aspect-[4/5] object-cover" src="/promo-primeros-auxilios.jpg" alt="Formación en salud ISSI" />
+            <div className="relative">
+              <img src="/logo-issi.png" alt="ISSI" className="w-72 h-72 drop-shadow-2xl" style={{animation:"breathe 4s ease-in-out infinite"}} />
+              <p className="text-center text-sm font-bold text-slate-500 mt-6 uppercase tracking-widest">Fundado 2024</p>
             </div>
           </div>
         </div>
