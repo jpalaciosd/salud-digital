@@ -198,7 +198,7 @@ export default function Servicios() {
               <h5 className="font-bold mb-6">Contacto</h5>
               <ul className="space-y-4 text-sm text-slate-500">
                 <li className="flex items-center gap-2"><span className="material-icons-outlined text-[#1d4ed8] text-sm">phone</span>+57 601 123 4567</li>
-                <li className="flex items-center gap-2"><span className="material-icons-outlined text-[#1d4ed8] text-sm">email</span>contacto@saluddigital.co</li>
+                <li className="flex items-center gap-2"><span className="material-icons-outlined text-[#1d4ed8] text-sm">email</span>contacto@issi.edu.co</li>
                 <li className="flex items-center gap-2"><span className="material-icons-outlined text-[#1d4ed8] text-sm">location_on</span>Bogotá, Colombia</li>
               </ul>
             </div>

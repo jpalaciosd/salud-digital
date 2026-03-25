@@ -316,12 +316,10 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-2">
               <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-[#1d4ed8] rounded-md flex items-center justify-center">
-                  <span className="material-icons-outlined text-white text-sm">health_and_safety</span>
-                </div>
-                <span className="text-lg font-bold tracking-tight uppercase">Salud<span className="text-[#1d4ed8]">Digital</span></span>
+                <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
+                <span className="text-lg font-bold tracking-tight uppercase">ISSI</span>
               </div>
-              <p className="text-slate-500 max-w-sm mb-6">Plataforma de salud digital en Colombia. Teleconsultas, formación con IA y gestión clínica en un solo lugar.</p>
+              <p className="text-slate-500 max-w-sm mb-6">ISSI — Instituto Superior de Salud Integral. Formación virtual, teleconsultas y gestión clínica con IA en Colombia.</p>
             </div>
             <div>
               <h5 className="font-bold mb-6">Plataforma</h5>
@@ -337,7 +335,7 @@ export default function Home() {
               <ul className="space-y-4 text-slate-500">
                 <li><a className="hover:text-[#1d4ed8]" href="https://wa.me/12763294935?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Aura</a></li>
                 <li><a className="hover:text-[#1d4ed8]" href="https://wa.me/17433306127?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Dr. Nova</a></li>
-                <li><a className="hover:text-[#1d4ed8]" href="mailto:contacto@saluddigital.co">contacto@saluddigital.co</a></li>
+                <li><a className="hover:text-[#1d4ed8]" href="mailto:contacto@issi.edu.co">contacto@issi.edu.co</a></li>
               </ul>
             </div>
           </div>

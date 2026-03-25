@@ -352,7 +352,7 @@ export default function Dashboard() {
               <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-[var(--dash-accent-light)] rounded-lg"><span className="material-icons-outlined">menu</span></button>
               <div>
                 <h1 className="text-lg lg:text-2xl font-bold text-[var(--dash-text-dark)]">¡Hola, {isMedico ? "Dr. " : ""}{user?.nombre}!</h1>
-                <p className="text-xs lg:text-sm text-slate-500 hidden sm:block">{isMedico ? "Panel de gestión médica" : "Tu portal de salud digital"}</p>
+                <p className="text-xs lg:text-sm text-slate-500 hidden sm:block">{isMedico ? "Panel de gestión médica" : "Tu portal ISSI"}</p>
               </div>
             </div>
           </div>

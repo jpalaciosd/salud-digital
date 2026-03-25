@@ -45,7 +45,7 @@ function LoginForm() {
         {/* Card */}
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
           <h1 className="text-2xl font-bold text-white mb-2">Iniciar Sesión</h1>
-          <p className="text-gray-400 mb-6">Accede a tu plataforma de salud digital</p>
+          <p className="text-gray-400 mb-6">Accede a tu plataforma ISSI</p>
 
           {error && (
             <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4 flex items-center gap-2">

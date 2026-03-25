@@ -1,4 +1,4 @@
-# Lambda Dr. Nova — Agente médico SaludDigital
+# Lambda Dr. Nova — Agente médico ISSI
 
 Lambda para el agente WhatsApp Dr. Nova (triaje, historia clínica, fórmulas, recordatorios, derivación y agendamiento de citas). Recibe webhook de Twilio, consulta datos del paciente en Vercel y responde vía OpenAI.
 
@@ -29,7 +29,7 @@ Lambda para el agente WhatsApp Dr. Nova (triaje, historia clínica, fórmulas, r
 
 ## Vercel
 
-En el proyecto SaludDigital deben existir:
+En el proyecto ISSI deben existir:
 
 - `GET /api/agente/datos-paciente?telefono=...` (header `x-api-key`)
 - `POST /api/agente/cita` (body: telefono, medicoId, medicoNombre, especialidad, fecha, hora, tipo, motivo)
