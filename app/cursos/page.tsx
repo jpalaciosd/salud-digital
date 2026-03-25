@@ -44,7 +44,7 @@ export default function Cursos() {
             Plataforma Educativa
           </div>
           <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">Cursos de Salud <span className="text-[#c5a044]">Especializados</span></h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">Aprende de profesionales certificados con el apoyo de nuestro tutor IA por WhatsApp. Certificados avalados por instituciones de salud.</p>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">Formación virtual guiada por nuestra mentora IA Aura a través de WhatsApp. Certificados emitidos por el Instituto Superior de Salud Integral.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="https://wa.me/12763294935?text=Hola! Quiero información sobre los cursos de salud" className="px-8 py-4 rounded-xl bg-[#0f2847] text-white font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
               💬 Tutor IA por WhatsApp
@@ -57,10 +57,10 @@ export default function Cursos() {
       <section className="py-12 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { valor: "9+", label: "Cursos disponibles" },
-            { valor: "2,500+", label: "Estudiantes activos" },
-            { valor: "15+", label: "Instructores certificados" },
-            { valor: "95%", label: "Tasa de satisfacción" },
+            { valor: "4", label: "Cursos disponibles" },
+            { valor: "1", label: "Agente IA activo" },
+            { valor: "100%", label: "Virtual y flexible" },
+            { valor: "✓", label: "Certificación oficial" },
           ].map((stat, i) => (
             <div key={i}>
               <p className="text-3xl font-extrabold text-[#c5a044]">{stat.valor}</p>
