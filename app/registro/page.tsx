@@ -17,7 +17,7 @@ export default function RegistroPage() {
     confirmPassword: "",
     tipoDocumento: "CC",
     documento: "",
-    rol: "paciente" as "paciente" | "medico" | "estudiante",
+    rol: "estudiante" as "paciente" | "medico" | "estudiante",
     telefono: "",
     fotoMedico: "",
     descripcionProfesional: "",
@@ -164,8 +164,6 @@ export default function RegistroPage() {
                 onChange={(e) => update("rol", e.target.value)}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#0f2847]/50 transition"
               >
-                <option value="paciente" className="bg-slate-800">Paciente</option>
-                <option value="medico" className="bg-slate-800">Médico</option>
                 <option value="estudiante" className="bg-slate-800">Estudiante</option>
               </select>
             </div>

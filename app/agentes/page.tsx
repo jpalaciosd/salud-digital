@@ -24,26 +24,7 @@ const agentes = [
     canalIcon: "chat",
     estado: "Activo",
   },
-  {
-    nombre: "Dr. Nova",
-    rol: "Agente Médico — Triage IA",
-    descripcion:
-      "Tu asistente de salud inteligente. Dr. Nova evalúa tus síntomas mediante una conversación guiada, consulta tu historia clínica y fórmulas activas, te recuerda tus medicamentos y te orienta hacia el profesional adecuado o agenda tu cita automáticamente.",
-    avatar: "/agents/medico.png",
-    color: "#0ea5e9",
-    glowColor: "rgba(14,165,233,0.4)",
-    ringColor: "rgba(14,165,233,0.3)",
-    capacidades: [
-      "Triage inteligente de síntomas",
-      "Acceso a tu historia clínica y fórmulas",
-      "Recordatorio de medicamentos",
-      "Derivación al especialista adecuado",
-      "Agendamiento automático de citas",
-    ],
-    canalLink: "https://wa.me/17433306127?text=Hola%20Dr.%20Nova",
-    canalIcon: "medical_services",
-    estado: "Activo",
-  },
+  /* Dr. Nova — Próximamente (servicios de salud en desarrollo) */
 ];
 
 function AvatarCard({ agente }: { agente: typeof agentes[0] }) {

@@ -269,17 +269,8 @@ export default function Dashboard() {
   const diasRestantes = (v: string) => { const d = Math.ceil((new Date(v).getTime() - Date.now()) / 86400000); return d > 0 ? `${d} días` : "Vencido"; };
 
   // Nav items depend on role
-  const navItems = isMedico ? [
+  const navItems = [
     { id: "inicio", icon: "dashboard", label: "Inicio" },
-    { id: "citas", icon: "calendar_today", label: "Mis Citas" },
-    { id: "pacientes", icon: "group", label: "Mis Pacientes" },
-    { id: "formulas", icon: "medication", label: "Fórmulas" },
-    { id: "historia", icon: "history_edu", label: "Historia Clínica" },
-  ] : [
-    { id: "inicio", icon: "dashboard", label: "Inicio" },
-    { id: "citas", icon: "calendar_today", label: "Mis Citas" },
-    { id: "formulas", icon: "medication", label: "Mis Fórmulas" },
-    { id: "historia", icon: "history_edu", label: "Historia Clínica" },
     { id: "cursos", icon: "school", label: "Mis Cursos" },
   ];
 
@@ -306,7 +297,7 @@ export default function Dashboard() {
             </div>
             <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1 text-slate-400"><span className="material-icons-outlined">close</span></button>
           </div>
-          {isMedico && <div className="mb-4 px-3 py-1.5 bg-[var(--dash-accent-light)] rounded-lg text-center"><span className="text-xs font-bold text-[var(--dash-text)]">🩺 Panel Médico</span></div>}
+          {/* Panel médico oculto — servicios de salud próximamente */}
           <nav className="flex-1 space-y-1">
             {navItems.map((item) => (
               <button key={item.id} onClick={() => handleTabChange(item.id)}
@@ -351,8 +342,8 @@ export default function Dashboard() {
             <div className="flex items-center gap-3">
               <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-[var(--dash-accent-light)] rounded-lg"><span className="material-icons-outlined">menu</span></button>
               <div>
-                <h1 className="text-lg lg:text-2xl font-bold text-[var(--dash-text-dark)]">¡Hola, {isMedico ? "Dr. " : ""}{user?.nombre}!</h1>
-                <p className="text-xs lg:text-sm text-slate-500 hidden sm:block">{isMedico ? "Panel de gestión médica" : "Tu portal ISSI"}</p>
+                <h1 className="text-lg lg:text-2xl font-bold text-[var(--dash-text-dark)]">¡Hola, {user?.nombre}!</h1>
+                <p className="text-xs lg:text-sm text-slate-500 hidden sm:block">Tu portal ISSI</p>
               </div>
             </div>
           </div>
@@ -364,10 +355,9 @@ export default function Dashboard() {
           {tab === "inicio" && (
             <div className="space-y-6">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <Stat label="Citas" value={citas.filter(c => c.estado === "pendiente" || c.estado === "confirmada").length} />
-                <Stat label="Fórmulas" value={formulas.filter(f => f.estado === "activa").length} />
-                <Stat label="Registros HC" value={historia.length} />
-                <Stat label={isMedico ? "Pacientes" : "Cursos"} value={isMedico ? pacientes.length : inscripciones.length} />
+                <Stat label="Cursos Inscritos" value={inscripciones.length} />
+                <Stat label="En Progreso" value={inscripciones.filter(i => i.estado === "activa").length} />
+                <Stat label="Completados" value={inscripciones.filter(i => i.estado === "completada").length} />
               </div>
 
               {/* Próxima cita */}

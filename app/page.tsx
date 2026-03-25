@@ -20,9 +20,8 @@ export default function Home() {
           </div>
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
-            <Link href="#servicios" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Servicios</Link>
+            <Link href="#metodologia" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Metodología</Link>
             <Link href="/cursos" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Cursos</Link>
-            <Link href="/agentes" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Agentes IA</Link>
             <Link href="#contacto" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Contacto</Link>
           </nav>
           <div className="flex items-center gap-4">
@@ -38,22 +37,22 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0f2847]/10 border border-[#0f2847]/20 text-[#0f2847] text-xs font-bold uppercase tracking-wider">
-              <span className="material-icons-outlined text-sm">verified_user</span>
-              Cuidado Primario en Colombia
+              <span className="material-icons-outlined text-sm">school</span>
+              Centro de Estudios en Modalidad Virtual
             </div>
             <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight">
-              Salud Humana <br /><span className="text-[#c5a044]">Potenciada</span> por Tecnología
+              Formación en Salud <br /><span className="text-[#c5a044]">Potenciada</span> por Tecnología
             </h1>
             <p className="text-lg text-slate-600 max-w-lg leading-relaxed">
-              Transformamos la atención médica en Colombia a través de un modelo híbrido que prioriza la empatía humana y la precisión digital para pacientes crónicos.
+              Programas de formación virtual con certificación, guiados por inteligencia artificial. Aprende a tu ritmo, desde cualquier lugar de Colombia.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/registro" className="px-8 py-4 rounded-xl bg-[#0f2847] text-white font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
-                Registrarme
+                Inscribirme Ahora
                 <span className="material-icons-outlined">arrow_forward</span>
               </Link>
               <Link href="/cursos" className="px-8 py-4 rounded-xl border-2 border-slate-200 font-bold text-lg hover:bg-slate-50 transition-colors text-center">
-                Ver Cursos de Salud
+                Ver Cursos Disponibles
               </Link>
             </div>
             <div className="flex items-center gap-4 pt-4">
@@ -69,9 +68,9 @@ export default function Home() {
           </div>
           <div className="relative">
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#0f2847]/20 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#0f2847]/30 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#c5a044]/20 rounded-full blur-3xl"></div>
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-              <img className="w-full aspect-[4/5] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp7lYYy9rZlBvzAN2qZnUIn9_YCiqMCU-uBxNpUVrrcb2n98bR-yFnjZaneYrNwD9AoESnmyuSUYTN95ILXfzSCwhZBlmzYWK0I0JapkCliNrtfFSPBkwxuiuurN31-5WVTzBJtqQSlokDch8ryOvMQkqnfLHqtOXPDoXJjQQk4d9eOrvaSW0q689gv72Io5Kgq9arAT-iupSyr0-ZA1HVi-7ZnBlF-UXdHLLexubIPpAucPMFUCitzZvZld4x4W-he-tHKb_B6PpQ" alt="Doctor con paciente" />
+              <img className="w-full aspect-[4/5] object-cover" src="/promo-primeros-auxilios.jpg" alt="Formación en salud ISSI" />
             </div>
           </div>
         </div>
@@ -83,9 +82,9 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { icon: "school", num: "4", label: "Cursos disponibles" },
-              { icon: "smart_toy", num: "2", label: "Agentes IA activos" },
+              { icon: "smart_toy", num: "1", label: "Agente IA activo" },
               { icon: "lock", num: "100%", label: "Datos cifrados" },
-              { icon: "video_call", num: "24/7", label: "Teleconsulta disponible" },
+              { icon: "workspace_premium", num: "✓", label: "Certificación oficial" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-1">
                 <span className="material-icons-outlined text-[#c5a044] text-2xl">{item.icon}</span>
@@ -97,17 +96,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pilares */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
+      {/* Pilares / Metodología */}
+      <section id="metodologia" className="py-24 max-w-7xl mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold mb-4">Nuestros Pilares Fundamentales</h2>
-          <p className="text-slate-500">Un enfoque integral que combina la calidez del trato humano con la eficiencia de las herramientas digitales más avanzadas.</p>
+          <h2 className="text-3xl font-bold mb-4">Nuestra Metodología de Aprendizaje</h2>
+          <p className="text-slate-500">Un modelo educativo que combina la guía de profesionales de salud con la eficiencia de la inteligencia artificial.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { icon: "favorite", titulo: "Humanidad", desc: "Cuidado centrado en la persona. Entendemos que detrás de cada diagnóstico hay una historia y un ser humano que merece empatía." },
-            { icon: "gavel", titulo: "Honestidad", desc: "Transparencia total en procesos médicos y costos. Comunicación clara y directa sobre su estado de salud y opciones de tratamiento." },
-            { icon: "devices", titulo: "Tecnología", desc: "Monitoreo remoto de última generación y telemedicina accesible desde cualquier lugar de Colombia, 24/7." },
+            { icon: "auto_stories", titulo: "Aprendizaje Guiado por IA", desc: "Nuestra asistente Aura te guía módulo a módulo por WhatsApp, evalúa tu comprensión y adapta el ritmo a tus necesidades." },
+            { icon: "workspace_premium", titulo: "Certificación Oficial", desc: "Al completar cada curso recibes un certificado digital avalado por el Instituto Superior de Salud Integral." },
+            { icon: "schedule", titulo: "100% Virtual y Flexible", desc: "Estudia desde cualquier lugar de Colombia, a tu propio ritmo. Todo el contenido disponible 24/7 desde tu celular." },
           ].map((item, i) => (
             <div key={i} className="p-8 rounded-2xl bg-white border border-slate-100 hover:border-[#c5a044]/50 transition-all group">
               <div className="w-14 h-14 bg-[#0f2847]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#0f2847] transition-colors">
@@ -120,51 +119,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Servicios Especializados */}
-      <section id="servicios" className="py-24 bg-[white] text-white rounded-[3rem] mx-4 mb-24 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h2 className="text-4xl font-bold mb-12 leading-tight text-center">Servicios de Salud <span className="text-[#c5a044]">Especializados</span></h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Cómo Funciona */}
+      <section className="py-24 bg-gradient-to-br from-[#0a1628] to-[#0f2847] text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl font-bold mb-4 text-center">¿Cómo <span className="text-[#c5a044]">Funciona</span>?</h2>
+          <p className="text-white/70 text-center max-w-2xl mx-auto mb-16">Tu camino de formación en 4 pasos simples</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { num: "01", titulo: "Teleconsulta Médica", desc: "Consultas por videollamada con profesionales de salud registrados, desde cualquier lugar de Colombia.", activo: true },
-              { num: "02", titulo: "Triage IA por WhatsApp", desc: "Nuestro agente Dr. Nova evalúa tus síntomas, revisa tu historial y te conecta con el profesional adecuado.", activo: true },
-              { num: "03", titulo: "Historia Clínica Digital", desc: "Tu historial médico, fórmulas y citas en un solo lugar, accesible para ti y tu médico tratante de forma segura.", activo: true },
-              { num: "04", titulo: "Cursos de Salud con IA", desc: "Programas de formación guiados por Aura, nuestra mentora IA, con evaluación y certificado digital.", activo: true },
-              { num: "05", titulo: "Gestión de Fórmulas Médicas", desc: "Prescripción digital de medicamentos por parte del médico, con detalle de dosis y frecuencia.", activo: true },
-              { num: "06", titulo: "Monitoreo de Crónicos", desc: "Seguimiento continuo para pacientes con diabetes, hipertensión y enfermedades respiratorias.", activo: false },
+              { num: "01", icon: "person_add", titulo: "Regístrate", desc: "Crea tu cuenta gratuita en la plataforma en menos de 2 minutos." },
+              { num: "02", icon: "menu_book", titulo: "Elige tu Curso", desc: "Selecciona entre nuestros programas de formación en salud." },
+              { num: "03", icon: "chat", titulo: "Aprende con Aura", desc: "Inicia tu curso por WhatsApp. Aura te enseña, evalúa y registra tu avance." },
+              { num: "04", icon: "emoji_events", titulo: "Certifícate", desc: "Al completar todos los módulos, obtén tu certificado digital oficial." },
             ].map((s, i) => (
-              <div key={i} className="flex gap-4 items-start p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors relative">
-                <div className="w-12 h-12 shrink-0 bg-[#0f2847] text-white rounded-lg flex items-center justify-center font-bold">{s.num}</div>
-                <div>
-                  <h4 className="font-bold text-xl mb-2 flex items-center gap-2">
-                    {s.titulo}
-                    {!s.activo && <span className="text-[10px] font-bold bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full uppercase">Próximamente</span>}
-                  </h4>
-                  <p className="text-slate-400">{s.desc}</p>
+              <div key={i} className="text-center p-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-[#c5a044]/15 rounded-2xl flex items-center justify-center">
+                  <span className="material-icons-outlined text-[#c5a044] text-3xl">{s.icon}</span>
                 </div>
+                <div className="text-[#c5a044] text-xs font-bold mb-2">{s.num}</div>
+                <h4 className="font-bold text-lg mb-2">{s.titulo}</h4>
+                <p className="text-white/70 text-sm">{s.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sedes */}
-      <section id="sedes" className="py-24 max-w-7xl mx-auto px-6">
-        <div className="bg-white rounded-[2rem] p-8 lg:p-12 shadow-sm border border-slate-100 flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/3">
-            <h2 className="text-3xl font-bold mb-6 leading-tight">Presencia en <br />toda Colombia</h2>
-            <p className="text-slate-500 mb-8">Nuestra red de atención se extiende por las principales ciudades, con centros de toma de muestras y atención especializada.</p>
-            <div className="space-y-4">
-              {["Bogotá D.C.", "Medellín", "Cali", "Barranquilla"].map((city) => (
-                <div key={city} className="flex items-center gap-3">
-                  <span className="material-icons-outlined text-[#c5a044]">location_on</span>
-                  <span className="font-semibold">{city}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="lg:w-2/3 h-96 lg:h-auto min-h-[400px] rounded-2xl overflow-hidden bg-slate-100 relative">
-            <img className="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADzwhvQ8aDKiK5jpB0UOTOkaVfxu_73k8s3XmpdqgKGmONbP6lgfN7YJ7bnCrR89qCxqWE3Cz7ZivPwmBfqlgrjb0UZkuZwwXDhcYpBFpBiCal4KSHYGW7_OSL4brg-LbI42OpYa1CcVTm1QCZmqsoRm6ZLMxHuehbavo7sD330QmlWpTD3ONVK0798zpbvbCefOv3jT-isSUDQEOYatWnZ3Zch5qt20VSseoTP1aCc51jAaVZ7MSQhSvVA8236xxJlJVfNfI3qhcz" alt="Mapa Colombia" />
           </div>
         </div>
       </section>
@@ -173,32 +148,22 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-0">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#c5a044]/30 lg:grid lg:grid-cols-2 lg:min-h-[520px]">
-            {/* Imagen del afiche */}
             <div className="relative h-72 sm:h-96 lg:h-auto">
-              <img
-                src="/promo-primeros-auxilios.jpg"
-                alt="Curso de Primeros Auxilios Profesionales — ISSI"
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
+              <img src="/promo-primeros-auxilios.jpg" alt="Curso de Primeros Auxilios Profesionales — ISSI" className="absolute inset-0 w-full h-full object-cover object-top" />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0a1628]/90 hidden lg:block" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/95 via-[#0a1628]/40 to-transparent lg:hidden" />
             </div>
-
-            {/* Contenido */}
             <div className="relative bg-gradient-to-br from-[#0a1628] to-[#0f2847] p-8 sm:p-10 lg:p-14 flex flex-col justify-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c5a044]/15 border border-[#c5a044]/30 text-[#c5a044] text-xs font-bold uppercase tracking-wider mb-6 w-fit">
                 <span className="material-icons-outlined text-sm">local_fire_department</span>
                 Inscripciones Abiertas
               </div>
-
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
                 Curso de Primeros<br />Auxilios <span className="text-[#c5a044]">Profesionales</span>
               </h2>
-
               <p className="text-white/80 text-base sm:text-lg mb-8 leading-relaxed max-w-md">
                 Certificación oficial con práctica intensiva en CPR avanzado, DEA, control de hemorragias y escenarios reales.
               </p>
-
               <ul className="space-y-3 mb-8">
                 {[
                   { icon: "verified", text: "Certificación Oficial e Internacional" },
@@ -214,7 +179,6 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link href="/registro" className="px-8 py-4 rounded-xl bg-[#c5a044] text-[#0a1628] font-extrabold text-base hover:bg-[#d4af37] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#c5a044]/20">
                   ¡Aparta tu Cupo!
@@ -226,7 +190,6 @@ export default function Home() {
                   +57 314 650 1052
                 </a>
               </div>
-
               <p className="text-[#c5a044]/70 text-xs mt-6 font-semibold uppercase tracking-wider">⚡ Últimas fechas disponibles</p>
             </div>
           </div>
@@ -256,7 +219,7 @@ export default function Home() {
                   <span className="flex items-center gap-1"><span className="material-icons-outlined text-sm">menu_book</span>{c.modulos} módulos</span>
                   <span className="flex items-center gap-1"><span className="material-icons-outlined text-sm">schedule</span>{c.horas}h</span>
                 </div>
-                <Link href="/registro" className="block w-full text-center py-2.5 rounded-xl bg-[#0f2847]/10 text-[#c5a044] font-bold text-sm hover:bg-[#0f2847] hover:text-white transition-all">
+                <Link href="/registro" className="block w-full text-center py-2.5 rounded-xl bg-[#0f2847]/10 text-[#c5a044] font-bold text-sm hover:bg-[#c5a044] hover:text-white transition-all">
                   Inscribirme
                 </Link>
               </div>
@@ -271,105 +234,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="contacto" className="py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-extrabold mb-6">¿Listo para transformar tu cuidado de salud?</h2>
-          <p className="text-xl text-slate-500 mb-10">Únete a quienes ya gestionan su salud de manera inteligente y humana.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/registro" className="px-10 py-5 rounded-full bg-[#0f2847] text-white font-extrabold text-xl hover:shadow-2xl hover:shadow-[#0f2847]/40 transition-all">Registrarme Gratis</Link>
-            <a href="https://wa.me/12763294935?text=Hola%2C%20quiero%20información" target="_blank" rel="noopener noreferrer" className="px-10 py-5 rounded-full bg-slate-800 text-white font-extrabold text-xl hover:bg-slate-700 transition-all">💬 Hablar con Asesor IA</a>
-          </div>
-        </div>
-      </section>
-
-      {/* AI Agents Section */}
+      {/* Agente IA — Solo Aura */}
       <section className="py-20 bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6">
-              <span className="material-icons-outlined text-sky-200 text-lg">smart_toy</span>
+              <span className="material-icons-outlined text-[#c5a044] text-lg">smart_toy</span>
               <span className="text-sm text-white">Inteligencia Artificial</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-              Nuestros <span className="text-sky-200">Agentes IA</span>
+              Conoce a <span className="text-[#c5a044]">Aura</span>
             </h2>
             <p className="text-lg text-white/90 max-w-2xl mx-auto">
-              Asistentes inteligentes que te acompañan en tu formación y bienestar de salud, disponibles 24/7.
+              Tu mentora virtual, disponible 24/7 por WhatsApp para guiarte en tu formación.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Aura */}
-            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-[#c5a044]/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10">
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-[#c5a044]/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl">
               <div className="flex items-center gap-4 mb-5">
                 <div className="relative shrink-0 w-16 h-16">
-                  <div className="absolute -inset-1 rounded-xl bg-[#0f2847]/20 blur-lg animate-pulse" style={{animationDuration:"3s"}} />
+                  <div className="absolute -inset-1 rounded-xl bg-[#c5a044]/20 blur-lg animate-pulse" style={{animationDuration:"3s"}} />
                   <div className="absolute -inset-0.5 rounded-xl border border-[#c5a044]/30 animate-pulse" style={{animationDuration:"2s"}} />
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-[#c5a044]/40 shadow-lg shadow-blue-500/20" style={{animation:"breathe 4s ease-in-out infinite"}}>
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-[#c5a044]/40 shadow-lg" style={{animation:"breathe 4s ease-in-out infinite"}}>
                     <img src="/agents/aura.png" alt="Aura" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" style={{animation:"shimmer 5s ease-in-out infinite"}} />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-blue-400" style={{animation:"sparkle 3s ease-in-out infinite", boxShadow:"0 0 4px rgba(29,78,216,0.5)"}} />
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-white flex items-center gap-2">
                     Aura
-                    <span className="px-2 py-0.5 bg-blue-400/20 text-blue-300 text-[10px] font-bold rounded-full uppercase">Activo</span>
+                    <span className="px-2 py-0.5 bg-[#c5a044]/20 text-[#c5a044] text-[10px] font-bold rounded-full uppercase">Activo</span>
                   </h3>
-                  <p className="text-sm text-sky-200">Agente Académico</p>
+                  <p className="text-sm text-[#c5a044]">Agente Académico — Mentora IA</p>
                 </div>
               </div>
-              <p className="text-sm text-white/90 mb-6 leading-relaxed">
-                Tu mentora virtual. Te guía paso a paso por cada módulo, evalúa tu comprensión y registra tu progreso automáticamente.
-              </p>
-              <a href="https://wa.me/12763294935?text=Hola%20Aura" target="_blank" rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition">
-                <span className="material-icons-outlined text-lg">chat</span>
-                Hablar con Aura
-              </a>
-            </div>
-
-            {/* Dr. Nova */}
-            <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 hover:border-sky-400/30 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10">
-              <div className="flex items-center gap-4 mb-5">
-                <div className="relative shrink-0 w-16 h-16">
-                  <div className="absolute -inset-1 rounded-xl bg-sky-400/20 blur-lg animate-pulse" style={{animationDuration:"3s",animationDelay:"1s"}} />
-                  <div className="absolute -inset-0.5 rounded-xl border border-sky-400/30 animate-pulse" style={{animationDuration:"2s",animationDelay:"0.5s"}} />
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border-2 border-sky-400/40 shadow-lg shadow-sky-500/20" style={{animation:"breathe 4s ease-in-out infinite",animationDelay:"1s"}}>
-                    <img src="/agents/medico.png" alt="Dr. Nova" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent" style={{animation:"shimmer 5s ease-in-out infinite",animationDelay:"2s"}} />
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                {[
+                  { icon: "auto_stories", text: "Te enseña tema por tema de forma estructurada" },
+                  { icon: "quiz", text: "Evalúa tu comprensión con preguntas" },
+                  { icon: "trending_up", text: "Registra tu progreso automáticamente" },
+                  { icon: "schedule", text: "Disponible 24/7 por WhatsApp" },
+                ].map((f) => (
+                  <div key={f.text} className="flex items-start gap-2">
+                    <span className="material-icons-outlined text-[#c5a044] text-lg mt-0.5">{f.icon}</span>
+                    <span className="text-white/80 text-sm">{f.text}</span>
                   </div>
-                  <div className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-sky-400" style={{animation:"sparkle 3s ease-in-out infinite",animationDelay:"1.5s",boxShadow:"0 0 4px rgba(14,165,233,0.5)"}} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                    Dr. Nova
-                    <span className="px-2 py-0.5 bg-blue-400/20 text-blue-300 text-[10px] font-bold rounded-full uppercase">Activo</span>
-                  </h3>
-                  <p className="text-sm text-sky-200">Agente Médico — Triage IA</p>
-                </div>
+                ))}
               </div>
-              <p className="text-sm text-white/90 mb-6 leading-relaxed">
-                Tu asistente de salud. Evalúa síntomas, consulta tu historial clínico, recuerda tus medicamentos y te conecta con el profesional indicado.
-              </p>
-              <a
-                href="https://wa.me/17433306127?text=Hola%20Dr.%20Nova"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-sky-500 text-white font-bold text-sm hover:opacity-90 transition"
-              >
-                <span className="material-icons-outlined text-lg">medical_services</span>
-                Hablar con Dr. Nova
+              <a href="https://wa.me/12763294935?text=Hola%20Aura" target="_blank" rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#c5a044] text-[#0a1628] font-bold text-sm hover:bg-[#d4af37] transition">
+                <span className="material-icons-outlined text-lg">chat</span>
+                Hablar con Aura por WhatsApp
               </a>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="text-center mt-10">
-            <Link href="/agentes" className="inline-flex items-center gap-2 text-sky-200 font-bold text-sm hover:underline hover:text-white">
-              Ver más sobre nuestros agentes
-              <span className="material-icons-outlined text-lg">arrow_forward</span>
-            </Link>
+      {/* CTA */}
+      <section id="contacto" className="py-20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold mb-6">¿Listo para formarte en salud?</h2>
+          <p className="text-xl text-slate-500 mb-10">Únete a quienes ya se están certificando con el respaldo de la inteligencia artificial.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/registro" className="px-10 py-5 rounded-full bg-[#0f2847] text-white font-extrabold text-xl hover:shadow-2xl hover:shadow-[#0f2847]/40 transition-all">Inscribirme Gratis</Link>
+            <a href="https://wa.me/573146501052?text=Hola%2C%20quiero%20información%20sobre%20los%20cursos" target="_blank" rel="noopener noreferrer" className="px-10 py-5 rounded-full bg-[#c5a044] text-[#0a1628] font-extrabold text-xl hover:bg-[#d4af37] transition-all">💬 Más Información</a>
           </div>
         </div>
       </section>
@@ -377,19 +307,18 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-slate-50 border-t border-slate-200 py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-2">
+          <div className="grid md:grid-cols-3 gap-12 mb-16">
+            <div>
               <div className="flex items-center gap-2 mb-6">
                 <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
                 <span className="text-lg font-bold tracking-tight uppercase">ISSI</span>
               </div>
-              <p className="text-slate-500 max-w-sm mb-6">ISSI — Instituto Superior de Salud Integral. Formación virtual, teleconsultas y gestión clínica con IA en Colombia.</p>
+              <p className="text-slate-500 max-w-sm mb-6">Instituto Superior de Salud Integral — Centro de estudios en modalidad virtual. Formación en salud con inteligencia artificial.</p>
             </div>
             <div>
               <h5 className="font-bold mb-6">Plataforma</h5>
               <ul className="space-y-4 text-slate-500">
                 <li><Link className="hover:text-[#c5a044]" href="/cursos">Cursos</Link></li>
-                <li><Link className="hover:text-[#c5a044]" href="/agentes">Agentes IA</Link></li>
                 <li><Link className="hover:text-[#c5a044]" href="/registro">Registrarse</Link></li>
                 <li><Link className="hover:text-[#c5a044]" href="/login">Iniciar Sesión</Link></li>
               </ul>
@@ -397,8 +326,8 @@ export default function Home() {
             <div>
               <h5 className="font-bold mb-6">Contacto</h5>
               <ul className="space-y-4 text-slate-500">
-                <li><a className="hover:text-[#c5a044]" href="https://wa.me/12763294935?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Aura</a></li>
-                <li><a className="hover:text-[#c5a044]" href="https://wa.me/17433306127?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Dr. Nova</a></li>
+                <li><a className="hover:text-[#c5a044]" href="https://wa.me/573146501052?text=Hola" target="_blank" rel="noopener noreferrer">+57 314 650 1052</a></li>
+                <li><a className="hover:text-[#c5a044]" href="https://wa.me/12763294935?text=Hola" target="_blank" rel="noopener noreferrer">WhatsApp Aura (IA)</a></li>
                 <li><a className="hover:text-[#c5a044]" href="mailto:contacto@issi.edu.co">contacto@issi.edu.co</a></li>
               </ul>
             </div>
