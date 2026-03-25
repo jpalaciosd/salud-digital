@@ -145,6 +145,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Alcance */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-4">Formación <span className="text-[#c5a044]">sin fronteras</span></h2>
+              <p className="text-slate-500 mb-8 leading-relaxed">Nuestros programas son 100% virtuales. Estudia desde cualquier ciudad de Colombia o desde el exterior, a tu ritmo, con el acompañamiento de nuestra IA.</p>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { icon: "language", text: "Acceso desde cualquier país" },
+                  { icon: "phone_android", text: "Desde tu celular por WhatsApp" },
+                  { icon: "schedule", text: "Sin horarios fijos" },
+                  { icon: "workspace_premium", text: "Certificado digital al finalizar" },
+                ].map((item) => (
+                  <div key={item.text} className="flex items-start gap-3 p-4 rounded-xl bg-[#fafaf7] border border-slate-100">
+                    <span className="material-icons-outlined text-[#c5a044]">{item.icon}</span>
+                    <span className="text-sm font-medium text-slate-700">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 text-center">
+              {[
+                { emoji: "🇨🇴", lugar: "Colombia", detalle: "Cobertura nacional" },
+                { emoji: "🌎", lugar: "Latinoamérica", detalle: "Acceso internacional" },
+                { emoji: "📱", lugar: "100% Virtual", detalle: "WhatsApp + Plataforma" },
+                { emoji: "🕐", lugar: "24/7", detalle: "Estudia cuando quieras" },
+              ].map((item) => (
+                <div key={item.lugar} className="p-6 rounded-2xl bg-[#0f2847]/5 border border-[#0f2847]/10">
+                  <div className="text-4xl mb-2">{item.emoji}</div>
+                  <div className="font-bold text-lg">{item.lugar}</div>
+                  <div className="text-xs text-slate-500">{item.detalle}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Banner Promo — Primeros Auxilios */}
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-0">
