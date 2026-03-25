@@ -270,7 +270,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
   },
   {
     id: "curso-enfermeria-salud-mental",
-    titulo: "Rol del Técnico de Enfermería en Salud Mental",
+    titulo: "Rol del Curso de Enfermería en Salud Mental",
     descripcion: "Humanización, seguridad y respuesta oportuna. Capacitación para técnicos de enfermería en detección de descompensación, desescalada verbal, contención segura y autocuidado profesional.",
     instructor: "Enf. Jefe Carlos Mendoza",
     categoria: "enfermeria",

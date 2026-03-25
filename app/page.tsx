@@ -181,7 +181,7 @@ export default function Home() {
               { emoji: "🩺", titulo: "Taller de Primeros Auxilios", instructor: "Dra. María López", modulos: 8, horas: 8, desc: "Técnicas esenciales de primeros auxilios para situaciones de emergencia." },
               { emoji: "🛡️", titulo: "Taller: Seguridad del Paciente", instructor: "Dr. Roberto Sánchez", modulos: 6, horas: 6, desc: "Protocolos de seguridad clínica y prevención de eventos adversos." },
               { emoji: "🧠", titulo: "Salud Mental y Manejo de Crisis", instructor: "Ps. Andrea Martínez", modulos: 4, horas: 6, desc: "Estrategias de regulación emocional, grounding y primeros auxilios psicológicos." },
-              { emoji: "🩺", titulo: "Técnico de Enfermería en Salud Mental", instructor: "Enf. Jefe Carlos Mendoza", modulos: 4, horas: 8, desc: "Observación clínica, desescalada verbal, contención segura y autocuidado." },
+              { emoji: "🩺", titulo: "Curso de Enfermería en Salud Mental", instructor: "Enf. Jefe Carlos Mendoza", modulos: 4, horas: 8, desc: "Observación clínica, desescalada verbal, contención segura y autocuidado." },
             ].map((c, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl border border-slate-100 hover:border-[#c5a044]/50 hover:shadow-lg transition-all group">
                 <div className="text-4xl mb-4">{c.emoji}</div>
