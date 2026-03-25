@@ -96,7 +96,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("nombre", e.target.value)}
                   placeholder="Juan"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
               <div>
@@ -107,7 +107,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("apellido", e.target.value)}
                   placeholder="Pérez"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("email", e.target.value)}
                   placeholder="correo@ejemplo.com"
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
             </div>
@@ -135,7 +135,7 @@ export default function RegistroPage() {
                 <select
                   value={form.tipoDocumento}
                   onChange={(e) => update("tipoDocumento", e.target.value)}
-                  className="w-full px-3 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full px-3 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#0f2847]/50 transition"
                 >
                   <option value="CC" className="bg-[white]">C.C.</option>
                   <option value="TI" className="bg-[white]">T.I.</option>
@@ -151,7 +151,7 @@ export default function RegistroPage() {
                   onChange={(e) => update("documento", e.target.value)}
                   placeholder="1234567890"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function RegistroPage() {
               <select
                 value={form.rol}
                 onChange={(e) => update("rol", e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#0f2847]/50 transition"
               >
                 <option value="paciente" className="bg-slate-800">Paciente</option>
                 <option value="medico" className="bg-slate-800">Médico</option>
@@ -182,7 +182,7 @@ export default function RegistroPage() {
                       value={form.fotoMedico}
                       onChange={(e) => update("fotoMedico", e.target.value)}
                       placeholder="https://ejemplo.com/mi-foto.jpg"
-                      className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                      className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                     />
                   </div>
                   <p className="text-xs text-gray-500 mt-1">Los pacientes verán esta foto cuando agenden una cita contigo.</p>
@@ -194,7 +194,7 @@ export default function RegistroPage() {
                     onChange={(e) => update("descripcionProfesional", e.target.value)}
                     placeholder="Ej: Médico general con 10 años de experiencia, especial interés en prevención y medicina familiar..."
                     rows={3}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition resize-none"
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition resize-none"
                   />
                   <p className="text-xs text-gray-500 mt-1">Esta información genera confianza en los pacientes.</p>
                 </div>
@@ -211,7 +211,7 @@ export default function RegistroPage() {
                   value={form.telefono}
                   onChange={(e) => update("telefono", e.target.value)}
                   placeholder="3001234567"
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
             </div>
@@ -227,7 +227,7 @@ export default function RegistroPage() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
               <div>
@@ -239,7 +239,7 @@ export default function RegistroPage() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
             </div>
@@ -247,7 +247,7 @@ export default function RegistroPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#1d4ed8] hover:bg-[#2563eb] text-white font-bold rounded-xl transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
+              className="w-full py-3 bg-[#0f2847] hover:bg-[#2563eb] text-white font-bold rounded-xl transition disabled:opacity-50 flex items-center justify-center gap-2 mt-2"
             >
               {loading ? (
                 <>

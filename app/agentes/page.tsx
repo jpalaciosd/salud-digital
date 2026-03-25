@@ -10,7 +10,7 @@ const agentes = [
     descripcion:
       "Tu mentora virtual de IFIAS. Aura te guía paso a paso por cada módulo de tu programa académico, enseña los temas con ejemplos prácticos, evalúa tu comprensión con preguntas de aplicación y registra tu progreso automáticamente en la plataforma.",
     avatar: "/agents/aura.png",
-    color: "#1d4ed8",
+    color: "#c5a044",
     glowColor: "rgba(29,78,216,0.4)",
     ringColor: "rgba(29,78,216,0.3)",
     capacidades: [
@@ -285,7 +285,7 @@ export default function AgentesPage() {
             <Link href="/login" className="px-4 py-2 text-sm text-white/70 hover:text-white transition">
               Iniciar Sesión
             </Link>
-            <Link href="/registro" className="px-4 py-2 bg-[#1d4ed8] text-white rounded-xl text-sm font-bold hover:bg-[#2563eb] transition">
+            <Link href="/registro" className="px-4 py-2 bg-[#0f2847] text-white rounded-xl text-sm font-bold hover:bg-[#2563eb] transition">
               Registrarse
             </Link>
           </div>
@@ -329,7 +329,7 @@ export default function AgentesPage() {
                 <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="material-symbols-outlined text-sky-300 text-2xl">{item.icon}</span>
                 </div>
-                <div className="inline-flex items-center justify-center w-7 h-7 bg-[#1d4ed8] rounded-full text-white font-bold text-xs mb-3">{item.step}</div>
+                <div className="inline-flex items-center justify-center w-7 h-7 bg-[#0f2847] rounded-full text-white font-bold text-xs mb-3">{item.step}</div>
                 <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
                 <p className="text-sm text-white/60">{item.desc}</p>
               </div>
@@ -339,7 +339,7 @@ export default function AgentesPage() {
 
         <div className="mt-16 text-center">
           <p className="text-white/30 text-xs">
-            © 2026 ISSI — Powered by <span className="font-semibold text-[#1d4ed8]">AINovaX</span>
+            © 2026 ISSI — Powered by <span className="font-semibold text-[#c5a044]">AINovaX</span>
           </p>
         </div>
       </section>

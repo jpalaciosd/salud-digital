@@ -9,8 +9,8 @@ export default function Teleconsulta() {
       {/* Header */}
       <header className="h-16 border-b border-slate-200 bg-white px-6 flex items-center justify-between z-10">
         <div className="flex items-center gap-4">
-          <div className="bg-[#1d4ed8]/20 p-2 rounded-lg">
-            <span className="material-icons-outlined text-[#1d4ed8]">video_call</span>
+          <div className="bg-[#0f2847]/20 p-2 rounded-lg">
+            <span className="material-icons-outlined text-[#c5a044]">video_call</span>
           </div>
           <div>
             <h1 className="font-bold text-lg leading-tight">Juan Carlos Pérez</h1>
@@ -19,7 +19,7 @@ export default function Teleconsulta() {
               <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
               <span>54 Años</span>
               <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
-              <span className="text-[#1d4ed8] font-semibold">Control Diabetes Tipo 2</span>
+              <span className="text-[#c5a044] font-semibold">Control Diabetes Tipo 2</span>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@ export default function Teleconsulta() {
             <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
             <span className="font-mono font-bold text-sm">12:45 <span className="text-slate-400 font-normal">/ 20:00</span></span>
           </div>
-          <div className="w-8 h-8 rounded-full bg-[#1d4ed8] flex items-center justify-center text-white font-bold">DR</div>
+          <div className="w-8 h-8 rounded-full bg-[#0f2847] flex items-center justify-center text-white font-bold">DR</div>
         </div>
       </header>
 
@@ -63,7 +63,7 @@ export default function Teleconsulta() {
             <div className="absolute top-6 left-6 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
               <div className="flex gap-0.5 items-end h-3">
                 {[1, 2, 3, 2.5].map((h, i) => (
-                  <div key={i} className="w-1 bg-[#1d4ed8] rounded-full" style={{ height: `${h * 4}px` }}></div>
+                  <div key={i} className="w-1 bg-[#0f2847] rounded-full" style={{ height: `${h * 4}px` }}></div>
                 ))}
               </div>
               <span className="text-[10px] text-white font-medium uppercase tracking-widest">HD Estable</span>
@@ -80,7 +80,7 @@ export default function Teleconsulta() {
               { id: "history", label: "Historial" },
               { id: "vitals", label: "Vitales y Labs" },
             ].map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 py-4 text-sm font-semibold transition-colors ${activeTab === tab.id ? "border-b-2 border-[#1d4ed8] text-[#1d4ed8]" : "text-slate-500 hover:text-slate-900"}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 py-4 text-sm font-semibold transition-colors ${activeTab === tab.id ? "border-b-2 border-[#c5a044] text-[#c5a044]" : "text-slate-500 hover:text-slate-900"}`}>
                 {tab.label}
               </button>
             ))}
@@ -92,9 +92,9 @@ export default function Teleconsulta() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Notas Clínicas</label>
-                <span className="text-[10px] bg-[#1d4ed8]/10 text-[#1d4ed8] px-2 py-0.5 rounded-full font-bold">Autoguardado 14:02</span>
+                <span className="text-[10px] bg-[#0f2847]/10 text-[#c5a044] px-2 py-0.5 rounded-full font-bold">Autoguardado 14:02</span>
               </div>
-              <textarea className="w-full h-48 p-4 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#1d4ed8] focus:border-transparent resize-none text-sm leading-relaxed" placeholder="Escriba síntomas, observaciones o hallazgos reportados por el paciente..."></textarea>
+              <textarea className="w-full h-48 p-4 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-[#c5a044] focus:border-transparent resize-none text-sm leading-relaxed" placeholder="Escriba síntomas, observaciones o hallazgos reportados por el paciente..."></textarea>
             </div>
 
             {/* Vitals */}
@@ -104,7 +104,7 @@ export default function Teleconsulta() {
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-slate-500">Presión Arterial</span>
-                    <span className="material-icons-outlined text-[#1d4ed8] text-sm">monitor_heart</span>
+                    <span className="material-icons-outlined text-[#c5a044] text-sm">monitor_heart</span>
                   </div>
                   <div className="flex items-baseline gap-1">
                     <span className="text-2xl font-bold">128/84</span>
@@ -118,13 +118,13 @@ export default function Teleconsulta() {
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-slate-500">Glucosa en Sangre</span>
-                    <span className="material-icons-outlined text-[#1d4ed8] text-sm">water_drop</span>
+                    <span className="material-icons-outlined text-[#c5a044] text-sm">water_drop</span>
                   </div>
                   <div className="flex items-baseline gap-1">
                     <span className="text-2xl font-bold">112</span>
                     <span className="text-[10px] text-slate-500">mg/dL</span>
                   </div>
-                  <div className="mt-2 flex items-center gap-1 text-[10px] text-[#1d4ed8] font-medium">
+                  <div className="mt-2 flex items-center gap-1 text-[10px] text-[#c5a044] font-medium">
                     <span className="material-icons-outlined text-[12px]">check_circle</span>
                     <span>Rango objetivo (Ayunas)</span>
                   </div>
@@ -133,18 +133,18 @@ export default function Teleconsulta() {
             </div>
 
             {/* Key Alerts */}
-            <div className="p-4 rounded-xl bg-[#1d4ed8]/5 border border-[#1d4ed8]/20 space-y-2">
-              <div className="flex items-center gap-2 text-[#1d4ed8]">
+            <div className="p-4 rounded-xl bg-[#0f2847]/5 border border-[#0f2847]/20 space-y-2">
+              <div className="flex items-center gap-2 text-[#c5a044]">
                 <span className="material-icons-outlined text-sm">info</span>
                 <span className="text-xs font-bold uppercase tracking-wide">Alertas Clave</span>
               </div>
               <ul className="text-xs space-y-1.5 text-slate-600">
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 w-1 h-1 bg-[#1d4ed8] rounded-full shrink-0"></span>
+                  <span className="mt-1 w-1 h-1 bg-[#0f2847] rounded-full shrink-0"></span>
                   <span>Alérgico a Penicilina (reacción severa reportada 2019)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 w-1 h-1 bg-[#1d4ed8] rounded-full shrink-0"></span>
+                  <span className="mt-1 w-1 h-1 bg-[#0f2847] rounded-full shrink-0"></span>
                   <span>Actualmente con Metformina 500mg BID</span>
                 </li>
               </ul>
@@ -154,20 +154,20 @@ export default function Teleconsulta() {
           {/* Actions Footer */}
           <div className="p-6 border-t border-slate-200 bg-slate-50/50">
             <div className="grid grid-cols-2 gap-3">
-              <button className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-white border border-slate-200 hover:border-[#1d4ed8] hover:shadow-lg transition-all group">
-                <div className="w-10 h-10 rounded-full bg-[#1d4ed8]/10 flex items-center justify-center group-hover:bg-[#1d4ed8]/20">
-                  <span className="material-icons-outlined text-[#1d4ed8]">medication</span>
+              <button className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-white border border-slate-200 hover:border-[#c5a044] hover:shadow-lg transition-all group">
+                <div className="w-10 h-10 rounded-full bg-[#0f2847]/10 flex items-center justify-center group-hover:bg-[#0f2847]/20">
+                  <span className="material-icons-outlined text-[#c5a044]">medication</span>
                 </div>
                 <span className="text-xs font-bold">e-Prescripción</span>
               </button>
-              <button className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-white border border-slate-200 hover:border-[#1d4ed8] hover:shadow-lg transition-all group">
-                <div className="w-10 h-10 rounded-full bg-[#1d4ed8]/10 flex items-center justify-center group-hover:bg-[#1d4ed8]/20">
-                  <span className="material-icons-outlined text-[#1d4ed8]">assignment</span>
+              <button className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-white border border-slate-200 hover:border-[#c5a044] hover:shadow-lg transition-all group">
+                <div className="w-10 h-10 rounded-full bg-[#0f2847]/10 flex items-center justify-center group-hover:bg-[#0f2847]/20">
+                  <span className="material-icons-outlined text-[#c5a044]">assignment</span>
                 </div>
                 <span className="text-xs font-bold">Remisión / Labs</span>
               </button>
             </div>
-            <button className="w-full mt-4 py-3 rounded-xl bg-[#1d4ed8] text-slate-900 font-bold text-sm hover:brightness-105 transition-all flex items-center justify-center gap-2">
+            <button className="w-full mt-4 py-3 rounded-xl bg-[#0f2847] text-slate-900 font-bold text-sm hover:brightness-105 transition-all flex items-center justify-center gap-2">
               <span className="material-icons-outlined">task_alt</span>
               Finalizar y Sincronizar Registros
             </button>

@@ -26,11 +26,11 @@ export default function UserNav() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#1d4ed8] rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#0f2847] rounded-lg flex items-center justify-center">
               <span className="material-icons-outlined text-white text-xl">favorite</span>
             </div>
             <span className="text-lg font-bold text-white">
-              Salud<span className="text-[#1d4ed8]">Digital</span>
+              Salud<span className="text-[#c5a044]">Digital</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-1">
@@ -51,7 +51,7 @@ export default function UserNav() {
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 transition"
           >
-            <div className="w-9 h-9 bg-[#1d4ed8]/20 rounded-full flex items-center justify-center text-[#1d4ed8] font-bold text-sm">
+            <div className="w-9 h-9 bg-[#0f2847]/20 rounded-full flex items-center justify-center text-[#c5a044] font-bold text-sm">
               {initials}
             </div>
             <div className="hidden sm:block text-left">

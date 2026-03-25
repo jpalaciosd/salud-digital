@@ -17,7 +17,7 @@ export default function Monitoreo() {
   const paciente = pacientes[selected];
 
   return (
-    <div className="min-h-screen flex bg-[#f6f8f6]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+    <div className="min-h-screen flex bg-[#fafaf7]" style={{ fontFamily: "'Manrope', sans-serif" }}>
       {/* Mobile overlay */}
       {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
@@ -192,7 +192,7 @@ export default function Monitoreo() {
                   <h4 className="text-[10px] lg:text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Tendencia Glucosa</h4>
                   <div className="h-24 lg:h-32 flex items-end gap-1 px-2">
                     {[40, 60, 85, 100, 70, 45].map((h, i) => (
-                      <div key={i} className={`flex-1 rounded-t ${i === 3 ? "bg-[#1d4ed8] shadow-[0_0_15px_-5px_#1d4ed8]" : "bg-[#0f4c75]"}`} style={{ height: `${h}%`, opacity: i === 3 ? 1 : 0.2 + (i * 0.1) }}></div>
+                      <div key={i} className={`flex-1 rounded-t ${i === 3 ? "bg-[#0f2847] shadow-[0_0_15px_-5px_#0f2847]" : "bg-[#0f4c75]"}`} style={{ height: `${h}%`, opacity: i === 3 ? 1 : 0.2 + (i * 0.1) }}></div>
                     ))}
                   </div>
                   <div className="flex justify-between mt-2 text-[8px] lg:text-[10px] text-slate-400">
@@ -249,7 +249,7 @@ function PatientDetail({ paciente }: { paciente: typeof pacientes[0] }) {
       <div className="p-4 lg:p-6 border-b border-slate-100">
         <div className="flex items-start gap-4">
           {paciente.img ? (
-            <img alt={paciente.nombre} className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl object-cover border-2 border-[#1d4ed8]/20" src={paciente.img} />
+            <img alt={paciente.nombre} className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl object-cover border-2 border-[#0f2847]/20" src={paciente.img} />
           ) : (
             <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xl">{paciente.iniciales}</div>
           )}

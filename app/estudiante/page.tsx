@@ -27,16 +27,16 @@ export default function Estudiante() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#f6f8f6]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+    <div className="flex min-h-screen bg-[#fafaf7]" style={{ fontFamily: "'Manrope', sans-serif" }}>
       {/* Mobile overlay */}
       {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 w-72 lg:w-64 bg-white border-r border-[#1d4ed8]/10 z-50 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:static lg:shrink-0 flex flex-col`}>
+      <aside className={`fixed inset-y-0 left-0 w-72 lg:w-64 bg-white border-r border-[#0f2847]/10 z-50 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:static lg:shrink-0 flex flex-col`}>
         <div className="p-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#1d4ed8]/20 rounded-lg flex items-center justify-center">
-              <span className="material-icons-outlined text-[#1d4ed8] font-bold">school</span>
+            <div className="w-10 h-10 bg-[#0f2847]/20 rounded-lg flex items-center justify-center">
+              <span className="material-icons-outlined text-[#c5a044] font-bold">school</span>
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">CVFDI</h1>
@@ -53,7 +53,7 @@ export default function Estudiante() {
               key={item.id}
               onClick={() => { setTab(item.id); setSidebarOpen(false); }}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-sm ${
-                tab === item.id ? "bg-[#1d4ed8]/15 border-r-4 border-[#1d4ed8] font-semibold" : "text-[#4c5a52] hover:bg-[#1d4ed8]/5"
+                tab === item.id ? "bg-[#0f2847]/15 border-r-4 border-[#c5a044] font-semibold" : "text-[#4c5a52] hover:bg-[#0f2847]/5"
               }`}
             >
               <span className="material-icons-outlined text-xl">{item.icon}</span>
@@ -62,15 +62,15 @@ export default function Estudiante() {
           ))}
         </nav>
         <div className="p-4 mt-auto">
-          <div className="bg-[#1d4ed8]/10 rounded-xl p-3 border border-[#1d4ed8]/20">
+          <div className="bg-[#0f2847]/10 rounded-xl p-3 border border-[#0f2847]/20">
             <p className="text-xs font-semibold mb-1">Impacto Social</p>
             <div className="flex items-center gap-2">
-              <span className="material-icons-outlined text-[#1d4ed8] text-sm">volunteer_activism</span>
+              <span className="material-icons-outlined text-[#c5a044] text-sm">volunteer_activism</span>
               <span className="text-sm font-bold">1,250 pts</span>
             </div>
           </div>
           <div className="mt-3 flex items-center gap-3 px-2">
-            <div className="w-9 h-9 bg-[#1d4ed8]/20 rounded-full flex items-center justify-center text-[#1d4ed8] font-bold text-xs shrink-0">
+            <div className="w-9 h-9 bg-[#0f2847]/20 rounded-full flex items-center justify-center text-[#c5a044] font-bold text-xs shrink-0">
               {(user?.nombre?.[0] || "A")}{(user?.apellido?.[0] || "R")}
             </div>
             <div className="overflow-hidden">
@@ -88,7 +88,7 @@ export default function Estudiante() {
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Mobile header */}
-        <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-[#1d4ed8]/10 px-4 py-3 lg:hidden">
+        <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-[#0f2847]/10 px-4 py-3 lg:hidden">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 text-slate-600 hover:bg-blue-50 rounded-lg">
@@ -96,7 +96,7 @@ export default function Estudiante() {
               </button>
               <span className="text-lg font-bold">CVFDI</span>
             </div>
-            <div className="w-8 h-8 bg-[#1d4ed8]/20 rounded-full flex items-center justify-center text-[#1d4ed8] font-bold text-xs">
+            <div className="w-8 h-8 bg-[#0f2847]/20 rounded-full flex items-center justify-center text-[#c5a044] font-bold text-xs">
               {(user?.nombre?.[0] || "A")}{(user?.apellido?.[0] || "R")}
             </div>
           </div>
@@ -114,15 +114,15 @@ export default function Estudiante() {
             <section className="mb-8 lg:mb-10">
               <div className="flex items-center justify-between mb-4 lg:mb-6">
                 <h3 className="text-lg lg:text-xl font-bold">Progreso por Competencias</h3>
-                <button className="text-[#1d4ed8] text-xs lg:text-sm font-bold flex items-center gap-1">Ver detalles <span className="material-icons-outlined text-sm">arrow_forward</span></button>
+                <button className="text-[#c5a044] text-xs lg:text-sm font-bold flex items-center gap-1">Ver detalles <span className="material-icons-outlined text-sm">arrow_forward</span></button>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {competencias.map((c, i) => (
-                  <div key={i} className="bg-white p-4 lg:p-6 rounded-xl border border-[#1d4ed8]/10 flex items-center gap-4 shadow-sm">
+                  <div key={i} className="bg-white p-4 lg:p-6 rounded-xl border border-[#0f2847]/10 flex items-center gap-4 shadow-sm">
                     <div className="relative w-14 h-14 lg:w-16 lg:h-16 shrink-0">
                       <svg className="w-full h-full" style={{ transform: "rotate(-90deg)" }}>
-                        <circle cx="50%" cy="50%" r="44%" fill="transparent" stroke="#1d4ed8" strokeWidth="6" opacity="0.1" />
-                        <circle cx="50%" cy="50%" r="44%" fill="transparent" stroke="#1d4ed8" strokeWidth="6" strokeDasharray="175" strokeDashoffset={c.offset} strokeLinecap="round" />
+                        <circle cx="50%" cy="50%" r="44%" fill="transparent" stroke="#c5a044" strokeWidth="6" opacity="0.1" />
+                        <circle cx="50%" cy="50%" r="44%" fill="transparent" stroke="#c5a044" strokeWidth="6" strokeDasharray="175" strokeDashoffset={c.offset} strokeLinecap="round" />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center font-bold text-xs">{c.pct}%</div>
                     </div>
@@ -140,18 +140,18 @@ export default function Estudiante() {
               <h3 className="text-lg lg:text-xl font-bold mb-4 lg:mb-6">Cursos Activos</h3>
               <div className="space-y-4">
                 {cursos.map((curso, i) => (
-                  <div key={i} className="bg-white p-4 lg:p-5 rounded-xl border border-[#1d4ed8]/10 shadow-sm group hover:border-[#1d4ed8]/30 transition-all">
+                  <div key={i} className="bg-white p-4 lg:p-5 rounded-xl border border-[#0f2847]/10 shadow-sm group hover:border-[#c5a044]/30 transition-all">
                     <div className="flex gap-4 items-start">
                       <div className="w-16 h-16 lg:w-20 lg:h-20 bg-cover bg-center rounded-lg shrink-0" style={{ backgroundImage: `url('${curso.img}')` }}></div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="px-2 py-0.5 bg-[#1d4ed8]/10 text-[#1d4ed8] text-[10px] font-bold rounded uppercase">{curso.nivel}</span>
+                          <span className="px-2 py-0.5 bg-[#0f2847]/10 text-[#c5a044] text-[10px] font-bold rounded uppercase">{curso.nivel}</span>
                           <span className="text-[10px] lg:text-xs text-slate-400">• {curso.lecciones} Lecciones</span>
                         </div>
                         <h4 className="text-sm lg:text-lg font-bold truncate">{curso.titulo}</h4>
                         <div className="mt-2 flex items-center gap-3">
                           <div className="flex-1 bg-slate-100 h-2 rounded-full overflow-hidden">
-                            <div className="bg-[#1d4ed8] h-full rounded-full" style={{ width: `${curso.progreso}%` }}></div>
+                            <div className="bg-[#0f2847] h-full rounded-full" style={{ width: `${curso.progreso}%` }}></div>
                           </div>
                           <span className="text-xs lg:text-sm font-bold">{curso.progreso}%</span>
                         </div>
@@ -163,7 +163,7 @@ export default function Estudiante() {
                         <p className="text-xs lg:text-sm font-medium truncate">{curso.tarea}</p>
                       </div>
                       <button className={`font-bold py-2 px-5 rounded-lg text-xs lg:text-sm transition-all shrink-0 ${
-                        i === 0 ? "bg-[#1d4ed8] hover:bg-[#1d4ed8]/90 text-white shadow-lg shadow-[#1d4ed8]/20" : "bg-white border border-[#1d4ed8] text-[#1d4ed8]"
+                        i === 0 ? "bg-[#0f2847] hover:bg-[#0f2847]/90 text-white shadow-lg shadow-[#0f2847]/20" : "bg-white border border-[#c5a044] text-[#c5a044]"
                       }`}>
                         {i === 0 ? "Continuar" : "Retomar clase"}
                       </button>
@@ -177,7 +177,7 @@ export default function Estudiante() {
             <div className="xl:hidden mt-8 space-y-6">
               <div>
                 <h3 className="text-lg font-bold flex items-center gap-2 mb-4">
-                  <span className="material-icons-outlined text-[#1d4ed8]">calendar_today</span>
+                  <span className="material-icons-outlined text-[#c5a044]">calendar_today</span>
                   Próximas Tutorías
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -187,7 +187,7 @@ export default function Estudiante() {
                   ].map((t, i) => (
                     <div key={i} className="p-4 rounded-xl bg-white border border-slate-100">
                       <div className="flex justify-between items-start mb-2">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 bg-slate-50 rounded-full ${i === 0 ? "text-[#1d4ed8]" : "text-slate-400"}`}>{t.when}</span>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 bg-slate-50 rounded-full ${i === 0 ? "text-[#c5a044]" : "text-slate-400"}`}>{t.when}</span>
                         <span className="text-xs text-slate-400">{t.hora}</span>
                       </div>
                       <p className="text-sm font-bold mb-1">{t.titulo}</p>
@@ -196,11 +196,11 @@ export default function Estudiante() {
                   ))}
                 </div>
               </div>
-              <div className="bg-[#1d4ed8]/5 rounded-2xl p-5 border border-[#1d4ed8]/10 text-center">
+              <div className="bg-[#0f2847]/5 rounded-2xl p-5 border border-[#0f2847]/10 text-center">
                 <h4 className="font-bold">¿Necesitas guía?</h4>
                 <p className="text-xs text-[#4c9a6c] mt-1 mb-4">Tu mentor Carlos está disponible.</p>
                 <button className="w-full bg-[#0d1b13] text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
-                  <span className="material-icons-outlined text-[#1d4ed8] text-sm">chat</span>
+                  <span className="material-icons-outlined text-[#c5a044] text-sm">chat</span>
                   Chat con Mentor
                 </button>
               </div>
@@ -208,10 +208,10 @@ export default function Estudiante() {
           </main>
 
           {/* Right Sidebar — desktop only */}
-          <aside className="w-80 bg-white border-l border-[#1d4ed8]/10 p-6 overflow-y-auto hidden xl:block shrink-0">
+          <aside className="w-80 bg-white border-l border-[#0f2847]/10 p-6 overflow-y-auto hidden xl:block shrink-0">
             <div className="mb-8">
               <h3 className="text-lg font-bold flex items-center gap-2 mb-5">
-                <span className="material-icons-outlined text-[#1d4ed8]">calendar_today</span>
+                <span className="material-icons-outlined text-[#c5a044]">calendar_today</span>
                 Próximas Tutorías
               </h3>
               <div className="space-y-4">
@@ -219,9 +219,9 @@ export default function Estudiante() {
                   { when: "MAÑANA", hora: "10:00 AM", titulo: "Estrategias de Impacto Social", mentor: "Carlos Méndez" },
                   { when: "15 MAYO", hora: "4:30 PM", titulo: "Taller de Liderazgo Ético", mentor: "Sofía Valente" },
                 ].map((t, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-[#f6f8f7] border border-slate-100 hover:border-[#1d4ed8]/20 transition-all">
+                  <div key={i} className="p-4 rounded-xl bg-[#f6f8f7] border border-slate-100 hover:border-[#0f2847]/20 transition-all">
                     <div className="flex justify-between items-start mb-2">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 bg-white rounded-full shadow-sm ${i === 0 ? "text-[#1d4ed8]" : "text-slate-400"}`}>{t.when}</span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 bg-white rounded-full shadow-sm ${i === 0 ? "text-[#c5a044]" : "text-slate-400"}`}>{t.when}</span>
                       <span className="text-xs text-slate-400">{t.hora}</span>
                     </div>
                     <p className="text-sm font-bold mb-1">{t.titulo}</p>
@@ -229,19 +229,19 @@ export default function Estudiante() {
                   </div>
                 ))}
               </div>
-              <button className="w-full mt-4 text-xs font-bold text-slate-400 py-2 border border-dashed border-slate-200 rounded-lg hover:border-[#1d4ed8]/40 hover:text-[#1d4ed8] transition-all">+ Agendar nueva sesión</button>
+              <button className="w-full mt-4 text-xs font-bold text-slate-400 py-2 border border-dashed border-slate-200 rounded-lg hover:border-[#c5a044]/40 hover:text-[#c5a044] transition-all">+ Agendar nueva sesión</button>
             </div>
 
-            <div className="bg-[#1d4ed8]/5 rounded-2xl p-6 border border-[#1d4ed8]/10 relative overflow-hidden">
-              <div className="absolute -right-4 -top-4 w-20 h-20 bg-[#1d4ed8]/10 rounded-full blur-xl"></div>
+            <div className="bg-[#0f2847]/5 rounded-2xl p-6 border border-[#0f2847]/10 relative overflow-hidden">
+              <div className="absolute -right-4 -top-4 w-20 h-20 bg-[#0f2847]/10 rounded-full blur-xl"></div>
               <div className="relative z-10 text-center">
-                <div className="w-20 h-20 mx-auto rounded-full p-1 border-2 border-[#1d4ed8] mb-4">
+                <div className="w-20 h-20 mx-auto rounded-full p-1 border-2 border-[#c5a044] mb-4">
                   <img className="w-full h-full rounded-full object-cover shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJCzTzsUeEPca8KeZyb4ilAKhw6y1J0yhiwhHBmN3fOvwUHpMUwJS_LttB3r3J8zWuh5JKX7osqz34reHsh4zzvD6Cu6g6dgufS2ERmou5DN0hGW6M88MH2Rzez5waxOLSmmdeh7GMHZdqwoL0XY_WlJfEcRLtkC3Pq6xnObw2zXaK1Ay1rdADJuBoBqvZ7r6KKeqTPAx8axa7F6upsTxHPYKkVTB2Z9lZ_vIV5wLO1zqCcbV5AFY8sT5tpFcV9wOpcDgz3aOqobY" alt="Mentor" />
                 </div>
                 <h4 className="font-bold">¿Necesitas guía?</h4>
                 <p className="text-xs text-[#4c9a6c] mt-1 px-4 mb-6">Tu mentor Carlos está disponible para resolver tus dudas.</p>
                 <button className="w-full bg-[#0d1b13] hover:bg-black text-white py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-xl">
-                  <span className="material-icons-outlined text-[#1d4ed8] text-sm">chat</span>
+                  <span className="material-icons-outlined text-[#c5a044] text-sm">chat</span>
                   Chat con Mentor
                 </button>
               </div>
@@ -255,7 +255,7 @@ export default function Estudiante() {
                   { texto: "<b>Recibiste feedback</b> en tu proyecto de sostenibilidad.", tiempo: "Ayer" },
                 ].map((a, i) => (
                   <div key={i} className="flex gap-3">
-                    <div className={`w-2 h-2 bg-[#1d4ed8] rounded-full mt-1.5 shrink-0 ${i > 0 ? "opacity-40" : ""}`}></div>
+                    <div className={`w-2 h-2 bg-[#0f2847] rounded-full mt-1.5 shrink-0 ${i > 0 ? "opacity-40" : ""}`}></div>
                     <div>
                       <p className="text-xs leading-tight" dangerouslySetInnerHTML={{ __html: a.texto }}></p>
                       <p className="text-[10px] text-slate-400 mt-1">{a.tiempo}</p>

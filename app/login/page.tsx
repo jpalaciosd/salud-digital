@@ -65,7 +65,7 @@ function LoginForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="correo@ejemplo.com"
                   required
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 focus:ring-1 focus:ring-[#1d4ed8]/30 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 focus:ring-1 focus:ring-[#c5a044]/30 transition"
                 />
               </div>
             </div>
@@ -81,7 +81,7 @@ function LoginForm() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#1d4ed8]/50 focus:ring-1 focus:ring-[#1d4ed8]/30 transition"
+                  className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 focus:ring-1 focus:ring-[#c5a044]/30 transition"
                 />
               </div>
             </div>
@@ -89,7 +89,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#1d4ed8] hover:bg-[#2563eb] text-white font-bold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[#0f2847] hover:bg-[#2563eb] text-white font-bold rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -131,7 +131,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#1e293b] flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-[#1d4ed8] border-t-transparent rounded-full"></div></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#1e293b] flex items-center justify-center"><div className="animate-spin h-8 w-8 border-4 border-[#c5a044] border-t-transparent rounded-full"></div></div>}>
       <LoginForm />
     </Suspense>
   );

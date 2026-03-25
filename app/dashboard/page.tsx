@@ -765,7 +765,7 @@ export default function Dashboard() {
                       </div>
                       <div className="space-y-2">
                         {f.medicamentos.map((m, j) => (
-                          <div key={j} className="bg-[#f6f8f6] p-3 rounded-lg">
+                          <div key={j} className="bg-[#fafaf7] p-3 rounded-lg">
                             <p className="font-bold text-sm">{m.nombre} — {m.dosis}</p>
                             <p className="text-xs text-slate-500">{m.frecuencia} • {m.via} • {m.duracionDias} días • {m.cantidad}</p>
                           </div>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #1d4ed8;
+  --color-primary: #0f2847;
   --color-bg-light: #f1f5f9;
   --color-bg-dark: #1e3a8a;
   --color-slate: #1e293b;
@@ -37,11 +37,11 @@ body { font-family: 'Manrope', sans-serif; }
   --dash-text-dark: #0c4a6e;
 }
 .theme-dash-medico {
-  --dash-accent: #1d4ed8;
+  --dash-accent: #0f2847;
   --dash-accent-light: #dbeafe;
   --dash-accent-dark: #1e3a8a;
   --dash-accent-muted: #93c5fd;
   --dash-border: #bfdbfe;
-  --dash-text: #1d4ed8;
+  --dash-text: #c5a044;
   --dash-text-dark: #1e3a8a;
 }
