@@ -80,21 +80,23 @@ export default function Cursos() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#0f2847]/10">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
-            <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
+      {/* Nav — UserNav se muestra si hay sesión; si no, header público */}
+      <UserNav />
+      {!user && (
+        <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#0f2847]/10">
+          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
+              <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
+            </div>
+            <nav className="flex items-center gap-8">
+              <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
+              <Link href="/cursos" className="text-sm font-semibold text-[#c5a044]">Cursos</Link>
+              <Link href="/login?redirect=/cursos" className="px-5 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm">Iniciar Sesión</Link>
+            </nav>
           </div>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
-            <Link href="/cursos" className="text-sm font-semibold text-[#c5a044]">Cursos</Link>
-            <Link href="/dashboard" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Dashboard</Link>
-          </nav>
-          <UserNav />
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Hero */}
       <section className="py-16 px-6 bg-gradient-to-b from-[#0f2847] to-[#1e3a8a]">
