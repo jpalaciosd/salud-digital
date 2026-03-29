@@ -5,13 +5,8 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "salud-digital-secret-key-2026-change-in-prod"
 );
 
-const PROTECTED_ROUTES = [
-  "/dashboard",
-  "/estudiante",
-  "/monitoreo",
-  "/prescribir",
-  "/cursos",
-];
+// Only dashboard requires auth — /cursos is public (inscription requires login client-side)
+const PROTECTED_ROUTES = ["/dashboard"];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -41,11 +36,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/dashboard/:path*",
-    "/estudiante/:path*",
-    "/monitoreo/:path*",
-    "/prescribir/:path*",
-    "/cursos/:path*",
-  ],
+  matcher: ["/dashboard/:path*"],
 };

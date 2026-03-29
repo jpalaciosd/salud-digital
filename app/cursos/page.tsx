@@ -80,19 +80,20 @@ export default function Cursos() {
 
   return (
     <div className="min-h-screen">
-      {/* Nav — UserNav se muestra si hay sesión; si no, header público */}
-      <UserNav />
-      {!user && (
-        <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#0f2847]/10">
-          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
-              <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
-            </div>
-            <nav className="flex items-center gap-8">
-              <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
-              <Link href="/cursos" className="text-sm font-semibold text-[#c5a044]">Cursos</Link>
-              <Link href="/login?redirect=/cursos" className="px-5 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm">Iniciar Sesión</Link>
+      {/* Nav */}
+      {user ? (
+        <UserNav />
+      ) : (
+        <header className="sticky top-0 z-50 w-full bg-[#0f2847] border-b border-white/10 px-4 py-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <img src="/logo-issi.png" alt="ISSI" className="w-9 h-9 rounded-full" />
+              <span className="text-lg font-bold text-white tracking-tight uppercase">ISSI</span>
+            </Link>
+            <nav className="flex items-center gap-6">
+              <Link href="/" className="text-sm text-gray-300 hover:text-white transition-colors">Inicio</Link>
+              <Link href="/cursos" className="text-sm text-[#c5a044] font-semibold">Cursos</Link>
+              <Link href="/login?redirect=/cursos" className="px-5 py-2 rounded-lg bg-[#c5a044] text-[#0f2847] font-bold text-sm hover:opacity-90 transition">Iniciar Sesión</Link>
             </nav>
           </div>
         </header>

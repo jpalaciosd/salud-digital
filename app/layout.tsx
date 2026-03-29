@@ -4,7 +4,7 @@ import { AuthProvider } from "@/lib/AuthContext";
 
 export const metadata: Metadata = {
   title: "ISSI | Instituto Superior de Salud Integral",
-  description: "IPS Virtual - Transformamos la atención médica en Colombia a través de un modelo híbrido que prioriza la empatía humana y la precisión digital.",
+  description: "Plataforma educativa virtual con tutor IA para profesionales de la salud. Cursos certificados en RCP, Farmacología, BLS+ACLS y más.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
