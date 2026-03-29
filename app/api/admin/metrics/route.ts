@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyToken, getAllUsers } from "@/lib/auth";
 import { getAll } from "@/lib/db";
 
-const ADMIN_EMAILS = ["juandiegopalaciosdelgado@gmail.com"];
+const ADMIN_EMAILS = ["juandiegopalaciosdelgado@gmail.com", "fernandocuartasarboleda@gmail.com"];
 
 export async function GET(req: NextRequest) {
   const token = req.cookies.get("auth-token")?.value;
