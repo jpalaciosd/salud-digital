@@ -6,7 +6,7 @@ const JWT_SECRET = new TextEncoder().encode(
 );
 
 // Only dashboard requires auth — /cursos is public (inscription requires login client-side)
-const PROTECTED_ROUTES = ["/dashboard", "/profesional"];
+const PROTECTED_ROUTES = ["/dashboard", "/profesional", "/admin"];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -36,5 +36,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profesional/:path*"],
+  matcher: ["/dashboard/:path*", "/profesional/:path*", "/admin/:path*"],
 };

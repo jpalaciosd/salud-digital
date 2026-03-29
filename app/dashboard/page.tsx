@@ -20,10 +20,12 @@ export default function Dashboard() {
   const router = useRouter();
   const [tab, setTab] = useState("inicio");
 
-  // Redirect professionals to their panel
+  // Redirect by role
   useEffect(() => {
-    if (!loading && user && (user as Record<string, string>).rol === "profesional") {
-      router.replace("/profesional");
+    if (!loading && user) {
+      const rol = (user as Record<string, string>).rol;
+      if (rol === "profesional") router.replace("/profesional");
+      else if (rol === "admin") router.replace("/admin");
     }
   }, [user, loading, router]);
   const [sidebarOpen, setSidebarOpen] = useState(false);

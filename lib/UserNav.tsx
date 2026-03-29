@@ -18,6 +18,13 @@ const NAV_PROFESIONAL = [
   { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
+const NAV_ADMIN = [
+  { href: "/", label: "Inicio", icon: "home" },
+  { href: "/admin", label: "Panel de Control", icon: "analytics" },
+  { href: "/cursos", label: "Cursos", icon: "school" },
+  { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
+];
+
 export default function UserNav() {
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,8 +33,8 @@ export default function UserNav() {
   if (!user) return null;
 
   const initials = `${user.nombre?.[0] || ""}${user.apellido?.[0] || ""}`.toUpperCase();
-  const isProfesional = (user as Record<string, string>).rol === "profesional";
-  const NAV_ITEMS = isProfesional ? NAV_PROFESIONAL : NAV_ESTUDIANTE;
+  const rol = (user as Record<string, string>).rol;
+  const NAV_ITEMS = rol === "admin" ? NAV_ADMIN : rol === "profesional" ? NAV_PROFESIONAL : NAV_ESTUDIANTE;
 
   return (
     <nav className="bg-[#0f2847] border-b border-white/10 px-4 py-3 sticky top-0 z-50">

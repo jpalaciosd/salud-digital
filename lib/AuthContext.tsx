@@ -13,8 +13,10 @@ interface AuthUser {
 
 interface AuthCtx {
   user: AuthUser | null;
+  token?: string;
   loading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  loginWithGoogle: (credential: string) => Promise<{ success: boolean; error?: string }>;
   register: (data: Record<string, string>) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
 }
@@ -23,6 +25,7 @@ const AuthContext = createContext<AuthCtx>({
   user: null,
   loading: true,
   login: async () => ({ success: false }),
+  loginWithGoogle: async () => ({ success: false }),
   register: async () => ({ success: false }),
   logout: async () => {},
 });
@@ -63,6 +66,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { success: false, error: data.error || "Error al iniciar sesión" };
   };
 
+  const loginWithGoogle = async (credential: string) => {
+    const res = await fetch("/api/auth/google", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ credential }),
+    });
+    const data = await res.json();
+    if (res.ok && data.user) {
+      const u = data.user;
+      setUser({
+        userId: u.id || u.userId,
+        email: u.email,
+        nombre: u.nombre,
+        apellido: u.apellido,
+        rol: u.rol,
+      });
+      return { success: true };
+    }
+    return { success: false, error: data.error || "Error con Google" };
+  };
+
   const register = async (formData: Record<string, string>) => {
     const res = await fetch("/api/auth/register", {
       method: "POST",
@@ -81,7 +106,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
