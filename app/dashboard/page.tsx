@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/lib/AuthContext";
 
@@ -16,7 +17,15 @@ interface ProgresoWhatsApp { id: string; userId: string; telefono: string; curso
 
 export default function Dashboard() {
   const { user, loading, logout } = useAuth();
+  const router = useRouter();
   const [tab, setTab] = useState("inicio");
+
+  // Redirect professionals to their panel
+  useEffect(() => {
+    if (!loading && user && (user as Record<string, string>).rol === "profesional") {
+      router.replace("/profesional");
+    }
+  }, [user, loading, router]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Data
