@@ -21,8 +21,8 @@ const NAV_PROFESIONAL = [
 const NAV_ADMIN = [
   { href: "/", label: "Inicio", icon: "home" },
   { href: "/admin", label: "Panel de Control", icon: "analytics" },
+  { href: "/admin/estrategia", label: "Estrategia", icon: "flag" },
   { href: "/cursos", label: "Cursos", icon: "school" },
-  { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
 export default function UserNav() {
