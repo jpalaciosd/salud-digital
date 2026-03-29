@@ -2,18 +2,82 @@
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthContext";
 import UserNav from "@/lib/UserNav";
+import { useState, useEffect } from "react";
 
-const cursos = [
-  { id: 1, titulo: "Taller de Primeros Auxilios", desc: "Técnicas esenciales de primeros auxilios para situaciones de emergencia: CPR, DEA, control de hemorragias, vendajes y entablillados.", modulos: 8, duracion: "8 horas", nivel: "Básico", instructor: "Dra. María López", img: "🩺", precio: "Gratis", tag: "Popular" },
-  { id: 2, titulo: "Taller: Seguridad del Paciente", desc: "Protocolos de seguridad clínica y prevención de eventos adversos en entornos de salud.", modulos: 6, duracion: "6 horas", nivel: "Intermedio", instructor: "Dr. Roberto Sánchez", img: "🛡️", precio: "Gratis", tag: "" },
-  { id: 3, titulo: "Salud Mental y Manejo de Crisis", desc: "Estrategias de regulación emocional, grounding y primeros auxilios psicológicos para situaciones de crisis.", modulos: 4, duracion: "6 horas", nivel: "Básico", instructor: "Ps. Andrea Martínez", img: "🧠", precio: "Gratis", tag: "" },
-  { id: 4, titulo: "Curso de Enfermería en Salud Mental", desc: "Observación clínica, desescalada verbal, contención segura y autocuidado para profesionales de enfermería.", modulos: 4, duracion: "8 horas", nivel: "Intermedio", instructor: "Enf. Jefe Carlos Mendoza", img: "🏥", precio: "Gratis", tag: "" },
-  { id: 5, titulo: "Curso de RCP", desc: "Formación integral en reanimación cardiopulmonar: soporte vital básico y avanzado, uso del DEA, manejo de vía aérea, simulación clínica y RCP en situaciones especiales (pediátrica, embarazo, trauma).", modulos: 8, duracion: "60 horas", nivel: "Intermedio", instructor: "Dr. Andrés Caicedo", img: "❤️‍🩹", precio: "Gratis", tag: "Nuevo" },
-  { id: 6, titulo: "Curso de Farmacología", desc: "Farmacocinética, farmacodinamia, cálculo de dosis, seguridad del paciente, farmacología por sistemas (nervioso, cardiovascular, antiinfecciosos) y poblaciones especiales.", modulos: 9, duracion: "60 horas", nivel: "Intermedio", instructor: "Dra. Carolina Herrera", img: "💊", precio: "Gratis", tag: "Nuevo" },
-  { id: 7, titulo: "Curso BLS + ACLS", desc: "Soporte Vital Básico y Avanzado basado en guías AHA: cadena de supervivencia, RCP de alta calidad, DEA, algoritmos ACLS, ECG básico, farmacología de emergencia y simulación de mega códigos.", modulos: 6, duracion: "60 horas", nivel: "Avanzado", instructor: "Dr. Felipe Ramírez", img: "🫀", precio: "Gratis", tag: "Nuevo" },
-];
+interface CursoAPI {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  instructor: string;
+  categoria: string;
+  duracionHoras: number;
+  imagen: string;
+  totalModulos?: number;
+  modulos?: number;
+}
+
+const nivelesMap: Record<string, string> = {
+  "salud": "Básico",
+  "salud-mental": "Básico",
+  "enfermeria": "Intermedio",
+  "emergencias": "Intermedio",
+  "farmacologia": "Intermedio",
+};
+
+const tagsMap: Record<string, string> = {
+  "curso-primeros-auxilios": "Popular",
+  "curso-rcp-60h": "Nuevo",
+  "curso-farmacologia": "Nuevo",
+  "curso-bls-acls": "Nuevo",
+};
 
 export default function Cursos() {
+  const { user, token } = useAuth();
+  const [cursos, setCursos] = useState<CursoAPI[]>([]);
+  const [inscribiendo, setInscribiendo] = useState<string | null>(null);
+  const [inscritos, setInscritos] = useState<Set<string>>(new Set());
+  const [mensaje, setMensaje] = useState("");
+
+  useEffect(() => {
+    fetch("/api/cursos").then(r => r.json()).then(d => setCursos(d.cursos || []));
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
+    fetch("/api/inscripciones", { headers: { Cookie: `auth-token=${token}` } })
+      .then(r => r.ok ? r.json() : { inscripciones: [] })
+      .then(d => {
+        const ids = new Set<string>((d.inscripciones || []).map((i: { cursoId: string }) => i.cursoId));
+        setInscritos(ids);
+      });
+  }, [token]);
+
+  const inscribir = async (cursoId: string) => {
+    if (!user) {
+      window.location.href = "/login?redirect=/cursos";
+      return;
+    }
+    setInscribiendo(cursoId);
+    setMensaje("");
+    try {
+      const res = await fetch("/api/inscripciones", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cursoId }),
+      });
+      if (res.ok) {
+        setInscritos(prev => new Set([...prev, cursoId]));
+        setMensaje("✅ ¡Inscripción exitosa! Ve a tu Dashboard para comenzar.");
+      } else {
+        const data = await res.json();
+        setMensaje(data.error || "Error al inscribirte");
+      }
+    } catch {
+      setMensaje("Error de conexión");
+    }
+    setInscribiendo(null);
+  };
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -28,78 +92,77 @@ export default function Cursos() {
             <Link href="/cursos" className="text-sm font-semibold text-[#c5a044]">Cursos</Link>
             <Link href="/dashboard" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Dashboard</Link>
           </nav>
-          <Link href="/dashboard" className="px-6 py-2.5 rounded-full bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#0f2847]/20">
-            Mi Portal
-          </Link>
+          <UserNav />
         </div>
       </header>
 
-      {/* Hero Cursos */}
-      <section className="py-16 px-6" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #0c4a6e 100%)' }}>
-        <div className="max-w-7xl mx-auto text-center text-white">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0f2847]/20 text-[#c5a044] text-xs font-bold uppercase tracking-wider mb-6">
-            <span className="material-icons-outlined text-sm">school</span>
-            Plataforma Educativa
-          </div>
-          <h1 className="text-4xl lg:text-5xl font-extrabold mb-4">Cursos de Salud <span className="text-[#c5a044]">Especializados</span></h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">Formación virtual guiada por nuestra mentora IA Aura a través de WhatsApp. Certificados emitidos por el Instituto Superior de Salud Integral.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/12763294935?text=Hola! Quiero información sobre los cursos de salud" className="px-8 py-4 rounded-xl bg-[#0f2847] text-white font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
-              💬 Tutor IA por WhatsApp
-            </a>
-          </div>
+      {/* Hero */}
+      <section className="py-16 px-6 bg-gradient-to-b from-[#0f2847] to-[#1e3a8a]">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Catálogo de Cursos</h1>
+          <p className="text-lg text-blue-200">Formación certificada en salud — 100% virtual con tutor IA</p>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-12 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { valor: "7", label: "Cursos disponibles" },
-            { valor: "1", label: "Agente IA activo" },
-            { valor: "100%", label: "Virtual y flexible" },
-            { valor: "✓", label: "Certificación oficial" },
-          ].map((stat, i) => (
-            <div key={i}>
-              <p className="text-3xl font-extrabold text-[#c5a044]">{stat.valor}</p>
-              <p className="text-sm text-slate-500">{stat.label}</p>
-            </div>
-          ))}
+      {/* Mensaje */}
+      {mensaje && (
+        <div className="max-w-4xl mx-auto px-6 mt-6">
+          <div className={`p-4 rounded-xl text-sm font-semibold text-center ${mensaje.startsWith("✅") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>
+            {mensaje}
+            {mensaje.startsWith("✅") && (
+              <Link href="/dashboard" className="ml-2 underline font-bold">Ir al Dashboard →</Link>
+            )}
+          </div>
         </div>
-      </section>
+      )}
 
-      {/* Grid de Cursos */}
+      {/* Grid */}
       <section className="py-16 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cursos.map((curso) => (
-              <div key={curso.id} className="bg-white p-6 rounded-2xl border border-slate-100 hover:border-[#0f2847]/50 hover:shadow-lg transition-all group">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-5xl">{curso.img}</span>
-                  {curso.tag && (
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      curso.tag === "Popular" ? "bg-amber-100 text-amber-700" :
-                      curso.tag === "Nuevo" ? "bg-blue-100 text-blue-700" :
-                      "bg-blue-100 text-blue-700"
-                    }`}>{curso.tag}</span>
-                  )}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {cursos.map((curso) => {
+              const enrolled = inscritos.has(curso.id);
+              const nivel = nivelesMap[curso.categoria] || "Intermedio";
+              const tag = tagsMap[curso.id] || "";
+              const mods = curso.totalModulos || curso.modulos || 0;
+
+              return (
+                <div key={curso.id} className="bg-white rounded-2xl shadow-lg p-6 border border-slate-100 hover:shadow-xl transition-all flex flex-col">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-4xl">{curso.imagen}</span>
+                    {tag && (
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                        tag === "Popular" ? "bg-amber-100 text-amber-700" : "bg-blue-100 text-blue-700"
+                      }`}>{tag}</span>
+                    )}
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{curso.titulo}</h3>
+                  <p className="text-sm text-slate-500 mb-4 leading-relaxed flex-1">{curso.descripcion}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-xs bg-[#fafaf7] px-2 py-1 rounded-lg text-slate-600">📚 {mods} módulos</span>
+                    <span className="text-xs bg-[#fafaf7] px-2 py-1 rounded-lg text-slate-600">⏱️ {curso.duracionHoras} horas</span>
+                    <span className="text-xs bg-[#fafaf7] px-2 py-1 rounded-lg text-slate-600">📊 {nivel}</span>
+                  </div>
+                  <p className="text-xs text-slate-400 mb-4">👨‍⚕️ {curso.instructor}</p>
+                  <div className="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <span className="text-lg font-extrabold text-[#c5a044]">Gratis</span>
+                    {enrolled ? (
+                      <Link href="/dashboard?tab=cursos" className="px-6 py-2 rounded-lg bg-green-600 text-white font-bold text-sm">
+                        📖 Ir al curso
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => inscribir(curso.id)}
+                        disabled={inscribiendo === curso.id}
+                        className="px-6 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50"
+                      >
+                        {inscribiendo === curso.id ? "Inscribiendo..." : "Inscribirme"}
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{curso.titulo}</h3>
-                <p className="text-sm text-slate-500 mb-4 leading-relaxed">{curso.desc}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="text-xs bg-[#fafaf7] px-2 py-1 rounded-lg text-slate-600">📚 {curso.modulos} módulos</span>
-                  <span className="text-xs bg-[#fafaf7] px-2 py-1 rounded-lg text-slate-600">⏱️ {curso.duracion}</span>
-                  <span className="text-xs bg-[#fafaf7] px-2 py-1 rounded-lg text-slate-600">📊 {curso.nivel}</span>
-                </div>
-                <p className="text-xs text-slate-400 mb-4">👨‍⚕️ {curso.instructor}</p>
-                <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-                  <span className={`text-lg font-extrabold ${curso.precio === "Gratis" ? "text-[#c5a044]" : "text-white"}`}>{curso.precio}</span>
-                  <button className="px-6 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all">
-                    {curso.precio === "Gratis" ? "Inscribirme" : "Comprar"}
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -107,19 +170,17 @@ export default function Cursos() {
       {/* CTA WhatsApp Tutor */}
       <section className="py-16 px-6 bg-[#1e3a8a]">
         <div className="max-w-4xl mx-auto text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">🤖 Aprende con nuestro Tutor IA</h2>
-          <p className="text-lg text-slate-400 mb-8">Nuestro agente de IA por WhatsApp te acompaña en tu aprendizaje: resuelve dudas, explica temas y evalúa tu progreso en tiempo real.</p>
-          <a href="https://wa.me/12763294935?text=Hola! Quiero empezar a aprender con el Tutor IA" className="inline-block px-10 py-5 rounded-full bg-[#0f2847] text-white font-extrabold text-xl hover:shadow-2xl hover:shadow-[#0f2847]/40 transition-all">
-            💬 Conectar con Tutor IA
+          <h2 className="text-3xl font-extrabold mb-4">Aprende con Maestro<br />Tutor IA 🤖</h2>
+          <p className="text-blue-200 mb-8">Después de inscribirte, inicia tu curso por WhatsApp con Aura, tu tutora virtual disponible 24/7.</p>
+          <a href="https://wa.me/573148915903?text=Hola%20Aura%2C%20quiero%20empezar%20mi%20curso" target="_blank" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-green-500 text-white font-bold text-lg hover:bg-green-600 transition-all">
+            💬 Hablar con Aura
           </a>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-50 border-t border-slate-200 py-12">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-sm text-slate-500">© 2026 ISSI — Instituto Superior de Salud Integral. Todos los derechos reservados.</p>
-        </div>
+      <footer className="py-8 px-6 bg-[#0f2847] text-white/60 text-center text-sm">
+        <p>© 2026 ISSI — Instituto Superior de Salud Integral. Todos los derechos reservados.</p>
       </footer>
     </div>
   );
