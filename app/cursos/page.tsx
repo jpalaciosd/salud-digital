@@ -6,8 +6,11 @@ import UserNav from "@/lib/UserNav";
 const cursos = [
   { id: 1, titulo: "Taller de Primeros Auxilios", desc: "Técnicas esenciales de primeros auxilios para situaciones de emergencia: CPR, DEA, control de hemorragias, vendajes y entablillados.", modulos: 8, duracion: "8 horas", nivel: "Básico", instructor: "Dra. María López", img: "🩺", precio: "Gratis", tag: "Popular" },
   { id: 2, titulo: "Taller: Seguridad del Paciente", desc: "Protocolos de seguridad clínica y prevención de eventos adversos en entornos de salud.", modulos: 6, duracion: "6 horas", nivel: "Intermedio", instructor: "Dr. Roberto Sánchez", img: "🛡️", precio: "Gratis", tag: "" },
-  { id: 3, titulo: "Salud Mental y Manejo de Crisis", desc: "Estrategias de regulación emocional, grounding y primeros auxilios psicológicos para situaciones de crisis.", modulos: 4, duracion: "6 horas", nivel: "Básico", instructor: "Ps. Andrea Martínez", img: "🧠", precio: "Gratis", tag: "Nuevo" },
+  { id: 3, titulo: "Salud Mental y Manejo de Crisis", desc: "Estrategias de regulación emocional, grounding y primeros auxilios psicológicos para situaciones de crisis.", modulos: 4, duracion: "6 horas", nivel: "Básico", instructor: "Ps. Andrea Martínez", img: "🧠", precio: "Gratis", tag: "" },
   { id: 4, titulo: "Curso de Enfermería en Salud Mental", desc: "Observación clínica, desescalada verbal, contención segura y autocuidado para profesionales de enfermería.", modulos: 4, duracion: "8 horas", nivel: "Intermedio", instructor: "Enf. Jefe Carlos Mendoza", img: "🏥", precio: "Gratis", tag: "" },
+  { id: 5, titulo: "Curso de RCP", desc: "Formación integral en reanimación cardiopulmonar: soporte vital básico y avanzado, uso del DEA, manejo de vía aérea, simulación clínica y RCP en situaciones especiales (pediátrica, embarazo, trauma).", modulos: 8, duracion: "60 horas", nivel: "Intermedio", instructor: "Dr. Andrés Caicedo", img: "❤️‍🩹", precio: "Gratis", tag: "Nuevo" },
+  { id: 6, titulo: "Curso de Farmacología", desc: "Farmacocinética, farmacodinamia, cálculo de dosis, seguridad del paciente, farmacología por sistemas (nervioso, cardiovascular, antiinfecciosos) y poblaciones especiales.", modulos: 9, duracion: "60 horas", nivel: "Intermedio", instructor: "Dra. Carolina Herrera", img: "💊", precio: "Gratis", tag: "Nuevo" },
+  { id: 7, titulo: "Curso BLS + ACLS", desc: "Soporte Vital Básico y Avanzado basado en guías AHA: cadena de supervivencia, RCP de alta calidad, DEA, algoritmos ACLS, ECG básico, farmacología de emergencia y simulación de mega códigos.", modulos: 6, duracion: "60 horas", nivel: "Avanzado", instructor: "Dr. Felipe Ramírez", img: "🫀", precio: "Gratis", tag: "Nuevo" },
 ];
 
 export default function Cursos() {
@@ -52,7 +55,7 @@ export default function Cursos() {
       <section className="py-12 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { valor: "4", label: "Cursos disponibles" },
+            { valor: "7", label: "Cursos disponibles" },
             { valor: "1", label: "Agente IA activo" },
             { valor: "100%", label: "Virtual y flexible" },
             { valor: "✓", label: "Certificación oficial" },
