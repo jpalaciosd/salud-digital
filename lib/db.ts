@@ -10,6 +10,7 @@ export async function create<T extends { id: string }>(
   await put(`${collection}/${data.id}.json`, JSON.stringify(data), {
     access: "public",
     addRandomSuffix: false,
+    allowOverwrite: true,
     contentType: "application/json",
   });
   return data;
