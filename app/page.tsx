@@ -82,7 +82,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { icon: "school", num: "4", label: "Cursos disponibles" },
+              { icon: "school", num: "7", label: "Cursos disponibles" },
               { icon: "smart_toy", num: "1", label: "Agente IA activo" },
               { icon: "lock", num: "100%", label: "Datos cifrados" },
               { icon: "workspace_premium", num: "✓", label: "Certificación oficial" },
