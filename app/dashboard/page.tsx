@@ -272,6 +272,7 @@ export default function Dashboard() {
   const navItems = [
     { id: "inicio", icon: "dashboard", label: "Inicio" },
     { id: "cursos", icon: "school", label: "Mis Cursos" },
+    { id: "agendas", icon: "event", label: "Mis Tutorías" },
   ];
 
   const handleTabChange = (id: string) => { setTab(id); setSidebarOpen(false); };
@@ -1155,8 +1156,174 @@ export default function Dashboard() {
               )}
             </div>
           )}
+
+          {/* ═══ AGENDAS / TUTORÍAS ═══ */}
+          {tab === "agendas" && (
+            <AgendasTab />
+          )}
         </div>
       </main>
+    </div>
+  );
+}
+
+// ── Agendas Tab Component ──
+function AgendasTab() {
+  const [agendas, setAgendas] = useState<{id:string;cursoNombre:string;tema:string;modalidad:string;fechaPropuesta:string;horaPropuesta:string;notas:string;estado:string;profesionalNombre:string|null;profesionalEspecialidad:string|null;calificacion:number|null}[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [cursos, setCursos] = useState<{id:string;titulo:string}[]>([]);
+  const [form, setForm] = useState({ cursoId: "", cursoNombre: "", tema: "", modalidad: "virtual", fechaPropuesta: "", horaPropuesta: "", notas: "" });
+  const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
+  const [ratingId, setRatingId] = useState<string|null>(null);
+  const [ratingVal, setRatingVal] = useState(5);
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/agendas").then(r => r.ok ? r.json() : { agendas: [] }),
+      fetch("/api/cursos").then(r => r.json()),
+    ]).then(([ag, cu]) => {
+      setAgendas(ag.agendas || []);
+      setCursos(cu.cursos || []);
+      setLoading(false);
+    });
+  }, []);
+
+  const submit = async () => {
+    if (!form.cursoId || !form.tema || !form.fechaPropuesta || !form.horaPropuesta) return;
+    setSending(true);
+    const curso = cursos.find(c => c.id === form.cursoId);
+    const res = await fetch("/api/agendas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, cursoNombre: curso?.titulo || form.cursoId }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setAgendas(prev => [data.agenda, ...prev]);
+      setShowForm(false);
+      setForm({ cursoId: "", cursoNombre: "", tema: "", modalidad: "virtual", fechaPropuesta: "", horaPropuesta: "", notas: "" });
+    }
+    setSending(false);
+  };
+
+  const calificar = async (id: string) => {
+    await fetch(`/api/agendas/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accion: "calificar", calificacion: ratingVal }),
+    });
+    setAgendas(prev => prev.map(a => a.id === id ? { ...a, calificacion: ratingVal } : a));
+    setRatingId(null);
+  };
+
+  if (loading) return <div className="text-center py-12 text-slate-400">Cargando...</div>;
+
+  const statusColors: Record<string,string> = { pendiente: "bg-yellow-100 text-yellow-700", aceptada: "bg-blue-100 text-blue-700", completada: "bg-green-100 text-green-700", cancelada: "bg-red-100 text-red-700" };
+  const statusLabels: Record<string,string> = { pendiente: "⏳ Buscando profesional", aceptada: "✅ Profesional asignado", completada: "🎓 Completada", cancelada: "❌ Cancelada" };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-[var(--dash-text)]">Mis Tutorías</h2>
+        <button onClick={() => setShowForm(true)} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold hover:opacity-90 transition">
+          <span className="material-icons-outlined text-lg">add</span> Agendar Tutoría
+        </button>
+      </div>
+
+      {showForm && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowForm(false)}>
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md" onClick={e => e.stopPropagation()}>
+            <h3 className="text-lg font-bold mb-4">Agendar Tutoría con Profesional</h3>
+            <div className="space-y-3">
+              <div>
+                <label className="text-sm font-medium text-slate-600 mb-1 block">Curso</label>
+                <select value={form.cursoId} onChange={e => setForm({...form, cursoId: e.target.value})} className="w-full border rounded-lg px-3 py-2 text-sm">
+                  <option value="">Selecciona un curso</option>
+                  {cursos.map(c => <option key={c.id} value={c.id}>{c.titulo}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-slate-600 mb-1 block">Tema o duda específica</label>
+                <input value={form.tema} onChange={e => setForm({...form, tema: e.target.value})} placeholder="Ej: Cálculo de goteo, RCP pediátrico..." className="w-full border rounded-lg px-3 py-2 text-sm" />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm font-medium text-slate-600 mb-1 block">Modalidad</label>
+                  <select value={form.modalidad} onChange={e => setForm({...form, modalidad: e.target.value})} className="w-full border rounded-lg px-3 py-2 text-sm">
+                    <option value="virtual">🖥 Virtual</option>
+                    <option value="presencial">🏫 Presencial</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-slate-600 mb-1 block">Fecha</label>
+                  <input type="date" value={form.fechaPropuesta} onChange={e => setForm({...form, fechaPropuesta: e.target.value})} className="w-full border rounded-lg px-3 py-2 text-sm" />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-slate-600 mb-1 block">Hora preferida</label>
+                <input type="time" value={form.horaPropuesta} onChange={e => setForm({...form, horaPropuesta: e.target.value})} className="w-full border rounded-lg px-3 py-2 text-sm" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-slate-600 mb-1 block">Notas (opcional)</label>
+                <textarea value={form.notas} onChange={e => setForm({...form, notas: e.target.value})} placeholder="Algo que el profesional deba saber..." rows={2} className="w-full border rounded-lg px-3 py-2 text-sm resize-none" />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-5">
+              <button onClick={() => setShowForm(false)} className="flex-1 py-2 border rounded-lg text-sm font-semibold text-slate-600">Cancelar</button>
+              <button onClick={submit} disabled={sending || !form.cursoId || !form.tema || !form.fechaPropuesta || !form.horaPropuesta} className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold disabled:opacity-50">
+                {sending ? "Enviando..." : "Solicitar Tutoría"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {agendas.length === 0 ? (
+        <div className="bg-white rounded-xl p-12 text-center">
+          <span className="material-icons-outlined text-5xl text-slate-300 mb-3 block">event</span>
+          <p className="text-slate-400 mb-2">No tienes tutorías agendadas</p>
+          <p className="text-sm text-slate-400">Solicita una tutoría para resolver dudas con un profesional real</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {agendas.map(a => (
+            <div key={a.id} className="bg-white rounded-xl p-5 border border-slate-100">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-bold">{a.cursoNombre}</h3>
+                  <p className="text-sm text-slate-500">Tema: {a.tema}</p>
+                </div>
+                <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[a.estado] || "bg-slate-100"}`}>{statusLabels[a.estado] || a.estado}</span>
+              </div>
+              <div className="flex gap-4 text-sm text-slate-500 mb-2">
+                <span>{a.modalidad === "virtual" ? "🖥 Virtual" : "🏫 Presencial"}</span>
+                <span>📅 {a.fechaPropuesta}</span>
+                <span>⏰ {a.horaPropuesta}</span>
+              </div>
+              {a.profesionalNombre && (
+                <div className="bg-blue-50 rounded-lg p-3 text-sm mt-2">
+                  <p className="font-semibold text-blue-800">👨‍⚕️ Profesional: {a.profesionalNombre}</p>
+                  {a.profesionalEspecialidad && <p className="text-blue-600 text-xs">{a.profesionalEspecialidad}</p>}
+                </div>
+              )}
+              {a.estado === "completada" && !a.calificacion && (
+                <div className="mt-3">
+                  {ratingId === a.id ? (
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1">{[1,2,3,4,5].map(n => <button key={n} onClick={() => setRatingVal(n)} className={`text-2xl ${n <= ratingVal ? "text-yellow-400" : "text-slate-300"}`}>★</button>)}</div>
+                      <button onClick={() => calificar(a.id)} className="px-3 py-1 bg-[#c5a044] text-white rounded-lg text-xs font-bold">Enviar</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => { setRatingId(a.id); setRatingVal(5); }} className="text-sm text-blue-600 font-semibold">⭐ Calificar tutoría</button>
+                  )}
+                </div>
+              )}
+              {a.calificacion && <p className="text-sm text-[#c5a044] font-bold mt-2">⭐ Tu calificación: {a.calificacion}/5</p>}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

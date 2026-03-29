@@ -28,6 +28,7 @@ export default function RegistroPage() {
   const update = (field: string, value: string) =>
     setForm((f) => ({ ...f, [field]: value }));
   const isMedico = form.rol === "medico";
+  const isProfesional = form.rol === "profesional";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,8 +166,27 @@ export default function RegistroPage() {
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#0f2847]/50 transition"
               >
                 <option value="estudiante" className="bg-slate-800">Estudiante</option>
+                <option value="profesional" className="bg-slate-800">Profesional / Tutor</option>
               </select>
             </div>
+
+            {/* Campos extra para profesional/tutor */}
+            {isProfesional && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Especialidad</label>
+                  <input
+                    type="text"
+                    value={form.descripcionProfesional}
+                    onChange={(e) => update("descripcionProfesional", e.target.value)}
+                    placeholder="Ej: Enfermería, Medicina de Emergencias, Farmacología..."
+                    required
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Los estudiantes verán tu especialidad al asignarte una tutoría.</p>
+                </div>
+              </>
+            )}
 
             {/* Solo para médicos: foto y descripción profesional */}
             {isMedico && (

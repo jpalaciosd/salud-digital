@@ -5,9 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const NAV_ITEMS = [
+const NAV_ESTUDIANTE = [
   { href: "/", label: "Inicio", icon: "home" },
   { href: "/cursos", label: "Cursos", icon: "school" },
+  { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
+];
+
+const NAV_PROFESIONAL = [
+  { href: "/", label: "Inicio", icon: "home" },
+  { href: "/cursos", label: "Cursos", icon: "school" },
+  { href: "/profesional", label: "Panel Profesional", icon: "assignment_ind" },
   { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
@@ -19,6 +26,8 @@ export default function UserNav() {
   if (!user) return null;
 
   const initials = `${user.nombre?.[0] || ""}${user.apellido?.[0] || ""}`.toUpperCase();
+  const isProfesional = (user as Record<string, string>).rol === "profesional";
+  const NAV_ITEMS = isProfesional ? NAV_PROFESIONAL : NAV_ESTUDIANTE;
 
   return (
     <nav className="bg-[#0f2847] border-b border-white/10 px-4 py-3 sticky top-0 z-50">
