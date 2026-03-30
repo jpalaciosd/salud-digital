@@ -673,4 +673,109 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
       { pregunta: "Según las guías AHA, ¿cuál es la profundidad mínima de compresiones en adulto?", opciones: ["3 cm", "4 cm", "5 cm", "7 cm"], respuesta: 2 },
     ],
   },
+
+  // ── Cuidado Integral del Adulto Mayor (60 h) ──
+  {
+    id: "curso-adulto-mayor",
+    titulo: "Cuidado Integral del Adulto Mayor",
+    descripcion: "Desarrolla competencias para brindar cuidado integral, humanizado y seguro al adulto mayor, abordando aspectos físicos, psicológicos, sociales y éticos.",
+    duracion: "60 horas",
+    modalidad: "Virtual",
+    instructor: "Dra. María López",
+    modulos: [
+      {
+        titulo: "1. Introducción al Envejecimiento",
+        items: [
+          "Concepto de envejecimiento",
+          "Cambios biológicos, psicológicos y sociales",
+          "Envejecimiento normal vs patológico",
+          "Políticas de atención al adulto mayor en Colombia",
+          "Foro: percepción del envejecimiento",
+          "Quiz diagnóstico",
+        ],
+      },
+      {
+        titulo: "2. Valoración Integral del Adulto Mayor",
+        items: [
+          "Valoración geriátrica integral",
+          "Escalas de valoración: Barthel, Lawton, Pfeiffer",
+          "Identificación de riesgos: caídas, desnutrición, dependencia",
+          "Taller de aplicación de escalas",
+          "Estudio de caso",
+        ],
+      },
+      {
+        titulo: "3. Cuidados Básicos y Asistenciales",
+        items: [
+          "Higiene, confort y movilización",
+          "Prevención de úlceras por presión",
+          "Alimentación y nutrición del adulto mayor",
+          "Administración de medicamentos (nociones básicas)",
+          "Video práctico y lista de chequeo de cuidados",
+        ],
+      },
+      {
+        titulo: "4. Patologías Frecuentes en el Adulto Mayor",
+        items: [
+          "Enfermedades crónicas: hipertensión, diabetes",
+          "Demencias incluyendo Alzheimer",
+          "Parkinson y osteoporosis",
+          "Manejo básico y signos de alarma",
+          "Análisis de caso clínico",
+        ],
+      },
+      {
+        titulo: "5. Salud Mental y Apoyo Psicosocial",
+        items: [
+          "Depresión y ansiedad en el adulto mayor",
+          "Soledad y abandono",
+          "Comunicación efectiva con el adulto mayor",
+          "Rol del cuidador",
+          "Role play virtual y foro reflexivo",
+        ],
+      },
+      {
+        titulo: "6. Seguridad del Paciente y Prevención de Riesgos",
+        items: [
+          "Prevención de caídas",
+          "Seguridad en el hogar",
+          "Manejo de emergencias básicas",
+          "Eventos adversos",
+          "Diseño de plan de seguridad en casa",
+        ],
+      },
+      {
+        titulo: "7. Cuidados Paliativos y Final de Vida",
+        items: [
+          "Concepto de cuidados paliativos",
+          "Manejo del dolor",
+          "Acompañamiento familiar",
+          "Dignidad en el final de la vida",
+          "Ensayo reflexivo",
+        ],
+      },
+      {
+        titulo: "8. Ética, Humanización y Normativa",
+        items: [
+          "Derechos del adulto mayor",
+          "Ética del cuidado",
+          "Humanización en salud",
+          "Normativa colombiana aplicable",
+          "Análisis de dilemas éticos",
+        ],
+      },
+    ],
+    evaluacion: [
+      { pregunta: "¿Cuál de las siguientes NO es una escala de valoración geriátrica?", opciones: ["Barthel", "Lawton", "Glasgow", "Pfeiffer"], respuesta: 2 },
+      { pregunta: "¿Qué cambio es propio del envejecimiento normal?", opciones: ["Demencia severa", "Disminución de masa muscular", "Pérdida total de memoria", "Incapacidad para caminar"], respuesta: 1 },
+      { pregunta: "La escala de Barthel evalúa:", opciones: ["Estado cognitivo", "Actividades básicas de la vida diaria", "Riesgo cardiovascular", "Nivel de dolor"], respuesta: 1 },
+      { pregunta: "¿Cuál es la principal causa de caídas en el adulto mayor?", opciones: ["Factores ambientales y debilidad muscular", "Uso de tecnología", "Alimentación excesiva", "Exceso de ejercicio"], respuesta: 0 },
+      { pregunta: "Las úlceras por presión se previenen principalmente con:", opciones: ["Medicamentos tópicos", "Cambios de posición frecuentes", "Reposo absoluto", "Dieta líquida"], respuesta: 1 },
+      { pregunta: "¿Qué enfermedad se caracteriza por pérdida progresiva de memoria y funciones cognitivas?", opciones: ["Parkinson", "Osteoporosis", "Alzheimer", "Hipertensión"], respuesta: 2 },
+      { pregunta: "El rol del cuidador incluye:", opciones: ["Solo administrar medicamentos", "Apoyo físico, emocional y social", "Tomar decisiones médicas sin consultar", "Aislar al adulto mayor"], respuesta: 1 },
+      { pregunta: "Los cuidados paliativos se enfocan en:", opciones: ["Curar la enfermedad", "Prolongar la vida a toda costa", "Aliviar el sufrimiento y mejorar calidad de vida", "Suspender todo tratamiento"], respuesta: 2 },
+      { pregunta: "¿Cuál es un derecho fundamental del adulto mayor en Colombia?", opciones: ["Acceso a atención integral en salud", "Trabajar sin límite de edad", "No recibir visitas", "Automedicarse libremente"], respuesta: 0 },
+      { pregunta: "¿Qué componente debe incluir un plan integral de cuidado?", opciones: ["Solo medicamentos", "Valoración, diagnóstico, intervenciones y seguimiento", "Solo actividades recreativas", "Únicamente dieta"], respuesta: 1 },
+    ],
+  },
 ];
