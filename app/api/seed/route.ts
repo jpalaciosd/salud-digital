@@ -10,6 +10,7 @@ interface CursoDB {
   categoria: string;
   duracionHoras: number;
   imagen: string;
+  precio: number;
   totalItems: number;
   totalModulos: number;
   createdAt: string;
@@ -27,6 +28,7 @@ export async function POST() {
       categoria: curso.categoria,
       duracionHoras: curso.duracionHoras,
       imagen: curso.imagen,
+      precio: curso.precio,
       totalItems,
       totalModulos: curso.modulos.length,
       createdAt: new Date().toISOString(),

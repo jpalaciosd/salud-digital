@@ -86,6 +86,7 @@ export interface Curso {
   modulos: number;
   duracionHoras: number;
   imagen: string;
+  precio: number;
   createdAt: string;
 }
 
