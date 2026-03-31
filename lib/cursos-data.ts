@@ -17,6 +17,7 @@ export interface CursoCompleto {
   categoria: string;
   duracionHoras: number;
   imagen: string;
+  precio: number;
   modulos: CursoModulo[];
   evaluacion: CursoPregunta[];
 }
@@ -30,6 +31,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "salud",
     duracionHoras: 8,
     imagen: "🩺",
+    precio: 89900,
     modulos: [
       {
         titulo: "1. Introducción a los Primeros Auxilios",
@@ -132,6 +134,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "salud",
     duracionHoras: 8,
     imagen: "🛡️",
+    precio: 89900,
     modulos: [
       {
         titulo: "1. Introducción a la Seguridad del Paciente",
@@ -230,6 +233,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "salud-mental",
     duracionHoras: 6,
     imagen: "🧠",
+    precio: 89900,
     modulos: [
       { titulo: "1. El Mapa Mental", items: [
         "Conceptos básicos de salud mental",
@@ -276,6 +280,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "enfermeria",
     duracionHoras: 8,
     imagen: "🩺",
+    precio: 89900,
     modulos: [
       { titulo: "1. Observación Clínica en Salud Mental", items: [
         "Identificación de ideas de fuga y autolesión",
@@ -328,6 +333,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "emergencias",
     duracionHoras: 60,
     imagen: "❤️‍🔥",
+    precio: 129900,
     modulos: [
       {
         titulo: "1. Fundamentos de la RCP (6h)",
@@ -438,6 +444,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "farmacologia",
     duracionHoras: 60,
     imagen: "💊",
+    precio: 129900,
     modulos: [
       {
         titulo: "1. Introducción a la Farmacología (6h)",
@@ -557,6 +564,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "emergencias",
     duracionHoras: 60,
     imagen: "🫀",
+    precio: 129900,
     modulos: [
       {
         titulo: "BLS 1. Cadena de Supervivencia y Reconocimiento del Paro (4h)",
@@ -679,9 +687,11 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     id: "curso-adulto-mayor",
     titulo: "Cuidado Integral del Adulto Mayor",
     descripcion: "Desarrolla competencias para brindar cuidado integral, humanizado y seguro al adulto mayor, abordando aspectos físicos, psicológicos, sociales y éticos.",
-    duracion: "60 horas",
-    modalidad: "Virtual",
     instructor: "Dra. María López",
+    categoria: "Cuidado Geriátrico",
+    duracionHoras: 60,
+    imagen: "/cursos/adulto-mayor.webp",
+    precio: 129900,
     modulos: [
       {
         titulo: "1. Introducción al Envejecimiento",
