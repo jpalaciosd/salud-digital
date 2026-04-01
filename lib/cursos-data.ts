@@ -690,7 +690,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     instructor: "Dra. María López",
     categoria: "Cuidado Geriátrico",
     duracionHoras: 60,
-    imagen: "/cursos/adulto-mayor.webp",
+    imagen: "🧓",
     precio: 129900,
     modulos: [
       {
