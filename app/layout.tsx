@@ -4,7 +4,29 @@ import { AuthProvider } from "@/lib/AuthContext";
 
 export const metadata: Metadata = {
   title: "ISSI | Instituto Superior de Salud Integral",
-  description: "Plataforma educativa virtual con tutor IA para profesionales de la salud. Cursos certificados en RCP, Farmacología, BLS+ACLS y más.",
+  description: "Plataforma educativa virtual con tutor IA para profesionales de la salud. 12 cursos certificados en SST, RCP, Farmacología, Vigilancia Epidemiológica y más.",
+  openGraph: {
+    title: "ISSI | Instituto Superior de Salud Integral",
+    description: "Plataforma educativa virtual con 12 cursos certificados en salud. Diplomados en SST, Auditoría, Sistema Integrado de Gestión y más.",
+    url: "https://salud-digital-iota.vercel.app",
+    siteName: "ISSI",
+    images: [
+      {
+        url: "https://salud-digital-iota.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "ISSI - Instituto Superior de Salud Integral",
+      },
+    ],
+    locale: "es_CO",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ISSI | Instituto Superior de Salud Integral",
+    description: "12 cursos certificados en salud. Diplomados en SST, Auditoría y más.",
+    images: ["https://salud-digital-iota.vercel.app/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
