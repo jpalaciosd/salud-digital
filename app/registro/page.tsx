@@ -17,7 +17,7 @@ export default function RegistroPage() {
     confirmPassword: "",
     tipoDocumento: "CC",
     documento: "",
-    rol: "estudiante" as "paciente" | "medico" | "estudiante",
+    rol: "estudiante" as "paciente" | "medico" | "estudiante" | "profesional",
     telefono: "",
     fotoMedico: "",
     descripcionProfesional: "",

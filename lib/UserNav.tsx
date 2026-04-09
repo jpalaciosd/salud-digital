@@ -6,20 +6,20 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ESTUDIANTE = [
-  { href: "/", label: "Inicio", icon: "home" },
+  { href: "/dashboard", label: "Inicio", icon: "home" },
   { href: "/cursos", label: "Cursos", icon: "school" },
   { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
 const NAV_PROFESIONAL = [
-  { href: "/", label: "Inicio", icon: "home" },
+  { href: "/profesional", label: "Inicio", icon: "home" },
   { href: "/cursos", label: "Cursos", icon: "school" },
   { href: "/profesional", label: "Panel Profesional", icon: "assignment_ind" },
   { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
 const NAV_ADMIN = [
-  { href: "/", label: "Inicio", icon: "home" },
+  { href: "/admin", label: "Inicio", icon: "home" },
   { href: "/admin", label: "Panel de Control", icon: "analytics" },
   { href: "/admin/estrategia", label: "Estrategia", icon: "flag" },
   { href: "/cursos", label: "Cursos", icon: "school" },

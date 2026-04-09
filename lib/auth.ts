@@ -14,12 +14,13 @@ export interface User {
   apellido: string;
   documento: string;
   tipoDocumento: string;
-  rol: "paciente" | "medico" | "estudiante" | "admin";
+  rol: "paciente" | "medico" | "estudiante" | "profesional" | "admin";
   telefono?: string;
   /** URL de la foto de perfil (principalmente para médicos). */
   avatarUrl?: string;
   /** Descripción profesional / bio (solo médicos). */
   descripcionProfesional?: string;
+  especialidad?: string;
   createdAt: string;
 }
 
@@ -75,7 +76,7 @@ export async function registerUser(data: {
   apellido: string;
   documento: string;
   tipoDocumento: string;
-  rol: "paciente" | "medico" | "estudiante" | "admin";
+  rol: "paciente" | "medico" | "estudiante" | "profesional" | "admin";
   telefono?: string;
   avatarUrl?: string;
   descripcionProfesional?: string;

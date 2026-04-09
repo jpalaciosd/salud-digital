@@ -21,14 +21,14 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const updated = await update<Agenda>("agendas", id, (a) => {
     if (accion === "aceptar" && a.estado === "pendiente" && u.rol === "profesional") {
       a.estado = "aceptada";
-      a.profesionalId = u.id;
+      a.profesionalId = u.userId;
       a.profesionalNombre = `${u.nombre} ${u.apellido}`;
       a.profesionalEspecialidad = u.descripcionProfesional || "General";
-    } else if (accion === "completar" && a.estado === "aceptada" && a.profesionalId === u.id) {
+    } else if (accion === "completar" && a.estado === "aceptada" && a.profesionalId === u.userId) {
       a.estado = "completada";
-    } else if (accion === "cancelar" && (a.estudianteId === u.id || a.profesionalId === u.id)) {
+    } else if (accion === "cancelar" && (a.estudianteId === u.userId || a.profesionalId === u.userId)) {
       a.estado = "cancelada";
-    } else if (accion === "calificar" && a.estado === "completada" && a.estudianteId === u.id && calificacion) {
+    } else if (accion === "calificar" && a.estado === "completada" && a.estudianteId === u.userId && calificacion) {
       a.calificacion = Math.min(5, Math.max(1, Number(calificacion)));
     }
     a.updatedAt = new Date().toISOString();

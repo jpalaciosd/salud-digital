@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 
   const all = await getAll<Agenda>("agendas");
   const rol = (user as Record<string, string>).rol || "estudiante";
-  const userId = (user as Record<string, string>).id;
+  const userId = (user as Record<string, string>).userId;
 
   if (rol === "profesional") {
     // Professionals see: pending (pool) + their own accepted/completed
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
   const u = user as Record<string, string>;
   const agenda: Agenda = {
     id: crypto.randomUUID(),
-    estudianteId: u.id,
+    estudianteId: u.userId,
     estudianteNombre: `${u.nombre} ${u.apellido}`,
     estudianteEmail: u.email,
     cursoId,
