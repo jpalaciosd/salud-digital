@@ -103,3 +103,46 @@ export interface Inscripcion {
   fechaInscripcion: string;
   ultimaActividad: string;
 }
+
+// ── Pagos (Nequi) ────────────────────────────
+export type EstadoPago =
+  | "pendiente_ia"
+  | "aprobado_auto"
+  | "revision_manual"
+  | "aprobado_manual"
+  | "rechazado"
+  | "canjeado";
+
+export interface IaData {
+  monto?: number;
+  titular?: string;
+  last4?: string;
+  fecha?: string;
+  referencia?: string;
+  confianza: number;        // 0-1
+  motivosDuda?: string[];
+}
+
+export interface Pago {
+  id: string;
+  userId: string;
+  userNombre: string;
+  userEmail: string;
+  cursoId: string;
+  cursoTitulo: string;
+  montoEsperado: number;
+  imagenUrl: string;
+  iaData?: IaData;
+  estado: EstadoPago;
+  codigoCanje: string | null;
+  motivoRechazo?: string;
+  adminRevisor?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PagoRefIndex {
+  id: string;        // referencia usada como ID
+  pagoId: string;
+  createdAt: string;
+}

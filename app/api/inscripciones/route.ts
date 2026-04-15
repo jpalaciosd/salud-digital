@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { create, query, update, getById } from "@/lib/db";
+import { create, query, update } from "@/lib/db";
 import { verifyToken } from "@/lib/auth";
 
 interface Inscripcion {
@@ -31,31 +31,44 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ inscripciones });
 }
 
-// POST — enroll
+// POST — enroll (requires admin role; regular users must use /api/pagos/canjear)
 export async function POST(req: NextRequest) {
   const token = req.cookies.get("auth-token")?.value;
   if (!token) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   const user = await verifyToken(token);
   if (!user) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
 
+  if (user.rol !== "admin") {
+    return NextResponse.json(
+      {
+        error: "La inscripción directa no está disponible. Realiza el pago para obtener un código de canje.",
+        redirect: "/cursos",
+      },
+      { status: 402 }
+    );
+  }
+
   const body = await req.json();
-  const { cursoId, cursoTitulo } = body;
+  const { cursoId, cursoTitulo, userId } = body;
 
   if (!cursoId || !cursoTitulo) {
     return NextResponse.json({ error: "cursoId y cursoTitulo requeridos" }, { status: 400 });
   }
 
-  const existing = await query<Inscripcion>("inscripciones", (i) => i.userId === user.userId && i.cursoId === cursoId);
+  const targetUserId = userId || user.userId;
+  const targetNombre = userId ? body.userNombre || "" : `${user.nombre} ${user.apellido}`;
+
+  const existing = await query<Inscripcion>("inscripciones", (i) => i.userId === targetUserId && i.cursoId === cursoId);
   if (existing.length > 0) {
-    return NextResponse.json({ error: "Ya estás inscrito en este curso" }, { status: 409 });
+    return NextResponse.json({ error: "Este usuario ya está inscrito en este curso" }, { status: 409 });
   }
 
   const inscripcion: Inscripcion = {
     id: crypto.randomUUID(),
     cursoId,
     cursoTitulo,
-    userId: user.userId,
-    userNombre: `${user.nombre} ${user.apellido}`,
+    userId: targetUserId,
+    userNombre: targetNombre,
     completedItems: [],
     evaluacionNota: null,
     evaluacionAprobada: false,

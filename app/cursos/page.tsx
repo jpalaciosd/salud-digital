@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
 import UserNav from "@/lib/UserNav";
 import { useState, useEffect } from "react";
@@ -35,10 +36,9 @@ const tagsMap: Record<string, string> = {
 
 export default function Cursos() {
   const { user, token } = useAuth();
+  const router = useRouter();
   const [cursos, setCursos] = useState<CursoAPI[]>([]);
-  const [inscribiendo, setInscribiendo] = useState<string | null>(null);
   const [inscritos, setInscritos] = useState<Set<string>>(new Set());
-  const [mensaje, setMensaje] = useState("");
 
   useEffect(() => {
     fetch("/api/cursos").then(r => r.json()).then(d => setCursos(d.cursos || []));
@@ -54,30 +54,12 @@ export default function Cursos() {
       });
   }, [token]);
 
-  const inscribir = async (cursoId: string) => {
+  const irAPagar = (cursoId: string) => {
     if (!user) {
-      window.location.href = "/login?redirect=/cursos";
+      router.push(`/login?redirect=/pagar/${cursoId}`);
       return;
     }
-    setInscribiendo(cursoId);
-    setMensaje("");
-    try {
-      const res = await fetch("/api/inscripciones", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cursoId }),
-      });
-      if (res.ok) {
-        setInscritos(prev => new Set([...prev, cursoId]));
-        setMensaje("✅ ¡Inscripción exitosa! Ve a tu Dashboard para comenzar.");
-      } else {
-        const data = await res.json();
-        setMensaje(data.error || "Error al inscribirte");
-      }
-    } catch {
-      setMensaje("Error de conexión");
-    }
-    setInscribiendo(null);
+    router.push(`/pagar/${cursoId}`);
   };
 
   return (
@@ -108,18 +90,6 @@ export default function Cursos() {
           <p className="text-lg text-blue-200">Formación certificada en salud — 100% virtual con tutor IA</p>
         </div>
       </section>
-
-      {/* Mensaje */}
-      {mensaje && (
-        <div className="max-w-4xl mx-auto px-6 mt-6">
-          <div className={`p-4 rounded-xl text-sm font-semibold text-center ${mensaje.startsWith("✅") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>
-            {mensaje}
-            {mensaje.startsWith("✅") && (
-              <Link href="/dashboard" className="ml-2 underline font-bold">Ir al Dashboard →</Link>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* Grid */}
       <section className="py-16 px-6">
@@ -157,11 +127,10 @@ export default function Cursos() {
                       </Link>
                     ) : (
                       <button
-                        onClick={() => inscribir(curso.id)}
-                        disabled={inscribiendo === curso.id}
-                        className="px-6 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50"
+                        onClick={() => irAPagar(curso.id)}
+                        className="px-6 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all"
                       >
-                        {inscribiendo === curso.id ? "Inscribiendo..." : "Inscribirme"}
+                        Pagar e inscribirme
                       </button>
                     )}
                   </div>

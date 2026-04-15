@@ -166,3 +166,18 @@ export async function getCurrentUser() {
   if (!token) return null;
   return verifyToken(token);
 }
+
+export type AuthedUser = {
+  userId: string;
+  email: string;
+  nombre: string;
+  apellido: string;
+  rol: string;
+};
+
+export async function getUserFromCookies(
+  cookieToken: string | undefined
+): Promise<AuthedUser | null> {
+  if (!cookieToken) return null;
+  return (await verifyToken(cookieToken)) as AuthedUser | null;
+}
