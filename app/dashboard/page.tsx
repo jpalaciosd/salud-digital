@@ -153,13 +153,8 @@ export default function Dashboard() {
     fetchData();
   };
 
-  const inscribirCurso = async (curso: Curso) => {
-    await fetch("/api/inscripciones", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cursoId: curso.id, cursoTitulo: curso.titulo }),
-    });
-    fetchData();
+  const inscribirCurso = (curso: Curso) => {
+    router.push(`/pagar/${curso.id}`);
   };
 
   const actualizarEstadoCita = async (id: string, estado: string) => {
@@ -1156,7 +1151,7 @@ export default function Dashboard() {
                             </button>
                           ) : (
                             <button onClick={() => inscribirCurso(curso)} className="w-full py-2 rounded-lg text-xs font-bold bg-[var(--dash-accent)] text-white">
-                              Inscribirme
+                              Pagar e inscribirme
                             </button>
                           )}
                         </div>
