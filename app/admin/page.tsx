@@ -9,6 +9,21 @@ interface UserData { id: string; email: string; nombre: string; apellido: string
 interface InscripcionData { id: string; userId: string; cursoId: string; cursoTitulo: string; estado: string; completedItems: string[]; evaluacionNota: number|null; evaluacionAprobada: boolean; certificadoFecha: string|null; createdAt: string; }
 interface AgendaData { id: string; estudianteNombre: string; cursoNombre: string; estado: string; profesionalNombre: string|null; calificacion: number|null; modalidad: string; createdAt: string; }
 interface CursoData { id: string; titulo: string; totalModulos?: number; duracionHoras: number; }
+interface PagoData {
+  id: string;
+  userId: string;
+  userNombre: string;
+  userEmail: string;
+  cursoId: string;
+  cursoTitulo: string;
+  montoEsperado: number;
+  imagenUrl: string;
+  estado: "pendiente_ia" | "aprobado_auto" | "revision_manual" | "aprobado_manual" | "rechazado" | "canjeado";
+  codigoCanje: string | null;
+  motivoRechazo?: string;
+  iaData?: { confianza: number; monto?: number; titular?: string; last4?: string };
+  createdAt: string;
+}
 
 export default function AdminPage() {
   const { user, loading: authLoading } = useAuth();
@@ -16,8 +31,21 @@ export default function AdminPage() {
   const [inscripciones, setInscrips] = useState<InscripcionData[]>([]);
   const [agendas, setAgendas] = useState<AgendaData[]>([]);
   const [cursos, setCursos] = useState<CursoData[]>([]);
+  const [pagos, setPagos] = useState<PagoData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"overview"|"users"|"cursos"|"agendas"|"growth">("overview");
+  const [tab, setTab] = useState<"overview"|"users"|"cursos"|"agendas"|"pagos"|"growth">("overview");
+
+  const recargar = () => {
+    fetch("/api/admin/metrics")
+      .then(r => r.ok ? r.json() : {})
+      .then(data => {
+        setUsers(data.users || []);
+        setInscrips(data.inscripciones || []);
+        setAgendas(data.agendas || []);
+        setCursos(data.cursos || []);
+        setPagos(data.pagos || []);
+      });
+  };
 
   useEffect(() => {
     if (authLoading) return;
@@ -28,6 +56,7 @@ export default function AdminPage() {
       setInscrips(data.inscripciones || []);
       setAgendas(data.agendas || []);
       setCursos(data.cursos || []);
+      setPagos(data.pagos || []);
       setLoading(false);
     }).catch(() => setLoading(false));
   }, [authLoading]);
@@ -87,11 +116,30 @@ export default function AdminPage() {
   inscripciones.forEach(i => { const d = (i.createdAt || "").slice(0, 10); inscByDay[d] = (inscByDay[d] || 0) + 1; });
   const maxInsc = Math.max(1, ...days30.map(d => inscByDay[d] || 0));
 
+  // ── Pagos metrics ──
+  const pagosRevisionManual = pagos.filter(p => p.estado === "revision_manual");
+  const pagosAprobados = pagos.filter(p => p.estado === "aprobado_auto" || p.estado === "aprobado_manual" || p.estado === "canjeado");
+  const pagosRechazados = pagos.filter(p => p.estado === "rechazado");
+  const ingresosTotales = pagosAprobados.reduce((s, p) => s + (p.montoEsperado || 0), 0);
+  const tasaAutoAprobacion = pagos.length > 0
+    ? Math.round((pagos.filter(p => p.estado === "aprobado_auto" || p.estado === "canjeado").length / pagos.length) * 100)
+    : 0;
+
+  const decidirPago = async (pagoId: string, decision: "aprobar" | "rechazar", motivo?: string) => {
+    const res = await fetch(`/api/admin/pagos/${pagoId}/decidir`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ decision, motivo }),
+    });
+    if (res.ok) recargar();
+  };
+
   const tabs = [
     { id: "overview", label: "Resumen", icon: "dashboard" },
     { id: "users", label: "Usuarios", icon: "people" },
     { id: "cursos", label: "Cursos", icon: "school" },
     { id: "agendas", label: "Tutorías", icon: "event" },
+    { id: "pagos", label: "Pagos", icon: "payments" },
     { id: "growth", label: "Crecimiento", icon: "trending_up" },
   ];
 
@@ -332,6 +380,135 @@ export default function AdminPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* ═══ PAGOS ═══ */}
+        {tab === "pagos" && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
+              <KPI icon="payments" label="Total pagos" value={pagos.length} color="blue" />
+              <KPI icon="hourglass_top" label="En revisión" value={pagosRevisionManual.length} color="gold" />
+              <KPI icon="check_circle" label="Aprobados" value={pagosAprobados.length} color="green" />
+              <KPI icon="cancel" label="Rechazados" value={pagosRechazados.length} color="purple" />
+              <KPI icon="auto_awesome" label="Auto-aprobado IA" value={`${tasaAutoAprobacion}%`} color="gold" />
+            </div>
+
+            <div className="bg-white/5 rounded-2xl p-5 border border-white/10 flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-400">Ingresos totales (pagos aprobados + canjeados)</p>
+                <p className="text-3xl font-extrabold text-[#c5a044] mt-1">${ingresosTotales.toLocaleString("es-CO")} COP</p>
+              </div>
+              <Link href="/admin/enlaces-pago" className="px-5 py-3 rounded-xl bg-[#c5a044] text-[#0f172a] font-bold hover:opacity-90 flex items-center gap-2">
+                <span className="material-icons-outlined text-lg">qr_code_2</span>
+                Enlaces / QR
+              </Link>
+            </div>
+
+            {/* Cola de revisión */}
+            <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="material-icons-outlined text-amber-400">priority_high</span>
+                  <h3 className="font-bold">Cola de revisión manual ({pagosRevisionManual.length})</h3>
+                </div>
+                <Link href="/admin/pagos" className="text-xs text-[#c5a044] hover:underline">Ver vista completa →</Link>
+              </div>
+
+              {pagosRevisionManual.length === 0 ? (
+                <p className="text-center text-gray-500 py-10">No hay pagos pendientes de revisión 🎉</p>
+              ) : (
+                <div className="divide-y divide-white/5">
+                  {pagosRevisionManual.map(p => (
+                    <div key={p.id} className="p-4 grid md:grid-cols-[120px_1fr_auto] gap-4 items-start">
+                      <a href={p.imagenUrl} target="_blank" rel="noopener noreferrer">
+                        <img src={p.imagenUrl} alt="Comprobante" className="w-full h-28 object-cover rounded-lg border border-white/10 hover:opacity-80" />
+                      </a>
+                      <div className="space-y-1 text-sm">
+                        <p className="font-semibold">{p.cursoTitulo} · <span className="text-[#c5a044]">${p.montoEsperado.toLocaleString("es-CO")}</span></p>
+                        <p className="text-gray-400">{p.userNombre} · {p.userEmail}</p>
+                        {p.iaData && (
+                          <p className="text-xs text-gray-500">
+                            IA: confianza {(p.iaData.confianza * 100).toFixed(0)}%
+                            {p.iaData.monto !== undefined && ` · monto detectado $${p.iaData.monto.toLocaleString("es-CO")}`}
+                            {p.iaData.titular && ` · titular "${p.iaData.titular}"`}
+                          </p>
+                        )}
+                        {p.motivoRechazo && (
+                          <p className="text-xs text-amber-400 bg-amber-500/10 rounded p-2">⚠️ {p.motivoRechazo}</p>
+                        )}
+                      </div>
+                      <div className="flex md:flex-col gap-2">
+                        <button
+                          onClick={() => decidirPago(p.id, "aprobar")}
+                          className="px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold hover:bg-green-700"
+                        >
+                          ✓ Aprobar
+                        </button>
+                        <button
+                          onClick={() => {
+                            const motivo = window.prompt("Motivo del rechazo (lo verá el usuario):") || "";
+                            if (motivo.trim()) decidirPago(p.id, "rechazar", motivo.trim());
+                          }}
+                          className="px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-semibold hover:bg-red-700"
+                        >
+                          ✗ Rechazar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Historial reciente */}
+            <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="px-5 py-4 border-b border-white/10 flex items-center gap-2">
+                <span className="material-icons-outlined text-blue-400">history</span>
+                <h3 className="font-bold">Pagos recientes</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/10 text-left">
+                      <th className="px-4 py-3 text-gray-400">Fecha</th>
+                      <th className="px-4 py-3 text-gray-400">Usuario</th>
+                      <th className="px-4 py-3 text-gray-400">Curso</th>
+                      <th className="px-4 py-3 text-gray-400">Monto</th>
+                      <th className="px-4 py-3 text-gray-400">Estado</th>
+                      <th className="px-4 py-3 text-gray-400">Código</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pagos.length === 0 ? (
+                      <tr><td colSpan={6} className="text-center text-gray-500 py-8">Aún no hay pagos.</td></tr>
+                    ) : (
+                      [...pagos]
+                        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                        .slice(0, 20)
+                        .map(p => (
+                          <tr key={p.id} className="border-b border-white/5 hover:bg-white/5">
+                            <td className="px-4 py-3 text-gray-400 whitespace-nowrap">{p.createdAt?.slice(0, 16).replace("T", " ")}</td>
+                            <td className="px-4 py-3">{p.userNombre}</td>
+                            <td className="px-4 py-3 text-gray-400">{p.cursoTitulo}</td>
+                            <td className="px-4 py-3 font-semibold text-[#c5a044]">${p.montoEsperado.toLocaleString("es-CO")}</td>
+                            <td className="px-4 py-3">
+                              <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                p.estado === "aprobado_auto" || p.estado === "canjeado" ? "bg-green-500/20 text-green-400" :
+                                p.estado === "aprobado_manual" ? "bg-cyan-500/20 text-cyan-400" :
+                                p.estado === "revision_manual" ? "bg-yellow-500/20 text-yellow-400" :
+                                p.estado === "rechazado" ? "bg-red-500/20 text-red-400" :
+                                "bg-gray-500/20 text-gray-400"
+                              }`}>{p.estado.replace("_", " ")}</span>
+                            </td>
+                            <td className="px-4 py-3 font-mono text-xs text-gray-400">{p.codigoCanje || "—"}</td>
+                          </tr>
+                        ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}

@@ -17,11 +17,12 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const [users, inscripciones, agendas, cursos] = await Promise.all([
+    const [users, inscripciones, agendas, cursos, pagos] = await Promise.all([
       getAllUsers(),
       getAll<Record<string, unknown>>("inscripciones"),
       getAll<Record<string, unknown>>("agendas"),
       getAll<Record<string, unknown>>("cursos"),
+      getAll<Record<string, unknown>>("pagos"),
     ]);
 
     return NextResponse.json({
@@ -37,6 +38,7 @@ export async function GET(req: NextRequest) {
       inscripciones,
       agendas,
       cursos,
+      pagos,
     });
   } catch (err) {
     console.error("Admin metrics error:", err);
