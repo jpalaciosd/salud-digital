@@ -155,11 +155,11 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
           <div className="p-6">
             {paso === "instrucciones" && (
               <div className="space-y-5">
-                <h2 className="text-lg font-bold text-[#0f2847]">Paso 1 — Paga con Nequi</h2>
+                <h2 className="text-lg font-bold text-[#0f2847]">Paso 1 — Paga con Bre-B / Nequi</h2>
                 <div className="bg-gradient-to-br from-[#0f2847] to-[#1e3a8a] text-white rounded-xl p-5 space-y-3">
                   <div>
-                    <p className="text-xs opacity-70 uppercase tracking-wide">Envía a Nequi</p>
-                    <p className="text-2xl font-bold">{nequi.numero || `•••• ${nequi.last4 || "••••"}`}</p>
+                    <p className="text-xs opacity-70 uppercase tracking-wide">Llave Bre-B (Nequi Negocios)</p>
+                    <p className="text-2xl font-bold tracking-wider">{nequi.numero || `•••• ${nequi.last4 || "••••"}`}</p>
                   </div>
                   {nequi.titular && (
                     <div>
@@ -184,7 +184,8 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900">
                   <p className="font-semibold mb-1">Instrucciones:</p>
                   <ol className="list-decimal list-inside space-y-1 text-amber-800">
-                    <li>Abre la app de Nequi y envía el monto exacto al número indicado.</li>
+                    <li>Abre tu app (Nequi, Bancolombia, Daviplata) y elige enviar a una llave Bre-B.</li>
+                    <li>Pega la llave indicada arriba y envía el monto exacto.</li>
                     <li>Guarda el comprobante (captura de pantalla).</li>
                     <li>Vuelve aquí y súbelo para validar tu pago.</li>
                   </ol>
