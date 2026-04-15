@@ -2,6 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { useAuth } from "@/lib/AuthContext";
+import UserNav from "@/lib/UserNav";
 
 const agentes = [
   {
@@ -187,6 +189,7 @@ function AvatarCard({ agente }: { agente: typeof agentes[0] }) {
 }
 
 export default function AgentesPage() {
+  const { user } = useAuth();
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0c4a6e] relative overflow-hidden">
       {/* Animated background particles */}
@@ -254,24 +257,28 @@ export default function AgentesPage() {
       `}</style>
 
       {/* Header */}
-      <header className="border-b border-white/10 relative z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
-            <span className="text-lg font-bold text-white">
-              ISSI
-            </span>
-          </Link>
-          <div className="flex gap-3">
-            <Link href="/login" className="px-4 py-2 text-sm text-white/70 hover:text-white transition">
-              Iniciar Sesión
+      {user ? (
+        <UserNav />
+      ) : (
+        <header className="border-b border-white/10 relative z-10">
+          <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
+              <span className="text-lg font-bold text-white">
+                ISSI
+              </span>
             </Link>
-            <Link href="/registro" className="px-4 py-2 bg-[#0f2847] text-white rounded-xl text-sm font-bold hover:bg-[#2563eb] transition">
-              Registrarse
-            </Link>
+            <div className="flex gap-3">
+              <Link href="/login" className="px-4 py-2 text-sm text-white/70 hover:text-white transition">
+                Iniciar Sesión
+              </Link>
+              <Link href="/registro" className="px-4 py-2 bg-[#0f2847] text-white rounded-xl text-sm font-bold hover:bg-[#2563eb] transition">
+                Registrarse
+              </Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center relative z-10">

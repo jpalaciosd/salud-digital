@@ -1,23 +1,29 @@
 "use client";
 import Link from "next/link";
+import { useAuth } from "@/lib/AuthContext";
+import UserNav from "@/lib/UserNav";
 
 export default function Servicios() {
+  const { user } = useAuth();
   return (
     <div className="min-h-screen bg-[#fafaf7]" style={{ fontFamily: "'Manrope', sans-serif" }}>
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
-            <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
-            <Link href="/cursos" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Cursos</Link>
-            <Link href="/login" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Iniciar Sesión</Link>
+      {user ? (
+        <UserNav />
+      ) : (
+        <header className="bg-white border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <img src="/logo-issi.png" alt="ISSI" className="w-10 h-10 rounded-full" />
+              <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
+            </Link>
+            <div className="hidden md:flex items-center gap-8">
+              <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
+              <Link href="/cursos" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Cursos</Link>
+              <Link href="/login" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Iniciar Sesión</Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Hero */}
       <section className="py-20 bg-gradient-to-br from-[#0a1628] to-[#0f2847] text-white">

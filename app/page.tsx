@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { useAuth } from "@/lib/AuthContext";
+import UserNav from "@/lib/UserNav";
 
 const animStyles = `
 @keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
@@ -8,29 +10,33 @@ const animStyles = `
 `;
 
 export default function Home() {
+  const { user } = useAuth();
   return (
     <div className="min-h-screen">
       <style dangerouslySetInnerHTML={{ __html: animStyles }} />
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#0f2847]/10">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
-            <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
+      {user ? (
+        <UserNav />
+      ) : (
+        <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#0f2847]/10">
+          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src="/logo-issi.png" alt="ISSI" className="w-12 h-12 rounded-full" />
+              <span className="text-xl font-bold tracking-tight uppercase">ISSI</span>
+            </div>
+            <nav className="hidden md:flex items-center gap-8">
+              <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
+              <Link href="#metodologia" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Metodología</Link>
+              <Link href="/cursos" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Cursos</Link>
+              <Link href="#contacto" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Contacto</Link>
+            </nav>
+            <div className="flex items-center gap-4">
+              <Link href="/login" className="px-6 py-2.5 rounded-full bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#0f2847]/20">
+                Iniciar Sesión
+              </Link>
+            </div>
           </div>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="/" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Inicio</Link>
-            <Link href="#metodologia" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Metodología</Link>
-            <Link href="/cursos" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Cursos</Link>
-            <Link href="#contacto" className="text-sm font-semibold hover:text-[#c5a044] transition-colors">Contacto</Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="px-6 py-2.5 rounded-full bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-[#0f2847]/20">
-              Iniciar Sesión
-            </Link>
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Hero */}
       <section className="relative overflow-hidden hero-gradient py-20 lg:py-32">
