@@ -31,7 +31,7 @@ export const CURSOS_CATALOGO: CursoCompleto[] = [
     categoria: "salud",
     duracionHoras: 8,
     imagen: "🩺",
-    precio: 89900,
+    precio: 150000,
     modulos: [
       {
         titulo: "1. Introducción a los Primeros Auxilios",
