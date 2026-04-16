@@ -24,6 +24,19 @@ interface PagoData {
   iaData?: { confianza: number; monto?: number; titular?: string; last4?: string };
   createdAt: string;
 }
+interface PromoData {
+  id: string;
+  descripcion: string;
+  porcentaje: number;
+  validoDesde: string;
+  validoHasta: string | null;
+  usosMaximos: number | null;
+  usosActuales: number;
+  unoPorUsuario: boolean;
+  activo: boolean;
+  createdBy: string;
+  createdAt: string;
+}
 
 export default function AdminPage() {
   const { user, loading: authLoading } = useAuth();
@@ -32,8 +45,15 @@ export default function AdminPage() {
   const [agendas, setAgendas] = useState<AgendaData[]>([]);
   const [cursos, setCursos] = useState<CursoData[]>([]);
   const [pagos, setPagos] = useState<PagoData[]>([]);
+  const [promos, setPromos] = useState<PromoData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"overview"|"users"|"cursos"|"agendas"|"pagos"|"growth">("overview");
+  const [tab, setTab] = useState<"overview"|"users"|"cursos"|"agendas"|"pagos"|"promos"|"growth">("overview");
+
+  const recargarPromos = () => {
+    fetch("/api/admin/promos")
+      .then(r => r.ok ? r.json() : {})
+      .then(data => setPromos(data.promos || []));
+  };
 
   const recargar = () => {
     fetch("/api/admin/metrics")
@@ -45,18 +65,21 @@ export default function AdminPage() {
         setCursos(data.cursos || []);
         setPagos(data.pagos || []);
       });
+    recargarPromos();
   };
 
   useEffect(() => {
     if (authLoading) return;
     Promise.all([
       fetch("/api/admin/metrics").then(r => r.ok ? r.json() : {}),
-    ]).then(([data]) => {
+      fetch("/api/admin/promos").then(r => r.ok ? r.json() : {}),
+    ]).then(([data, promoData]) => {
       setUsers(data.users || []);
       setInscrips(data.inscripciones || []);
       setAgendas(data.agendas || []);
       setCursos(data.cursos || []);
       setPagos(data.pagos || []);
+      setPromos(promoData.promos || []);
       setLoading(false);
     }).catch(() => setLoading(false));
   }, [authLoading]);
@@ -140,8 +163,54 @@ export default function AdminPage() {
     { id: "cursos", label: "Cursos", icon: "school" },
     { id: "agendas", label: "Tutorías", icon: "event" },
     { id: "pagos", label: "Pagos", icon: "payments" },
+    { id: "promos", label: "Promos", icon: "local_offer" },
     { id: "growth", label: "Crecimiento", icon: "trending_up" },
   ];
+
+  // ── Promo metrics ──
+  const promosActivos = promos.filter(p => p.activo);
+  const usosTotales = promos.reduce((s, p) => s + (p.usosActuales || 0), 0);
+  const descuentosTotales = pagos.reduce((s, p) => s + ((p as PagoData & { descuentoAplicado?: number }).descuentoAplicado || 0), 0);
+
+  const togglePromo = async (id: string, activo: boolean) => {
+    const res = await fetch(`/api/admin/promos/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ activo }),
+    });
+    if (res.ok) recargarPromos();
+  };
+
+  const eliminarPromo = async (id: string) => {
+    if (!window.confirm(`¿Eliminar el código ${id}? No se puede deshacer.`)) return;
+    const res = await fetch(`/api/admin/promos/${id}`, { method: "DELETE" });
+    if (res.ok) recargarPromos();
+  };
+
+  const crearPromo = async (form: HTMLFormElement) => {
+    const fd = new FormData(form);
+    const body = {
+      codigo: String(fd.get("codigo") || "").trim(),
+      descripcion: String(fd.get("descripcion") || ""),
+      porcentaje: Number(fd.get("porcentaje") || 0),
+      validoDesde: fd.get("validoDesde") ? new Date(String(fd.get("validoDesde"))).toISOString() : new Date().toISOString(),
+      validoHasta: fd.get("validoHasta") ? new Date(String(fd.get("validoHasta"))).toISOString() : null,
+      usosMaximos: fd.get("usosMaximos") ? Number(fd.get("usosMaximos")) : null,
+      unoPorUsuario: fd.get("unoPorUsuario") === "on",
+    };
+    const res = await fetch("/api/admin/promos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      window.alert(data.error || "Error al crear");
+      return;
+    }
+    form.reset();
+    recargarPromos();
+  };
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white">
@@ -505,6 +574,160 @@ export default function AdminPage() {
                             <td className="px-4 py-3 font-mono text-xs text-gray-400">{p.codigoCanje || "—"}</td>
                           </tr>
                         ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ═══ PROMOS ═══ */}
+        {tab === "promos" && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <KPI icon="local_offer" label="Códigos creados" value={promos.length} color="blue" />
+              <KPI icon="check_circle" label="Activos" value={promosActivos.length} color="green" />
+              <KPI icon="redeem" label="Usos totales" value={usosTotales} color="gold" />
+              <KPI icon="savings" label="Descuento otorgado" value={`$${descuentosTotales.toLocaleString("es-CO")}`} color="purple" />
+            </div>
+
+            {/* Form crear */}
+            <div className="bg-white/5 rounded-2xl border border-white/10 p-5">
+              <h3 className="font-bold mb-4 flex items-center gap-2">
+                <span className="material-icons-outlined text-[#c5a044]">add_circle</span>
+                Crear nuevo código
+              </h3>
+              <form
+                onSubmit={(e) => { e.preventDefault(); crearPromo(e.currentTarget); }}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-3"
+              >
+                <input
+                  name="codigo"
+                  required
+                  placeholder="CÓDIGO (ej: BLACK50)"
+                  className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm uppercase font-mono"
+                  maxLength={24}
+                  pattern="[A-Za-z0-9_\-]{3,24}"
+                  title="3-24 caracteres alfanuméricos, guiones o guiones bajos"
+                />
+                <input
+                  name="porcentaje"
+                  type="number"
+                  required
+                  min={1}
+                  max={99}
+                  placeholder="% Descuento (1-99)"
+                  className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm"
+                />
+                <input
+                  name="descripcion"
+                  placeholder="Descripción interna (opcional)"
+                  className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm"
+                  maxLength={200}
+                />
+                <label className="text-xs text-gray-400 block">
+                  Válido desde
+                  <input
+                    name="validoDesde"
+                    type="datetime-local"
+                    className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm mt-1"
+                  />
+                </label>
+                <label className="text-xs text-gray-400 block">
+                  Válido hasta (opcional)
+                  <input
+                    name="validoHasta"
+                    type="datetime-local"
+                    className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm mt-1"
+                  />
+                </label>
+                <input
+                  name="usosMaximos"
+                  type="number"
+                  min={1}
+                  placeholder="Usos máximos (vacío = ilimitado)"
+                  className="px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm"
+                />
+                <label className="flex items-center gap-2 text-sm text-gray-300">
+                  <input name="unoPorUsuario" type="checkbox" defaultChecked className="rounded" />
+                  Solo 1 uso por usuario
+                </label>
+                <button
+                  type="submit"
+                  className="md:col-span-2 lg:col-span-3 py-2.5 rounded-lg bg-[#c5a044] text-[#0f172a] font-bold hover:opacity-90"
+                >
+                  Crear código
+                </button>
+              </form>
+            </div>
+
+            {/* Lista */}
+            <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/10 text-left">
+                      <th className="px-4 py-3 text-gray-400">Código</th>
+                      <th className="px-4 py-3 text-gray-400">%</th>
+                      <th className="px-4 py-3 text-gray-400">Vigencia</th>
+                      <th className="px-4 py-3 text-gray-400">Usos</th>
+                      <th className="px-4 py-3 text-gray-400">Estado</th>
+                      <th className="px-4 py-3 text-gray-400">Creado por</th>
+                      <th className="px-4 py-3 text-gray-400">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {promos.length === 0 ? (
+                      <tr><td colSpan={7} className="text-center text-gray-500 py-8">No hay códigos aún. Crea el primero arriba.</td></tr>
+                    ) : (
+                      promos.map(p => {
+                        const expirado = p.validoHasta ? Date.parse(p.validoHasta) < Date.now() : false;
+                        const agotado = p.usosMaximos !== null && p.usosActuales >= p.usosMaximos;
+                        const rangoLabel = p.validoHasta
+                          ? `${p.validoDesde.slice(0,10)} → ${p.validoHasta.slice(0,10)}`
+                          : `desde ${p.validoDesde.slice(0,10)}`;
+                        return (
+                          <tr key={p.id} className="border-b border-white/5 hover:bg-white/5">
+                            <td className="px-4 py-3 font-mono font-bold text-[#c5a044]">
+                              {p.id}
+                              {p.descripcion && <p className="text-xs text-gray-500 font-sans font-normal mt-0.5">{p.descripcion}</p>}
+                            </td>
+                            <td className="px-4 py-3 font-bold">{p.porcentaje}%</td>
+                            <td className="px-4 py-3 text-xs text-gray-400">{rangoLabel}</td>
+                            <td className="px-4 py-3 text-xs">{p.usosActuales}{p.usosMaximos ? ` / ${p.usosMaximos}` : ""}</td>
+                            <td className="px-4 py-3">
+                              <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                !p.activo ? "bg-gray-500/20 text-gray-400" :
+                                expirado ? "bg-red-500/20 text-red-400" :
+                                agotado ? "bg-amber-500/20 text-amber-400" :
+                                "bg-green-500/20 text-green-400"
+                              }`}>
+                                {!p.activo ? "Desactivado" : expirado ? "Expirado" : agotado ? "Agotado" : "Activo"}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 text-xs text-gray-500">{p.createdBy}</td>
+                            <td className="px-4 py-3">
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => togglePromo(p.id, !p.activo)}
+                                  className={`px-3 py-1 rounded-lg text-xs font-semibold ${
+                                    p.activo ? "bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30" : "bg-green-500/20 text-green-400 hover:bg-green-500/30"
+                                  }`}
+                                >
+                                  {p.activo ? "Desactivar" : "Activar"}
+                                </button>
+                                <button
+                                  onClick={() => eliminarPromo(p.id)}
+                                  className="px-3 py-1 rounded-lg text-xs font-semibold bg-red-500/20 text-red-400 hover:bg-red-500/30"
+                                >
+                                  Eliminar
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
                     )}
                   </tbody>
                 </table>

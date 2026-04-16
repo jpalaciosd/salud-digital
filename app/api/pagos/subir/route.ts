@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { verifyToken } from "@/lib/auth";
-import { create, getById, query } from "@/lib/db";
+import { create, getById, query, update } from "@/lib/db";
 import { extraerComprobanteNequi } from "@/lib/openai-vision";
 import { generarCodigoCanje, tituarContenido } from "@/lib/codigo-canje";
 import { CURSOS_CATALOGO } from "@/lib/cursos-data";
-import type { Pago, PagoRefIndex, IaData } from "@/lib/types";
+import { validarCodigoParaPago, usoPromoId } from "@/lib/promos";
+import type { Pago, PagoRefIndex, IaData, CodigoPromo, UsoPromo } from "@/lib/types";
 
 const MAX_SIZE = 2 * 1024 * 1024;
 const TOLERANCIA_COP = 100;
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
   const form = await req.formData();
   const file = form.get("file");
   const cursoId = form.get("cursoId");
+  const codigoPromoRaw = form.get("codigoPromo");
 
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "Archivo requerido" }, { status: 400 });
@@ -75,6 +77,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Validar código promocional (si lo hay) ANTES de subir el archivo
+  let promoAplicada: { promo: CodigoPromo; descuentoCop: number; precioFinal: number } | null = null;
+  const codigoPromo = typeof codigoPromoRaw === "string" ? codigoPromoRaw.trim().toUpperCase() : "";
+  if (codigoPromo) {
+    const r = await validarCodigoParaPago(codigoPromo, user.userId, curso.precio);
+    if (!r.valido) {
+      return NextResponse.json({ error: `Código promocional inválido: ${r.motivo}` }, { status: 400 });
+    }
+    promoAplicada = { promo: r.promo!, descuentoCop: r.descuentoCop!, precioFinal: r.precioFinal! };
+  }
+
+  const montoEsperado = promoAplicada ? promoAplicada.precioFinal : curso.precio;
+
   const pagoId = crypto.randomUUID();
   const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -96,7 +111,7 @@ export async function POST(req: NextRequest) {
 
   const montoOk =
     typeof iaData.monto === "number" &&
-    Math.abs(iaData.monto - curso.precio) <= TOLERANCIA_COP;
+    Math.abs(iaData.monto - montoEsperado) <= TOLERANCIA_COP;
   const last4Ok =
     iaData.last4 === (process.env.NEQUI_NUMERO_LAST4 || "").replace(/\D/g, "").slice(-4);
   const titularOk =
@@ -130,9 +145,9 @@ export async function POST(req: NextRequest) {
   } else if (todoOk && iaData.confianza >= CONFIANZA_AUTO) {
     estado = "aprobado_auto";
     codigoCanje = generarCodigoCanje();
-  } else if (!montoOk && typeof iaData.monto === "number" && Math.abs(iaData.monto - curso.precio) > curso.precio * 0.2) {
+  } else if (!montoOk && typeof iaData.monto === "number" && Math.abs(iaData.monto - montoEsperado) > montoEsperado * 0.2) {
     estado = "rechazado";
-    motivoRechazo = `El monto del comprobante ($${iaData.monto}) no corresponde al precio del curso ($${curso.precio})`;
+    motivoRechazo = `El monto del comprobante ($${iaData.monto}) no corresponde al precio esperado ($${montoEsperado})`;
   } else {
     estado = "revision_manual";
     motivoRechazo = motivos.join("; ");
@@ -146,17 +161,37 @@ export async function POST(req: NextRequest) {
     userEmail: user.email,
     cursoId,
     cursoTitulo: curso.titulo,
-    montoEsperado: curso.precio,
+    montoEsperado,
     imagenUrl: blob.url,
     iaData,
     estado,
     codigoCanje,
     motivoRechazo: estado === "rechazado" || estado === "revision_manual" ? motivoRechazo : undefined,
+    codigoPromo: promoAplicada?.promo.id,
+    descuentoAplicado: promoAplicada?.descuentoCop,
+    precioOriginal: promoAplicada ? curso.precio : undefined,
     createdAt: now,
     updatedAt: now,
   };
 
   await create("pagos", pago);
+
+  // Si la promo se aplica y el pago queda aprobado o en revisión, registrar uso e incrementar contador
+  if (promoAplicada && (estado === "aprobado_auto" || estado === "revision_manual")) {
+    await create<UsoPromo>("promo-usos", {
+      id: usoPromoId(promoAplicada.promo.id, user.userId),
+      codigoId: promoAplicada.promo.id,
+      userId: user.userId,
+      pagoId,
+      descuentoAplicado: promoAplicada.descuentoCop,
+      createdAt: now,
+    });
+    await update<CodigoPromo>("promos", promoAplicada.promo.id, (p) => ({
+      ...p,
+      usosActuales: p.usosActuales + 1,
+      updatedAt: now,
+    }));
+  }
 
   if (iaData.referencia && estado === "aprobado_auto") {
     const refId = refToId(iaData.referencia);

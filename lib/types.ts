@@ -137,6 +137,9 @@ export interface Pago {
   codigoCanje: string | null;
   motivoRechazo?: string;
   adminRevisor?: string;
+  codigoPromo?: string;          // código aplicado (ej: "BLACK50")
+  descuentoAplicado?: number;    // monto descontado en COP
+  precioOriginal?: number;       // precio antes del descuento
   createdAt: string;
   updatedAt: string;
 }
@@ -144,5 +147,30 @@ export interface Pago {
 export interface PagoRefIndex {
   id: string;        // referencia usada como ID
   pagoId: string;
+  createdAt: string;
+}
+
+// ── Códigos promocionales ────────────────────
+export interface CodigoPromo {
+  id: string;                    // el código mismo, UPPERCASE (ej: "BLACK50")
+  descripcion: string;
+  porcentaje: number;            // 1-99
+  validoDesde: string;           // ISO
+  validoHasta: string | null;    // ISO o null = sin vencimiento
+  usosMaximos: number | null;    // null = ilimitado
+  usosActuales: number;
+  unoPorUsuario: boolean;        // bloquea reusar por la misma cuenta
+  activo: boolean;
+  createdBy: string;             // email del admin que lo creó
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UsoPromo {
+  id: string;            // formato: {codigoId}_{userId}
+  codigoId: string;
+  userId: string;
+  pagoId: string;
+  descuentoAplicado: number;
   createdAt: string;
 }

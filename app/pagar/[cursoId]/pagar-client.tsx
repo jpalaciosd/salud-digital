@@ -33,6 +33,15 @@ interface ResultadoPago {
 
 const MAX_SIZE = 2 * 1024 * 1024;
 
+interface PromoState {
+  codigo: string;
+  porcentaje: number;
+  descripcion: string;
+  descuentoCop: number;
+  precioOriginal: number;
+  precioFinal: number;
+}
+
 export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi: NequiInfo }) {
   const { user } = useAuth();
   const router = useRouter();
@@ -43,6 +52,11 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
   const [resultado, setResultado] = useState<ResultadoPago | null>(null);
   const [canjeando, setCanjeando] = useState(false);
 
+  const [codigoInput, setCodigoInput] = useState("");
+  const [validandoPromo, setValidandoPromo] = useState(false);
+  const [promoError, setPromoError] = useState("");
+  const [promo, setPromo] = useState<PromoState | null>(null);
+
   useEffect(() => {
     if (!user && typeof window !== "undefined") {
       window.location.href = `/login?redirect=/pagar/${curso.id}`;
@@ -51,10 +65,48 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
 
   if (!user) return null;
 
-  const montoFormateado = `$${curso.precio.toLocaleString("es-CO")}`;
+  const montoActual = promo ? promo.precioFinal : curso.precio;
+  const montoFormateado = `$${montoActual.toLocaleString("es-CO")}`;
 
   const copiarMonto = () => {
-    navigator.clipboard.writeText(String(curso.precio));
+    navigator.clipboard.writeText(String(montoActual));
+  };
+
+  const aplicarCodigo = async () => {
+    const codigo = codigoInput.trim().toUpperCase();
+    if (!codigo) return;
+    setPromoError("");
+    setValidandoPromo(true);
+    try {
+      const res = await fetch("/api/promos/validar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ codigo, cursoId: curso.id }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.valido) {
+        setPromoError(data.motivo || data.error || "Código no válido");
+        setPromo(null);
+      } else {
+        setPromo({
+          codigo,
+          porcentaje: data.porcentaje,
+          descripcion: data.descripcion,
+          descuentoCop: data.descuentoCop,
+          precioOriginal: data.precioOriginal,
+          precioFinal: data.precioFinal,
+        });
+      }
+    } catch {
+      setPromoError("Error de conexión");
+    }
+    setValidandoPromo(false);
+  };
+
+  const quitarPromo = () => {
+    setPromo(null);
+    setCodigoInput("");
+    setPromoError("");
   };
 
   const seleccionarArchivo = (f: File | null) => {
@@ -84,6 +136,7 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
       const fd = new FormData();
       fd.append("file", archivo);
       fd.append("cursoId", curso.id);
+      if (promo) fd.append("codigoPromo", promo.codigo);
       const res = await fetch("/api/pagos/subir", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) {
@@ -169,16 +222,72 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
                   )}
                   <div>
                     <p className="text-xs opacity-70 uppercase tracking-wide">Monto exacto</p>
-                    <div className="flex items-center gap-3">
-                      <p className="text-3xl font-extrabold">{montoFormateado}</p>
-                      <button
-                        onClick={copiarMonto}
-                        className="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold"
-                      >
-                        Copiar
+                    {promo ? (
+                      <div className="space-y-1">
+                        <p className="text-sm line-through opacity-60">${promo.precioOriginal.toLocaleString("es-CO")}</p>
+                        <div className="flex items-center gap-3">
+                          <p className="text-3xl font-extrabold text-green-300">{montoFormateado}</p>
+                          <button
+                            onClick={copiarMonto}
+                            className="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold"
+                          >
+                            Copiar
+                          </button>
+                        </div>
+                        <p className="text-xs text-green-300">
+                          {promo.codigo} aplicado · ahorras ${promo.descuentoCop.toLocaleString("es-CO")} ({promo.porcentaje}%)
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        <p className="text-3xl font-extrabold">{montoFormateado}</p>
+                        <button
+                          onClick={copiarMonto}
+                          className="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold"
+                        >
+                          Copiar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Código promocional */}
+                <div className="bg-white border border-slate-200 rounded-xl p-4">
+                  <p className="text-sm font-semibold text-[#0f2847] mb-2">¿Tienes un código promocional?</p>
+                  {promo ? (
+                    <div className="flex items-center justify-between bg-green-50 border border-green-200 rounded-lg p-3">
+                      <div>
+                        <p className="text-sm font-bold text-green-800">✓ {promo.codigo}</p>
+                        {promo.descripcion && <p className="text-xs text-green-700">{promo.descripcion}</p>}
+                      </div>
+                      <button onClick={quitarPromo} className="text-xs text-red-600 hover:underline font-semibold">
+                        Quitar
                       </button>
                     </div>
-                  </div>
+                  ) : (
+                    <>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={codigoInput}
+                          onChange={(e) => setCodigoInput(e.target.value.toUpperCase())}
+                          placeholder="EJEMPLO20"
+                          className="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm uppercase tracking-wide font-mono"
+                          maxLength={24}
+                          onKeyDown={(e) => { if (e.key === "Enter") aplicarCodigo(); }}
+                        />
+                        <button
+                          onClick={aplicarCodigo}
+                          disabled={!codigoInput.trim() || validandoPromo}
+                          className="px-4 py-2 rounded-lg bg-[#0f2847] text-white text-sm font-bold disabled:opacity-40"
+                        >
+                          {validandoPromo ? "..." : "Aplicar"}
+                        </button>
+                      </div>
+                      {promoError && <p className="text-xs text-red-600 mt-2">{promoError}</p>}
+                    </>
+                  )}
                 </div>
 
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-900">
