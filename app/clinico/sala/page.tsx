@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useAuth } from "@/lib/AuthContext";
 import UserNav from "@/lib/UserNav";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function SalaTeleconsulta() {
+function SalaContent() {
   const { user, loading } = useAuth();
   const params = useSearchParams();
   const consultaId = params.get("id");
@@ -237,5 +237,13 @@ export default function SalaTeleconsulta() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function SalaTeleconsulta() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0f172a] flex items-center justify-center"><div className="animate-spin h-10 w-10 border-4 border-[#c5a044] border-t-transparent rounded-full" /></div>}>
+      <SalaContent />
+    </Suspense>
   );
 }
