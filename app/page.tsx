@@ -89,9 +89,9 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { icon: "school", num: "12", label: "Cursos disponibles" },
-              { icon: "smart_toy", num: "1", label: "Agente IA activo" },
+              { icon: "local_hospital", num: "12", label: "Módulos clínicos" },
               { icon: "lock", num: "100%", label: "Datos cifrados" },
-              { icon: "workspace_premium", num: "✓", label: "Certificación oficial" },
+              { icon: "workspace_premium", num: "✓", label: "Normativa colombiana" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-1">
                 <span className="material-icons-outlined text-[#c5a044] text-2xl">{item.icon}</span>
@@ -334,6 +334,58 @@ export default function Home() {
                 Hablar con Aura por WhatsApp
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ecosistema Clínico */}
+      <section className="py-24 bg-gradient-to-br from-[#0a1628] to-[#0f2847] text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c5a044]/15 border border-[#c5a044]/30 text-[#c5a044] text-xs font-bold uppercase tracking-wider mb-6">
+              <span className="material-icons-outlined text-sm">local_hospital</span>
+              Ecosistema de Telemedicina
+            </div>
+            <h2 className="text-4xl font-extrabold mb-4">Plataforma Clínica <span className="text-[#c5a044]">Integral</span></h2>
+            <p className="text-white/70 max-w-2xl mx-auto">Más que educación: un ecosistema completo de telemedicina conforme a la normativa colombiana. Resolución 2654/2019 · Ley 1581/2012.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              { icon: "🩺", title: "Teleconsulta", desc: "Sala virtual con chat, notas clínicas y controles multimedia" },
+              { icon: "📋", title: "Historia Clínica", desc: "HCE completa con CIE-10, 8 pasos, firma digital y PDF" },
+              { icon: "💊", title: "Fórmula Médica", desc: "Prescripción digital con múltiples medicamentos y PDF" },
+              { icon: "🧒", title: "AIEPI Pediátrico", desc: "Evaluación integrada del niño con semáforo automático" },
+              { icon: "🏥", title: "Incapacidades", desc: "Certificados digitales con CIE-10 y cálculo automático" },
+              { icon: "🔬", title: "Paraclínicos", desc: "Órdenes de laboratorio e imagenología con catálogo" },
+              { icon: "✅", title: "Consentimiento", desc: "Informado digital con registro IP y trazabilidad" },
+              { icon: "🔍", title: "Auditoría", desc: "Panel completo de trazabilidad y cumplimiento normativo" },
+            ].map((m, i) => (
+              <div key={i} className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-[#c5a044]/30 transition-all group">
+                <div className="text-3xl mb-3">{m.icon}</div>
+                <h3 className="font-bold text-sm mb-1 group-hover:text-[#c5a044] transition-colors">{m.title}</h3>
+                <p className="text-xs text-white/60">{m.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 mb-12">
+            {[
+              { num: "12", label: "Módulos clínicos", icon: "dashboard" },
+              { num: "4", label: "PDFs generables", icon: "picture_as_pdf" },
+              { num: "110+", label: "Códigos CIE-10", icon: "medical_information" },
+            ].map((s) => (
+              <div key={s.label} className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
+                <span className="material-icons-outlined text-[#c5a044] text-2xl mb-2">{s.icon}</span>
+                <p className="text-3xl font-extrabold text-[#c5a044]">{s.num}</p>
+                <p className="text-xs text-white/60">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link href="/clinico" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#c5a044] text-[#0a1628] font-bold text-lg hover:bg-[#d4af37] transition-all">
+              Acceder al Centro Clínico
+              <span className="material-icons-outlined">arrow_forward</span>
+            </Link>
+            <p className="text-white/40 text-xs mt-4">Resolución 1995/1999 · Resolución 2654/2019 · Decreto 2200/2005 · Ley 1581/2012</p>
           </div>
         </div>
       </section>

@@ -9,6 +9,7 @@ export default function ParaclinicosPage() {
   const { user, loading } = useAuth();
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [savedId, setSavedId] = useState("");
 
   const [pacienteNombre, setPacienteNombre] = useState("");
   const [pacienteDoc, setPacienteDoc] = useState("");
@@ -48,7 +49,7 @@ export default function ParaclinicosPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paciente_nombre: pacienteNombre, paciente_documento: pacienteDoc, diagnostico, prioridad, indicaciones, examenes }),
       });
-      if (res.ok) setSaved(true);
+      if (res.ok) { const d = await res.json(); setSaved(true); setSavedId(d.id || ""); }
     } catch (e) { console.error(e); }
     setSaving(false);
   };
@@ -77,10 +78,18 @@ export default function ParaclinicosPage() {
             <p className="text-5xl mb-4">✅</p>
             <h2 className="text-xl font-bold text-green-400">Orden Emitida</h2>
             <p className="text-gray-400 text-sm mt-2">{examenes.length} exámenes · Paciente: {pacienteNombre}</p>
-            <button onClick={() => { setSaved(false); setExamenes([]); setPacienteNombre(""); setDiagnostico(""); }}
-              className="mt-6 px-6 py-3 border border-white/10 text-gray-300 rounded-xl font-bold text-sm">
-              Nueva Orden
-            </button>
+            <div className="mt-6 flex flex-col gap-3">
+              {savedId && (
+                <a href={`/api/clinico/paraclinicos/pdf?id=${savedId}`} target="_blank"
+                  className="block py-3 bg-[#c5a044] text-[#0f172a] rounded-xl font-bold text-sm text-center">
+                  📄 Descargar PDF
+                </a>
+              )}
+              <button onClick={() => { setSaved(false); setSavedId(""); setExamenes([]); setPacienteNombre(""); setDiagnostico(""); }}
+                className="py-3 border border-white/10 text-gray-300 rounded-xl font-bold text-sm">
+                Nueva Orden
+              </button>
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
