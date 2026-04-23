@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useAuth } from "@/lib/AuthContext";
+import { useSearchParams } from "next/navigation";
 import UserNav from "@/lib/UserNav";
 
 interface CIE10Result { code: string; description: string; category: string; }
@@ -18,8 +19,10 @@ const SISTEMAS = [
   { key: "psiquiatrico", label: "Psiquiátrico" },
 ];
 
-export default function HCEPage() {
+function HCEContent() {
   const { user, loading } = useAuth();
+  const params = useSearchParams();
+  const consultaIdParam = params.get("consulta_id");
   const [step, setStep] = useState(0);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -134,6 +137,7 @@ export default function HCEPage() {
           peso: pesoHce || null, talla: tallaHce || null,
           autoreportados: svAutoReportados,
         },
+        consulta_id: consultaIdParam || undefined,
         limitaciones_teleconsulta: limitaciones,
         diagnosticos,
         plan_manejo: {
@@ -427,5 +431,13 @@ export default function HCEPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function HCEPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0f172a] flex items-center justify-center"><div className="animate-spin h-10 w-10 border-4 border-[#c5a044] border-t-transparent rounded-full" /></div>}>
+      <HCEContent />
+    </Suspense>
   );
 }

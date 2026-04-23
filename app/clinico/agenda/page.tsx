@@ -218,9 +218,12 @@ function ConsultaCard({ c, isMedical, isAdmin, onAction }: { c: Consulta; isMedi
         </div>
       )}
       {(isMedical || isAdmin) && c.estado === "en_curso" && (
-        <div className="flex gap-2 mt-3">
-          <a href="/clinico/hce" className="flex-1 py-1.5 bg-[#c5a044]/20 text-[#c5a044] rounded-lg text-xs font-bold text-center">📋 Crear HCE</a>
-          <a href="/clinico/formula" className="flex-1 py-1.5 bg-purple-500/20 text-purple-400 rounded-lg text-xs font-bold text-center">💊 Formular</a>
+        <div className="flex gap-2 mt-3 flex-wrap">
+          <a href={`/clinico/sala?id=${c.id}`} className="flex-1 py-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-bold text-center">📹 Sala</a>
+          <a href={`/clinico/hce?consulta_id=${c.id}`} className="flex-1 py-1.5 bg-[#c5a044]/20 text-[#c5a044] rounded-lg text-xs font-bold text-center">📋 HCE</a>
+          <a href={`/clinico/formula?consulta_id=${c.id}`} className="flex-1 py-1.5 bg-purple-500/20 text-purple-400 rounded-lg text-xs font-bold text-center">💊 Fórmula</a>
+          <a href={`/clinico/incapacidad?consulta_id=${c.id}`} className="flex-1 py-1.5 bg-orange-500/20 text-orange-400 rounded-lg text-xs font-bold text-center">🏥 Incap.</a>
+          <a href={`/clinico/paraclinicos?consulta_id=${c.id}`} className="flex-1 py-1.5 bg-cyan-500/20 text-cyan-400 rounded-lg text-xs font-bold text-center">🔬 Labs</a>
           <button onClick={() => onAction(c.id, "completada")} className="flex-1 py-1.5 bg-green-600/20 text-green-400 rounded-lg text-xs font-bold">✅ Completar</button>
         </div>
       )}
