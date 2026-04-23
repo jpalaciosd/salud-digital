@@ -16,6 +16,8 @@ const MODULES_MEDICO = [
   { href: "/clinico/hce", icon: "📋", title: "Historia Clínica (HCE)", desc: "Crear registro clínico con CIE-10", color: "border-[#c5a044]/30 bg-[#c5a044]/5" },
   { href: "/clinico/formula", icon: "💊", title: "Fórmula Médica", desc: "Prescripción digital (Decreto 2200)", color: "border-purple-500/30 bg-purple-500/5" },
   { href: "/clinico/aiepi", icon: "🧒", title: "AIEPI Pediátrico", desc: "Evaluación integrada del niño", color: "border-green-500/30 bg-green-500/5" },
+  { href: "/clinico/incapacidad", icon: "🏥", title: "Incapacidad Médica", desc: "Certificado digital con PDF", color: "border-orange-500/30 bg-orange-500/5" },
+  { href: "/clinico/paraclinicos", icon: "🔬", title: "Paraclínicos", desc: "Órdenes de laboratorio e imagenología", color: "border-cyan-500/30 bg-cyan-500/5" },
   { href: "/clinico/consentimiento", icon: "✅", title: "Consentimiento Informado", desc: "Res. 2654/2019 · Ley 1581/2012", color: "border-teal-500/30 bg-teal-500/5" },
 ];
 
