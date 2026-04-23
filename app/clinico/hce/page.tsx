@@ -23,6 +23,7 @@ export default function HCEPage() {
   const [step, setStep] = useState(0);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [savedId, setSavedId] = useState("");
 
   // Step 0: Motivo + enfermedad actual
   const [motivo, setMotivo] = useState("");
@@ -151,7 +152,7 @@ export default function HCEPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (res.ok) setSaved(true);
+      if (res.ok) { const d = await res.json(); setSaved(true); setSavedId(d.id || ""); }
     } catch (e) { console.error(e); }
     setSaving(false);
   };
@@ -389,6 +390,12 @@ export default function HCEPage() {
                   <h2 className="text-2xl font-bold text-green-400">Historia Clínica Guardada</h2>
                   <p className="text-gray-400 mt-2 text-sm">Registro almacenado con trazabilidad completa.</p>
                   <p className="text-xs text-gray-500 mt-2">Profesional: {user?.nombre} {user?.apellido} · {new Date().toLocaleString("es-CO")}</p>
+                  {savedId && (
+                    <a href={`/api/clinico/hce/pdf?id=${savedId}`} target="_blank"
+                      className="inline-block mt-4 px-6 py-3 bg-[#c5a044] text-[#0f172a] rounded-xl font-bold text-sm">
+                      📄 Descargar PDF de Historia Clínica
+                    </a>
+                  )}
                 </div>
               ) : (
                 <>

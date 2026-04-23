@@ -8,20 +8,21 @@ import { useState } from "react";
 const NAV_ESTUDIANTE = [
   { href: "/dashboard", label: "Inicio", icon: "home" },
   { href: "/cursos", label: "Cursos", icon: "school" },
+  { href: "/clinico", label: "Clínico", icon: "local_hospital" },
   { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
 const NAV_PROFESIONAL = [
   { href: "/profesional", label: "Inicio", icon: "home" },
   { href: "/cursos", label: "Cursos", icon: "school" },
+  { href: "/clinico", label: "Clínico", icon: "local_hospital" },
   { href: "/profesional", label: "Panel Profesional", icon: "assignment_ind" },
-  { href: "/dashboard", label: "Mi Portal", icon: "dashboard" },
 ];
 
 const NAV_ADMIN = [
   { href: "/admin", label: "Inicio", icon: "home" },
   { href: "/admin", label: "Panel de Control", icon: "analytics" },
-  { href: "/admin/estrategia", label: "Estrategia", icon: "flag" },
+  { href: "/clinico", label: "Clínico", icon: "local_hospital" },
   { href: "/cursos", label: "Cursos", icon: "school" },
 ];
 

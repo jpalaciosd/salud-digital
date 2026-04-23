@@ -11,6 +11,7 @@ export default function FormulaPage() {
   const { user, loading } = useAuth();
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [savedId, setSavedId] = useState("");
 
   const [pacienteNombre, setPacienteNombre] = useState("");
   const [pacienteDoc, setPacienteDoc] = useState("");
@@ -38,7 +39,7 @@ export default function FormulaPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ paciente_nombre: pacienteNombre, paciente_documento: pacienteDoc, diagnostico, observaciones, medicamentos }),
       });
-      if (res.ok) setSaved(true);
+      if (res.ok) { const d = await res.json(); setSaved(true); setSavedId(d.id || ""); }
     } catch (e) { console.error(e); }
     setSaving(false);
   };
@@ -76,10 +77,18 @@ export default function FormulaPage() {
               <p>Medicamentos: {medicamentos.length}</p>
               <p>{new Date().toLocaleString("es-CO")}</p>
             </div>
-            <button onClick={() => { setSaved(false); setMedicamentos([]); setPacienteNombre(""); setPacienteDoc(""); setDiagnostico(""); }}
-              className="mt-6 px-6 py-2 bg-[#c5a044] text-[#0f172a] rounded-xl font-bold text-sm">
-              Nueva Fórmula
-            </button>
+            <div className="mt-6 flex flex-col gap-3">
+              {savedId && (
+                <a href={`/api/clinico/formulas/pdf?id=${savedId}`} target="_blank"
+                  className="block py-3 bg-[#c5a044] text-[#0f172a] rounded-xl font-bold text-sm text-center">
+                  📄 Descargar PDF
+                </a>
+              )}
+              <button onClick={() => { setSaved(false); setSavedId(""); setMedicamentos([]); setPacienteNombre(""); setPacienteDoc(""); setDiagnostico(""); }}
+                className="px-6 py-3 border border-white/10 text-gray-300 rounded-xl font-bold text-sm">
+                Nueva Fórmula
+              </button>
+            </div>
           </div>
         ) : (
           <div className="space-y-6">
