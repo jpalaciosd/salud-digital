@@ -11,6 +11,8 @@ interface Stats {
 
 const MODULES_MEDICO = [
   { href: "/clinico/agenda", icon: "🩺", title: "Agenda Clínica", desc: "Gestionar consultas médicas", color: "border-blue-500/30 bg-blue-500/5" },
+  { href: "/clinico/pacientes", icon: "👥", title: "Mis Pacientes", desc: "Historial y registros por paciente", color: "border-cyan-500/30 bg-cyan-500/5" },
+  { href: "/clinico/sala", icon: "📹", title: "Sala de Teleconsulta", desc: "Videollamada + chat + notas clínicas", color: "border-emerald-500/30 bg-emerald-500/5" },
   { href: "/clinico/hce", icon: "📋", title: "Historia Clínica (HCE)", desc: "Crear registro clínico con CIE-10", color: "border-[#c5a044]/30 bg-[#c5a044]/5" },
   { href: "/clinico/formula", icon: "💊", title: "Fórmula Médica", desc: "Prescripción digital (Decreto 2200)", color: "border-purple-500/30 bg-purple-500/5" },
   { href: "/clinico/aiepi", icon: "🧒", title: "AIEPI Pediátrico", desc: "Evaluación integrada del niño", color: "border-green-500/30 bg-green-500/5" },

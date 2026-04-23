@@ -49,6 +49,24 @@ export async function POST(req: NextRequest) {
       created_at: now,
     });
 
+    // Auto-notification
+    if (consulta.medico_id && consulta.medico_id !== user.userId) {
+      await create("notificaciones", {
+        id: crypto.randomUUID(), user_id: consulta.medico_id,
+        tipo: "consulta", titulo: "Nueva consulta programada",
+        mensaje: `${user.nombre} ${user.apellido} agendó una consulta de ${consulta.especialidad?.replace("_", " ")} para ${consulta.fecha_programada || "fecha por confirmar"}.`,
+        link: `/clinico/agenda`, leida: false, created_at: now,
+      });
+    }
+    if (consulta.paciente_id && consulta.paciente_id !== user.userId) {
+      await create("notificaciones", {
+        id: crypto.randomUUID(), user_id: consulta.paciente_id,
+        tipo: "consulta", titulo: "Consulta agendada",
+        mensaje: `Se ha agendado una consulta de ${consulta.especialidad?.replace("_", " ")} para ${consulta.fecha_programada || "fecha por confirmar"}.`,
+        link: `/clinico/agenda`, leida: false, created_at: now,
+      });
+    }
+
     return NextResponse.json({ ok: true, id, consulta });
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : "Error";
