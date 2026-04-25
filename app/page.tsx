@@ -298,6 +298,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Agentes IA */}
+      <section className="py-24 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c5a044]/10 border border-[#c5a044]/20 text-[#c5a044] text-xs font-bold uppercase tracking-wider mb-6">
+            <span className="material-icons-outlined text-sm">smart_toy</span>
+            Inteligencia Artificial
+          </div>
+          <h2 className="text-3xl font-bold mb-4">Agentes IA que <span className="text-[#c5a044]">potencian</span> su ecosistema</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto">Dos asistentes inteligentes disponibles 24/7 por WhatsApp, integrados con la plataforma clínica y educativa.</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Dr. Nova */}
+          <div className="relative p-8 rounded-3xl bg-gradient-to-br from-[#0a1628] to-[#0f2847] text-white border border-white/10 overflow-hidden group hover:border-[#c5a044]/30 transition-all">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#c5a044]/5 rounded-full blur-3xl" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#c5a044]/40 shadow-lg" style={{animation:"breathe 4s ease-in-out infinite"}}>
+                  <img src="/agents/medico.png" alt="Dr. Nova" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    Dr. Nova
+                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] font-bold rounded-full">Activo</span>
+                  </h3>
+                  <p className="text-sm text-[#c5a044]">Agente Médico — Triage IA</p>
+                </div>
+              </div>
+              <p className="text-sm text-white/70 mb-5 leading-relaxed">
+                Evalúa síntomas mediante conversación guiada, consulta historia clínica y fórmulas activas, recuerda medicamentos y agenda citas automáticamente.
+              </p>
+              <div className="space-y-2 mb-6">
+                {["Triage inteligente de síntomas", "Acceso a historia clínica y fórmulas", "Recordatorio de medicamentos", "Derivación al especialista adecuado", "Agendamiento automático de citas"].map((c) => (
+                  <div key={c} className="flex items-center gap-2 text-xs text-white/60">
+                    <span className="material-icons-outlined text-[#c5a044] text-sm">check_circle</span>{c}
+                  </div>
+                ))}
+              </div>
+              <a href="https://wa.me/17433306127?text=Hola%20Dr.%20Nova" target="_blank" rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#c5a044] text-[#0a1628] font-bold text-sm hover:bg-[#d4af37] transition">
+                <span className="material-icons-outlined text-lg">medical_services</span>
+                Consultar con Dr. Nova
+              </a>
+            </div>
+          </div>
+
+          {/* Aura */}
+          <div className="relative p-8 rounded-3xl bg-gradient-to-br from-[#0a1628] to-[#0f2847] text-white border border-white/10 overflow-hidden group hover:border-[#c5a044]/30 transition-all">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#c5a044]/5 rounded-full blur-3xl" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-[#c5a044]/40 shadow-lg" style={{animation:"breathe 4s ease-in-out infinite"}}>
+                  <img src="/agents/aura.png" alt="Aura" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    Aura
+                    <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] font-bold rounded-full">Activo</span>
+                  </h3>
+                  <p className="text-sm text-[#c5a044]">Agente Académico — Mentora IA</p>
+                </div>
+              </div>
+              <p className="text-sm text-white/70 mb-5 leading-relaxed">
+                Guía paso a paso por cada módulo del programa académico, enseña con ejemplos prácticos, evalúa comprensión y registra progreso automáticamente.
+              </p>
+              <div className="space-y-2 mb-6">
+                {["Enseñanza personalizada tema por tema", "Evaluaciones prácticas de comprensión", "Progreso sincronizado con la plataforma", "Disponible 24/7 por WhatsApp", "Adaptación al ritmo del estudiante"].map((c) => (
+                  <div key={c} className="flex items-center gap-2 text-xs text-white/60">
+                    <span className="material-icons-outlined text-[#c5a044] text-sm">check_circle</span>{c}
+                  </div>
+                ))}
+              </div>
+              <a href="https://wa.me/12763294935?text=Hola%20Aura" target="_blank" rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#c5a044] text-[#0a1628] font-bold text-sm hover:bg-[#d4af37] transition">
+                <span className="material-icons-outlined text-lg">school</span>
+                Estudiar con Aura
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Educación como PLUS */}
       <section id="educacion" className="py-20 bg-[#f8f6f1]">
         <div className="max-w-7xl mx-auto px-6">
