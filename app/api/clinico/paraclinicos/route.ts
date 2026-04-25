@@ -31,11 +31,8 @@ const EXAMENES_COMUNES = [
   { code: "HBsAg", name: "Antígeno Superficie Hepatitis B", categoria: "Serología" },
 ];
 
-// GET — Search exams or list orders
+// GET — Search exams (public) or list orders (auth required)
 export async function GET(req: NextRequest) {
-  const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-
   const q = req.nextUrl.searchParams.get("q");
   if (q) {
     const term = q.toLowerCase();
@@ -45,7 +42,9 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ examenes: results });
   }
 
-  // List orders
+  // List orders — requires auth
+  const user = await getCurrentUser();
+  if (!user) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
   try {
     const ordenes = await query<Record<string, unknown>>("paraclinicos", (o) => {
       if (["admin", "auditor"].includes(user.rol)) return true;
