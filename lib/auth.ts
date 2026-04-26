@@ -51,6 +51,13 @@ async function saveUser(user: StoredUser): Promise<void> {
   });
 }
 
+export async function getUserPublicByEmail(email: string): Promise<User | null> {
+  const stored = await getUserByEmail(email);
+  if (!stored) return null;
+  const { passwordHash, ...user } = stored;
+  return user;
+}
+
 export async function getAllUsers(): Promise<User[]> {
   const { blobs } = await list({ prefix: "users/" });
   const users: User[] = [];
@@ -65,6 +72,45 @@ export async function getAllUsers(): Promise<User[]> {
     } catch {}
   }
   return users;
+}
+
+// ── Profile Update ──────────────────────────────────────────────────
+
+export type UserProfileUpdate = Partial<
+  Pick<
+    User,
+    | "nombre"
+    | "apellido"
+    | "documento"
+    | "tipoDocumento"
+    | "telefono"
+    | "avatarUrl"
+    | "descripcionProfesional"
+    | "especialidad"
+  >
+>;
+
+export async function updateUserProfile(
+  email: string,
+  patch: UserProfileUpdate
+): Promise<{ success: boolean; error?: string; user?: User }> {
+  const stored = await getUserByEmail(email);
+  if (!stored) return { success: false, error: "Usuario no encontrado" };
+
+  const next: StoredUser = {
+    ...stored,
+    ...patch,
+  };
+
+  await put(`users/${next.email}.json`, JSON.stringify(next), {
+    access: "public",
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    contentType: "application/json",
+  });
+
+  const { passwordHash, ...user } = next;
+  return { success: true, user };
 }
 
 // ── Registration ────────────────────────────────────────────────────

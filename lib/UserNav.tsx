@@ -34,11 +34,11 @@ export default function UserNav() {
   if (!user) return null;
 
   const initials = `${user.nombre?.[0] || ""}${user.apellido?.[0] || ""}`.toUpperCase();
-  const rol = (user as Record<string, string>).rol;
+  const rol = user.rol;
   const NAV_ITEMS = rol === "admin" ? NAV_ADMIN : rol === "profesional" ? NAV_PROFESIONAL : NAV_ESTUDIANTE;
 
   return (
-    <nav className="bg-[#0f2847] border-b border-white/10 px-4 py-3 sticky top-0 z-50">
+    <nav className="bg-[#0f2847] border-b border-white/10 px-4 py-3 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
@@ -89,8 +89,16 @@ export default function UserNav() {
                 onClick={() => setMenuOpen(false)}
                 className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 flex items-center gap-2"
               >
-                <span className="material-icons-outlined text-lg">person</span>
+                <span className="material-icons-outlined text-lg">dashboard</span>
                 Mi Portal
+              </Link>
+              <Link
+                href="/perfil"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 flex items-center gap-2"
+              >
+                <span className="material-icons-outlined text-lg">person</span>
+                Mi Perfil
               </Link>
               <button
                 onClick={() => { setMenuOpen(false); logout(); }}
@@ -126,6 +134,15 @@ export default function UserNav() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/perfil"
+            onClick={() => setMenuOpen(false)}
+            className={`block px-4 py-2 text-sm rounded-lg ${
+              pathname === "/perfil" ? "text-[#c5a044] font-semibold" : "text-gray-300"
+            }`}
+          >
+            Mi Perfil
+          </Link>
         </div>
       )}
     </nav>

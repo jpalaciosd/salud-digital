@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/AuthContext";
+import PhoneGateBanner from "@/lib/PhoneGateBanner";
 
 export const metadata: Metadata = {
   title: "ISSI | Instituto Superior de Salud Integral",
@@ -38,7 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
       </head>
       <body className="font-display antialiased bg-[#f1f5f9] text-[#1e293b]">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <PhoneGateBanner />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
