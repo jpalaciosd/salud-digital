@@ -39,9 +39,18 @@ export default function RegistroPage() {
       return;
     }
 
+    const telefonoNormalizado = form.telefono.replace(/\D/g, "").slice(-10);
+    if (!/^3\d{9}$/.test(telefonoNormalizado)) {
+      setError(
+        "Ingresa un celular WhatsApp colombiano de 10 dígitos (debe empezar por 3, ej. 3001234567)."
+      );
+      return;
+    }
+
     setLoading(true);
     const payload: Record<string, string> = {
       ...form,
+      telefono: telefonoNormalizado,
       avatarUrl: isMedico ? (form.fotoMedico?.trim() || "") : "",
       descripcionProfesional: isMedico ? (form.descripcionProfesional?.trim() || "") : "",
     };
@@ -221,9 +230,11 @@ export default function RegistroPage() {
               </>
             )}
 
-            {/* Teléfono */}
+            {/* Celular WhatsApp */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">WhatsApp / Teléfono</label>
+              <label className="block text-sm font-medium text-gray-300 mb-1">
+                Celular WhatsApp (10 dígitos, sin +57)
+              </label>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl">phone</span>
                 <input
@@ -231,9 +242,14 @@ export default function RegistroPage() {
                   value={form.telefono}
                   onChange={(e) => update("telefono", e.target.value)}
                   placeholder="3001234567"
+                  inputMode="numeric"
+                  required
                   className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#0f2847]/50 transition"
                 />
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Necesario para que Dr. Nova te reconozca por WhatsApp.
+              </p>
             </div>
 
             {/* Contraseñas */}

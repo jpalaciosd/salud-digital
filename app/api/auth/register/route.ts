@@ -20,6 +20,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const telefonoNormalizado = String(telefono || "").replace(/\D/g, "").slice(-10);
+    if (!/^3\d{9}$/.test(telefonoNormalizado)) {
+      return NextResponse.json(
+        {
+          error:
+            "El celular WhatsApp es obligatorio (10 dígitos, debe empezar por 3, ej. 3001234567).",
+        },
+        { status: 400 }
+      );
+    }
+
     const result = await registerUser({
       email,
       password,
@@ -28,7 +39,7 @@ export async function POST(req: NextRequest) {
       documento,
       tipoDocumento,
       rol: rol || "paciente",
-      telefono,
+      telefono: telefonoNormalizado,
       avatarUrl: avatarUrl || undefined,
       descripcionProfesional: descripcionProfesional || undefined,
     });
