@@ -71,11 +71,16 @@ def actualizar_historial(from_number: str, historial_mensajes: list):
         print(f"[DynamoDB] Error actualizar historial: {e}")
 
 
-def fetch_datos_paciente(telefono: str) -> str | None:
-    """Obtiene datos del paciente desde Vercel. Retorna JSON string para el prompt o None."""
+def fetch_datos_paciente(telefono: str, email: str = None) -> str | None:
+    """Obtiene datos del paciente desde Vercel. Intenta por teléfono, luego por email."""
     if not VERCEL_URL or not DR_NOVA_API_SECRET:
         return None
-    url = f"{VERCEL_URL}/api/agente/datos-paciente?telefono={urllib.parse.quote(telefono)}"
+
+    params = f"telefono={urllib.parse.quote(telefono)}"
+    if email:
+        params += f"&email={urllib.parse.quote(email)}"
+
+    url = f"{VERCEL_URL}/api/agente/datos-paciente?{params}"
     try:
         r = requests.get(
             url,
@@ -98,6 +103,59 @@ def fetch_datos_paciente(telefono: str) -> str | None:
         )
     except Exception as e:
         print(f"[Vercel] Error datos-paciente: {e}")
+    return None
+
+
+def extract_email_from_message(text: str) -> str | None:
+    """Intenta extraer un email del mensaje del usuario."""
+    import re
+    match = re.search(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', text)
+    return match.group(0).lower() if match else None
+
+
+def get_pending_email_request(from_number: str) -> bool:
+    """Verifica si estamos esperando el email del usuario."""
+    try:
+        response = tabla_contactos.get_item(Key={"phone_id": from_number})
+        if "Item" in response:
+            return response["Item"].get("awaiting_email", False)
+    except:
+        pass
+    return False
+
+
+def set_pending_email_request(from_number: str, pending: bool):
+    """Marca que estamos esperando el email."""
+    try:
+        tabla_contactos.update_item(
+            Key={"phone_id": from_number},
+            UpdateExpression="SET awaiting_email = :v",
+            ExpressionAttributeValues={":v": pending},
+        )
+    except Exception as e:
+        print(f"[DynamoDB] Error set_pending_email: {e}")
+
+
+def save_linked_email(from_number: str, email: str):
+    """Guarda el email vinculado al número para futuras consultas."""
+    try:
+        tabla_contactos.update_item(
+            Key={"phone_id": from_number},
+            UpdateExpression="SET linked_email = :e, awaiting_email = :f",
+            ExpressionAttributeValues={":e": email, ":f": False},
+        )
+    except Exception as e:
+        print(f"[DynamoDB] Error save_linked_email: {e}")
+
+
+def get_linked_email(from_number: str) -> str | None:
+    """Obtiene email vinculado previamente."""
+    try:
+        response = tabla_contactos.get_item(Key={"phone_id": from_number})
+        if "Item" in response:
+            return response["Item"].get("linked_email")
+    except:
+        pass
     return None
 
 
@@ -224,19 +282,42 @@ def lambda_handler(event, context):
             }
 
         telefono = normalize_phone(from_number)
-        patient_context_str = fetch_datos_paciente(telefono)
 
+        # Check if we have a linked email from a previous session
+        linked_email = get_linked_email(from_number)
+        patient_context_str = fetch_datos_paciente(telefono, linked_email)
+
+        # If not found and we're awaiting email response
+        if patient_context_str is None and get_pending_email_request(from_number):
+            email_from_msg = extract_email_from_message(message_body)
+            if email_from_msg:
+                # Try with the provided email
+                patient_context_str = fetch_datos_paciente(telefono, email_from_msg)
+                if patient_context_str:
+                    save_linked_email(from_number, email_from_msg)
+                    enviar_mensaje_twilio(from_number, f"✅ ¡Te encontré! Tu cuenta con *{email_from_msg}* ha sido vinculada a este WhatsApp.\n\nAhora puedo ayudarte. ¿En qué te puedo asistir?")
+                    return {"statusCode": 200, "body": json.dumps({"ok": True, "accion": "email_linked"})}
+                else:
+                    set_pending_email_request(from_number, False)
+                    base_url = VERCEL_URL or "https://salud-digital-iota.vercel.app"
+                    enviar_mensaje_twilio(from_number, f"No encontré una cuenta con ese correo. Regístrate en:\n{base_url}/registro\n\nCuando te registres, escríbeme de nuevo.")
+                    return {"statusCode": 200, "body": json.dumps({"ok": True, "accion": "email_not_found"})}
+            else:
+                set_pending_email_request(from_number, False)
+
+        # If still not found, ask for email
         if patient_context_str is None:
+            set_pending_email_request(from_number, True)
             base_url = VERCEL_URL or "https://salud-digital-iota.vercel.app"
-            registro_url = f"{base_url.rstrip('/')}/registro" if base_url.startswith("http") else "https://salud-digital-iota.vercel.app/registro"
-            mensaje_no_registrado = (
-                "Hola. Soy *Dr. Nova*, tu asistente de salud de SaludDigital.\n\n"
-                "Para poder atenderte necesitas estar registrado en la plataforma con *este número de WhatsApp*.\n\n"
-                f"Regístrate aquí: {registro_url}\n\n"
-                "Cuando estés registrado, escríbeme de nuevo."
+            mensaje = (
+                "Hola 👋 Soy *Dr. Nova*, tu asistente de salud de ISSI.\n\n"
+                "No te encontré con este número de WhatsApp.\n\n"
+                "Si ya tienes cuenta (por ejemplo, te registraste con Google), "
+                "*escríbeme tu correo electrónico* y te busco.\n\n"
+                f"Si aún no tienes cuenta, regístrate aquí:\n{base_url}/registro"
             )
-            enviar_mensaje_twilio(from_number, mensaje_no_registrado)
-            return {"statusCode": 200, "body": json.dumps({"ok": True, "accion": "no_registrado"})}
+            enviar_mensaje_twilio(from_number, mensaje)
+            return {"statusCode": 200, "body": json.dumps({"ok": True, "accion": "asking_email"})}
 
         system_prompt = build_system_prompt(patient_context_str)
         historial_mensajes, _ = obtener_historial(from_number)

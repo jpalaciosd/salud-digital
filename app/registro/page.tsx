@@ -223,7 +223,7 @@ export default function RegistroPage() {
 
             {/* Teléfono */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Teléfono (opcional)</label>
+              <label className="block text-sm font-medium text-gray-300 mb-1">WhatsApp / Teléfono</label>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl">phone</span>
                 <input

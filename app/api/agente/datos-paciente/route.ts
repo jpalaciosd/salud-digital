@@ -13,19 +13,31 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = new URL(req.url);
   const telefono = searchParams.get("telefono");
-  if (!telefono) {
+  const email = searchParams.get("email");
+  if (!telefono && !email) {
     return NextResponse.json(
-      { error: "telefono es requerido" },
+      { error: "telefono o email es requerido" },
       { status: 400 }
     );
   }
 
-  const normalizedPhone = telefono.replace(/\D/g, "").slice(-10);
   const users = await getAllUsers();
-  const user = users.find((u) => {
-    const userPhone = (u.telefono || "").replace(/\D/g, "").slice(-10);
-    return userPhone === normalizedPhone;
-  });
+  let user = null;
+
+  // Try phone first
+  if (telefono) {
+    const normalizedPhone = telefono.replace(/\D/g, "").slice(-10);
+    user = users.find((u) => {
+      const userPhone = (u.telefono || "").replace(/\D/g, "").slice(-10);
+      return userPhone.length >= 7 && userPhone === normalizedPhone;
+    });
+  }
+
+  // Fallback to email
+  if (!user && email) {
+    const normalizedEmail = email.trim().toLowerCase();
+    user = users.find((u) => u.email.toLowerCase() === normalizedEmail);
+  }
 
   if (!user) {
     return NextResponse.json(
