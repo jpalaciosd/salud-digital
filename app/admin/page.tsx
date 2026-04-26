@@ -467,7 +467,7 @@ export default function AdminPage() {
             <div className="bg-white/5 rounded-2xl p-5 border border-white/10 flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-400">Ingresos totales (pagos aprobados + canjeados)</p>
-                <p className="text-3xl font-extrabold text-[#c5a044] mt-1">${ingresosTotales.toLocaleString("es-CO")} COP</p>
+                <p className="text-3xl font-extrabold text-[#c5a044] mt-1">{pagosAprobados.length} pagos</p>
               </div>
               <Link href="/admin/enlaces-pago" className="px-5 py-3 rounded-xl bg-[#c5a044] text-[#0f172a] font-bold hover:opacity-90 flex items-center gap-2">
                 <span className="material-icons-outlined text-lg">qr_code_2</span>

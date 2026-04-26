@@ -267,18 +267,17 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-extrabold mb-4">Planes que se adaptan a <span className="text-[#c5a044]">su práctica</span></h2>
-            <p className="text-white/60">Sin contratos largos. Escale cuando lo necesite.</p>
+            <p className="text-white/60">Escalable según el tamaño de su organización. Contáctenos para una propuesta personalizada.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { name: "Básico", price: "$150.000", period: "/mes", users: "Hasta 5 usuarios", consults: "50 consultas/mes", features: ["HCE + CIE-10", "Fórmulas digitales", "1 sede", "Soporte email"], cta: "Comenzar", popular: false },
-              { name: "Profesional", price: "$450.000", period: "/mes", users: "Hasta 20 usuarios", consults: "300 consultas/mes", features: ["Todo lo Básico", "Teleconsulta", "AIEPI + Paraclínicos", "Multi-sede", "Soporte prioritario"], cta: "Solicitar Demo", popular: true },
-              { name: "Enterprise", price: "$1.200.000", period: "/mes", users: "Usuarios ilimitados", consults: "Consultas ilimitadas", features: ["Todo lo Profesional", "API dedicada", "Integraciones ERP/EPS", "SLA 99.9%", "Soporte 24/7"], cta: "Contactar Ventas", popular: false },
+              { name: "Básico", users: "Hasta 5 usuarios", consults: "Consultas limitadas", features: ["HCE + CIE-10", "Fórmulas digitales", "1 sede", "Soporte email"], cta: "Solicitar Info", popular: false },
+              { name: "Profesional", users: "Hasta 20 usuarios", consults: "Consultas ampliadas", features: ["Todo lo Básico", "Teleconsulta", "AIEPI + Paraclínicos", "Multi-sede", "Soporte prioritario"], cta: "Solicitar Demo", popular: true },
+              { name: "Enterprise", users: "Usuarios ilimitados", consults: "Consultas ilimitadas", features: ["Todo lo Profesional", "API dedicada", "Integraciones ERP/EPS", "SLA 99.9%", "Soporte 24/7"], cta: "Contactar Ventas", popular: false },
             ].map((plan) => (
               <div key={plan.name} className={`p-8 rounded-2xl border ${plan.popular ? "bg-[#c5a044]/10 border-[#c5a044]/50 scale-105" : "bg-white/5 border-white/10"} relative`}>
-                {plan.popular && <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#c5a044] text-[#0f2847] text-xs font-bold rounded-full">Más popular</span>}
-                <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-                <p className="text-3xl font-extrabold text-[#c5a044] mb-0">{plan.price}<span className="text-sm font-normal text-white/40">{plan.period}</span></p>
+                {plan.popular && <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#c5a044] text-[#0f2847] text-xs font-bold rounded-full">Recomendado</span>}
+                <h3 className="text-xl font-bold mb-3">{plan.name}</h3>
                 <p className="text-xs text-white/50 mb-1">{plan.users}</p>
                 <p className="text-xs text-white/50 mb-6">{plan.consults}</p>
                 <ul className="space-y-3 mb-8">
@@ -294,7 +293,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="text-center text-white/30 text-xs mt-8">Precios en COP. IVA no incluido. Planes personalizados disponibles.</p>
         </div>
       </section>
 

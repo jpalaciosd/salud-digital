@@ -144,12 +144,12 @@ const WEEKLY_PLAN: WeekPlan[] = [
     phase: "🟡 Tracción",
     theme: "Monetización y Contenido Premium",
     objectives: [
-      "Definir modelo de precios (certificación paga + cursos premium)",
+      "Definir modelo de acceso (certificación + cursos)",
       "150 usuarios, 10 profesionales",
       "Lanzar programa de embajadores estudiantiles",
     ],
     actions: [
-      { task: "Definir precios: Certificado $50K-100K COP, Curso premium $150K-300K COP", owner: "CEO/Finanzas", channel: "Interno" },
+      { task: "Definir niveles de acceso: Certificado estándar, Curso premium", owner: "CEO/Finanzas", channel: "Interno" },
       { task: "Integrar pasarela de pagos (Wompi/MercadoPago)", owner: "Tech", channel: "Plataforma" },
       { task: "Reclutar 5 embajadores en universidades (comisión por referido)", owner: "Marketing", channel: "WhatsApp/Campus" },
       { task: "Crear curso premium piloto: 'ACLS Avanzado con Simulación'", owner: "Contenido", channel: "Plataforma" },
@@ -160,7 +160,7 @@ const WEEKLY_PLAN: WeekPlan[] = [
       { metric: "Usuarios registrados", target: 150, unit: "usuarios" },
       { metric: "Profesionales activos", target: 10, unit: "profesionales" },
       { metric: "Embajadores reclutados", target: 5, unit: "embajadores" },
-      { metric: "Modelo de precios definido", target: "✅", unit: "" },
+      { metric: "Modelo de acceso definido", target: "✅", unit: "" },
     ],
   },
   {
@@ -174,7 +174,7 @@ const WEEKLY_PLAN: WeekPlan[] = [
       "Primera venta de certificación",
     ],
     actions: [
-      { task: "Lanzar campaña Meta Ads: $200K-500K COP/semana, audiencia salud Colombia", owner: "Marketing", channel: "Meta Ads" },
+      { task: "Lanzar campaña Meta Ads: audiencia salud Colombia", owner: "Marketing", channel: "Meta Ads" },
       { task: "Crear funnel: Ad → Landing → Registro → Curso gratis → Upsell certificado", owner: "Marketing/Tech", channel: "Multi" },
       { task: "Publicar 5 reels educativos (tips de primeros auxilios, farmacología, RCP)", owner: "Contenido", channel: "Instagram/TikTok" },
       { task: "Optimizar SEO: blog posts sobre RCP, primeros auxilios en Colombia", owner: "Contenido", channel: "Blog/SEO" },
@@ -183,7 +183,7 @@ const WEEKLY_PLAN: WeekPlan[] = [
     ],
     kpis: [
       { metric: "Usuarios registrados", target: 200, unit: "usuarios" },
-      { metric: "Costo por adquisición (CPA)", target: "< $5K", unit: "COP" },
+      { metric: "Costo por adquisición", target: "Optimizar", unit: "unidades" },
       { metric: "Tasa conversión registro→inscripción", target: "60%", unit: "" },
       { metric: "Primera venta certificación", target: "✅", unit: "" },
     ],
@@ -258,7 +258,7 @@ const WEEKLY_PLAN: WeekPlan[] = [
     ],
     kpis: [
       { metric: "Usuarios registrados", target: 500, unit: "usuarios" },
-      { metric: "Ingresos por certificación", target: "$500K+", unit: "COP" },
+      { metric: "Certificaciones emitidas", target: "50+", unit: "unidades" },
       { metric: "Alianzas B2B cerradas", target: 2, unit: "alianzas" },
       { metric: "Deck de inversión listo", target: "✅", unit: "" },
     ],

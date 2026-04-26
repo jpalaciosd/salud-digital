@@ -49,7 +49,7 @@ export default function EnlacesPagoPage() {
   };
 
   const compartirWhatsApp = (curso: Curso, url: string) => {
-    const mensaje = `Hola! 👋\n\nInscríbete al curso *${curso.titulo}* en ISSI.\n\n💰 Valor: $${curso.precio.toLocaleString("es-CO")} COP\n⏱️ ${curso.duracionHoras} horas\n\n👉 Paga aquí: ${url}`;
+    const mensaje = `Hola! 👋\n\nInscríbete al curso *${curso.titulo}* en ISSI.\n\n⏱️ ${curso.duracionHoras} horas\n\n👉 Inscríbete aquí: ${url}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, "_blank");
   };
 
@@ -127,7 +127,7 @@ function CursoQRCard({
         <div className="flex-1">
           <h3 className="font-bold text-[#0f2847] text-sm leading-tight">{curso.titulo}</h3>
           <p className="text-xs text-[#c5a044] font-bold mt-1">
-            ${curso.precio.toLocaleString("es-CO")} · {curso.duracionHoras}h
+            {curso.duracionHoras}h
           </p>
         </div>
       </div>

@@ -120,7 +120,7 @@ export default function Cursos() {
                   </div>
                   <p className="text-xs text-slate-400 mb-4">👨‍⚕️ {curso.instructor}</p>
                   <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-                    <span className="text-lg font-extrabold text-[#c5a044]">{curso.precio ? `$${curso.precio.toLocaleString("es-CO")}` : "Gratis"}</span>
+                    <span className="text-lg font-extrabold text-[#c5a044]">{curso.duracionHoras}h</span>
                     {enrolled ? (
                       <Link href="/dashboard?tab=cursos" className="px-6 py-2 rounded-lg bg-green-600 text-white font-bold text-sm">
                         📖 Ir al curso
@@ -130,7 +130,7 @@ export default function Cursos() {
                         onClick={() => irAPagar(curso.id)}
                         className="px-6 py-2 rounded-lg bg-[#0f2847] text-white font-bold text-sm hover:opacity-90 transition-all"
                       >
-                        Pagar e inscribirme
+                        Inscribirme
                       </button>
                     )}
                   </div>
