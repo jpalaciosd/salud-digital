@@ -34,6 +34,11 @@ export async function GET(req: NextRequest) {
   const rol = (user as Record<string, string>).rol || "estudiante";
   const userId = (user as Record<string, string>).userId;
 
+  if (rol === "admin") {
+    all.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return NextResponse.json({ agendas: all });
+  }
+
   if (rol === "profesional") {
     // Professionals see: pending (pool) + their own accepted/completed
     const filtered = all.filter(a =>

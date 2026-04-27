@@ -20,12 +20,10 @@ export default function Dashboard() {
   const router = useRouter();
   const [tab, setTab] = useState("inicio");
 
-  // Redirect by role
+  // Redirect profesionales a su panel; admins pueden ver TODAS las vistas
   useEffect(() => {
     if (!loading && user) {
-      const rol = (user as Record<string, string>).rol;
-      if (rol === "profesional") router.replace("/profesional");
-      else if (rol === "admin") router.replace("/admin");
+      if (user.rol === "profesional") router.replace("/profesional");
     }
   }, [user, loading, router]);
   const [sidebarOpen, setSidebarOpen] = useState(false);

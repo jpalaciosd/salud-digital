@@ -20,10 +20,20 @@ const NAV_PROFESIONAL = [
 ];
 
 const NAV_ADMIN = [
-  { href: "/admin", label: "Inicio", icon: "home" },
-  { href: "/admin", label: "Panel de Control", icon: "analytics" },
+  { href: "/admin", label: "Panel", icon: "analytics" },
   { href: "/clinico", label: "Clínico", icon: "local_hospital" },
   { href: "/cursos", label: "Cursos", icon: "school" },
+  { href: "/agentes", label: "Agentes", icon: "smart_toy" },
+  { href: "/admin/estrategia", label: "Estrategia", icon: "insights" },
+  { href: "/admin/pagos", label: "Pagos", icon: "payments" },
+];
+
+const ADMIN_EXTRA_LINKS = [
+  { href: "/admin/enlaces-pago", label: "Enlaces de Pago", icon: "qr_code_2" },
+  { href: "/clinico/auditor", label: "Auditor Clínico", icon: "fact_check" },
+  { href: "/monitoreo", label: "Monitoreo", icon: "monitor_heart" },
+  { href: "/dashboard", label: "Vista Estudiante", icon: "person" },
+  { href: "/profesional", label: "Vista Profesional", icon: "assignment_ind" },
 ];
 
 export default function UserNav() {
@@ -80,7 +90,7 @@ export default function UserNav() {
           </button>
 
           {menuOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 py-2">
+            <div className="absolute right-0 mt-2 w-56 bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 py-2">
               <div className="px-4 py-2 border-b border-white/10">
                 <p className="text-sm text-white font-medium truncate">{user.email}</p>
               </div>
@@ -100,9 +110,27 @@ export default function UserNav() {
                 <span className="material-icons-outlined text-lg">person</span>
                 Mi Perfil
               </Link>
+              {rol === "admin" && (
+                <>
+                  <div className="px-4 py-1 text-xs text-gray-500 uppercase tracking-wide border-t border-white/10 mt-1 pt-2">
+                    Herramientas Admin
+                  </div>
+                  {ADMIN_EXTRA_LINKS.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 flex items-center gap-2"
+                    >
+                      <span className="material-icons-outlined text-lg">{item.icon}</span>
+                      {item.label}
+                    </Link>
+                  ))}
+                </>
+              )}
               <button
                 onClick={() => { setMenuOpen(false); logout(); }}
-                className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/5 flex items-center gap-2"
+                className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/5 flex items-center gap-2 border-t border-white/10 mt-1 pt-2"
               >
                 <span className="material-icons-outlined text-lg">logout</span>
                 Cerrar Sesión
@@ -143,6 +171,25 @@ export default function UserNav() {
           >
             Mi Perfil
           </Link>
+          {rol === "admin" && (
+            <>
+              <div className="px-4 py-1 mt-2 text-xs text-gray-500 uppercase tracking-wide border-t border-white/10 pt-2">
+                Herramientas Admin
+              </div>
+              {ADMIN_EXTRA_LINKS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`block px-4 py-2 text-sm rounded-lg ${
+                    pathname === item.href ? "text-[#c5a044] font-semibold" : "text-gray-300"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </>
+          )}
         </div>
       )}
     </nav>
