@@ -66,7 +66,10 @@ export default function PagarClient({ curso, nequi }: { curso: CursoPago; nequi:
   if (!user) return null;
 
   const montoActual = promo ? promo.precioFinal : curso.precio;
-  const montoFormateado = "Incluido";
+  const montoFormateado =
+    montoActual > 0
+      ? `$${montoActual.toLocaleString("es-CO")}`
+      : "Incluido (gratis con promo)";
 
   const copiarMonto = () => {
     navigator.clipboard.writeText(String(montoActual));

@@ -26,7 +26,26 @@ const agentes = [
     canalIcon: "chat",
     estado: "Activo",
   },
-  /* Dr. Nova — Próximamente (servicios de salud en desarrollo) */
+  {
+    nombre: "Dr. Nova",
+    rol: "Asistente de Salud",
+    descripcion:
+      "Tu asistente médico virtual de SaludDigital. Dr. Nova accede a tu historia clínica, fórmulas activas y citas próximas; resuelve dudas de salud, te recuerda controles y agenda citas con médicos por WhatsApp. Vincula tu cuenta escribiéndole con el celular registrado en tu perfil.",
+    avatar: "/agents/medico.png",
+    color: "#0f2847",
+    glowColor: "rgba(15,40,71,0.45)",
+    ringColor: "rgba(15,40,71,0.35)",
+    capacidades: [
+      "Consulta historia clínica y fórmulas activas",
+      "Agendamiento de citas por chat",
+      "Triaje básico y derivación a especialista",
+      "Vinculación automática por email si cambias de número",
+      "Disponible 24/7 por WhatsApp",
+    ],
+    canalLink: "https://wa.me/17433306127?text=Hola%20Dr.%20Nova",
+    canalIcon: "medical_services",
+    estado: "Activo",
+  },
 ];
 
 function AvatarCard({ agente }: { agente: typeof agentes[0] }) {

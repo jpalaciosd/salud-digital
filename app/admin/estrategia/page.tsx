@@ -292,8 +292,13 @@ export default function EstrategiaPage() {
     </div>
   );
 
-  // Determine current week based on real progress
-  const currentWeekIdx = 0; // Start at week 1
+  // Determine current week based on real elapsed time since plan start.
+  // Plan starts on launch date below. Adjust as needed.
+  const PLAN_START = new Date("2026-04-26T00:00:00-05:00");
+  const weeksElapsed = Math.floor(
+    (Date.now() - PLAN_START.getTime()) / (7 * 24 * 60 * 60 * 1000)
+  );
+  const currentWeekIdx = Math.max(0, Math.min(7, weeksElapsed));
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white">

@@ -31,7 +31,6 @@ const NAV_ADMIN = [
 const ADMIN_EXTRA_LINKS = [
   { href: "/admin/enlaces-pago", label: "Enlaces de Pago", icon: "qr_code_2" },
   { href: "/clinico/auditor", label: "Auditor Clínico", icon: "fact_check" },
-  { href: "/monitoreo", label: "Monitoreo", icon: "monitor_heart" },
   { href: "/dashboard", label: "Vista Estudiante", icon: "person" },
   { href: "/profesional", label: "Vista Profesional", icon: "assignment_ind" },
 ];
