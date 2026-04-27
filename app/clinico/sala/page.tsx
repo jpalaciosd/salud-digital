@@ -84,6 +84,16 @@ function SalaContent() {
 
   return (
     <div className="min-h-screen bg-[#0a0f1a] text-white flex flex-col">
+      {/* Banner WIP */}
+      <div className="bg-amber-500/15 border-b border-amber-500/30 text-amber-100 px-4 py-2 text-xs flex items-center justify-center gap-2">
+        <span className="material-symbols-outlined text-amber-300 text-sm">construction</span>
+        <span>
+          Videoconferencia integrada en desarrollo. Por ahora, coordina la
+          videollamada por un canal externo (Meet/Zoom) y usa esta sala para
+          notas clínicas y registro de la consulta.
+        </span>
+      </div>
+
       {/* Top bar */}
       <div className="bg-[#0f2847] px-4 py-2 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-3">

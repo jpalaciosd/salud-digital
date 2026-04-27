@@ -46,13 +46,15 @@ export default function ClinicoHub() {
       fetch("/api/clinico/consultas").then((r) => r.json()),
       fetch("/api/clinico/hce").then((r) => r.json()),
       fetch("/api/clinico/formulas").then((r) => r.json()),
-    ]).then(([consultas, hce, formulas]) => {
+      fetch("/api/clinico/aiepi").then((r) => r.json()),
+      fetch("/api/clinico/consentimiento").then((r) => r.json()),
+    ]).then(([consultas, hce, formulas, aiepi, consent]) => {
       setStats({
         consultas: consultas.status === "fulfilled" ? (consultas.value.consultas?.length || 0) : 0,
         hce: hce.status === "fulfilled" ? (hce.value.registros?.length || 0) : 0,
         formulas: formulas.status === "fulfilled" ? (formulas.value.formulas?.length || 0) : 0,
-        aiepi: 0,
-        consentimientos: 0,
+        aiepi: aiepi.status === "fulfilled" ? (aiepi.value.evaluaciones?.length || 0) : 0,
+        consentimientos: consent.status === "fulfilled" ? (consent.value.total || 0) : 0,
       });
     });
   }, [user, loading]);

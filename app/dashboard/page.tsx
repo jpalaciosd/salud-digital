@@ -96,15 +96,28 @@ export default function Dashboard() {
   const agendarCita = async () => {
     const medico = citaForm.medicoId ? medicos.find(m => m.id === citaForm.medicoId) : null;
     setSaving(true);
-    await fetch("/api/citas", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...citaForm,
-        medicoNombre: medico ? `Dr. ${medico.nombre} ${medico.apellido}` : "Por asignar",
-        medicoId: medico?.id,
-      }),
-    });
+    setErrorCita(null);
+    try {
+      const r = await fetch("/api/citas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...citaForm,
+          medicoNombre: medico ? `Dr. ${medico.nombre} ${medico.apellido}` : "Por asignar",
+          medicoId: medico?.id,
+        }),
+      });
+      if (!r.ok) {
+        const data = await r.json().catch(() => ({}));
+        setErrorCita(data?.error || "No se pudo agendar la cita. Intenta de nuevo.");
+        setSaving(false);
+        return;
+      }
+    } catch {
+      setErrorCita("Error de red al agendar la cita.");
+      setSaving(false);
+      return;
+    }
     setSaving(false);
     setShowAgendarCita(false);
     setCitaForm({ medicoId: "", especialidad: "", fecha: "", hora: "", tipo: "teleconsulta", motivo: "" });
@@ -115,14 +128,26 @@ export default function Dashboard() {
     const pac = pacientes.find(p => p.id === formulaForm.pacienteId);
     if (!pac) return;
     setSaving(true);
-    await fetch("/api/formulas", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...formulaForm,
-        pacienteNombre: `${pac.nombre} ${pac.apellido}`,
-      }),
-    });
+    try {
+      const r = await fetch("/api/formulas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formulaForm,
+          pacienteNombre: `${pac.nombre} ${pac.apellido}`,
+        }),
+      });
+      if (!r.ok) {
+        const data = await r.json().catch(() => ({}));
+        alert(`No se pudo crear la fórmula: ${data?.error || "error desconocido"}`);
+        setSaving(false);
+        return;
+      }
+    } catch {
+      alert("Error de red al crear la fórmula.");
+      setSaving(false);
+      return;
+    }
     setSaving(false);
     setShowCrearFormula(false);
     setFormulaForm({ pacienteId: "", diagnostico: "", observaciones: "", duracionDias: 30, medicamentos: [{ nombre: "", dosis: "", frecuencia: "Cada 12 horas", via: "Oral", duracionDias: 30, cantidad: "" }] });
@@ -133,18 +158,30 @@ export default function Dashboard() {
     const pac = pacientes.find(p => p.id === historiaForm.pacienteId);
     if (!pac) return;
     setSaving(true);
-    await fetch("/api/historia", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        pacienteId: historiaForm.pacienteId,
-        pacienteNombre: `${pac.nombre} ${pac.apellido}`,
-        tipo: historiaForm.tipo,
-        diagnostico: historiaForm.diagnostico,
-        notas: historiaForm.notas,
-        signos: { presion: historiaForm.presion, glucosa: historiaForm.glucosa, peso: historiaForm.peso },
-      }),
-    });
+    try {
+      const r = await fetch("/api/historia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pacienteId: historiaForm.pacienteId,
+          pacienteNombre: `${pac.nombre} ${pac.apellido}`,
+          tipo: historiaForm.tipo,
+          diagnostico: historiaForm.diagnostico,
+          notas: historiaForm.notas,
+          signos: { presion: historiaForm.presion, glucosa: historiaForm.glucosa, peso: historiaForm.peso },
+        }),
+      });
+      if (!r.ok) {
+        const data = await r.json().catch(() => ({}));
+        alert(`No se pudo crear la entrada: ${data?.error || "error desconocido"}`);
+        setSaving(false);
+        return;
+      }
+    } catch {
+      alert("Error de red al crear la entrada de historia.");
+      setSaving(false);
+      return;
+    }
     setSaving(false);
     setShowCrearHistoria(false);
     setHistoriaForm({ pacienteId: "", tipo: "Control", diagnostico: "", notas: "", presion: "", glucosa: "", peso: "" });
