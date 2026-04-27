@@ -20,10 +20,13 @@ export default function Dashboard() {
   const router = useRouter();
   const [tab, setTab] = useState("inicio");
 
-  // Redirect profesionales a su panel; admins pueden ver TODAS las vistas
+  // /dashboard es la vista del ESTUDIANTE/PACIENTE.
+  // Profesionales y médicos tienen sus propios paneles; admins pueden entrar
+  // como "Vista Estudiante" y ven exactamente lo que ve un estudiante real.
   useEffect(() => {
     if (!loading && user) {
       if (user.rol === "profesional") router.replace("/profesional");
+      else if (user.rol === "medico") router.replace("/clinico");
     }
   }, [user, loading, router]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -59,7 +62,11 @@ export default function Dashboard() {
   const [formulaForm, setFormulaForm] = useState({ pacienteId: "", diagnostico: "", observaciones: "", duracionDias: 30, medicamentos: [{ nombre: "", dosis: "", frecuencia: "Cada 12 horas", via: "Oral", duracionDias: 30, cantidad: "" }] });
   const [historiaForm, setHistoriaForm] = useState({ pacienteId: "", tipo: "Control", diagnostico: "", notas: "", presion: "", glucosa: "", peso: "" });
 
-  const isMedico = user?.rol === "medico" || user?.rol === "admin";
+  // El dashboard es la vista de paciente/estudiante.
+  // Las funciones médicas (fórmulas, HCE, pacientes) viven en /clinico/*,
+  // por eso aquí siempre tratamos al usuario como NO médico, incluso si es
+  // admin entrando vía "Vista Estudiante".
+  const isMedico = false;
 
   const fetchData = useCallback(async () => {
     const opts = { cache: "no-store" as RequestCache };
