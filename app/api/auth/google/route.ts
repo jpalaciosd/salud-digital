@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { SignJWT } from "jose";
 import { put } from "@vercel/blob";
+import { ADMIN_EMAILS } from "@/lib/admin-emails";
 
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "salud-digital-secret-key-2026-change-in-prod"
 );
-
-const ADMIN_EMAILS = ["juandiegopalaciosdelgado@gmail.com", "fernandocuartasarboleda@gmail.com"];
 
 interface GoogleTokenPayload {
   email: string;

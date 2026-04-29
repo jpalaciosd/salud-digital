@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { loginUser } from "@/lib/auth";
+import { loginUser, updateUserProfile } from "@/lib/auth";
+import { isAdminEmail } from "@/lib/admin-emails";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,6 +17,12 @@ export async function POST(req: NextRequest) {
 
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 401 });
+    }
+
+    // Auto-promote a admin si el email está en la lista oficial.
+    if (result.user && isAdminEmail(result.user.email) && result.user.rol !== "admin") {
+      await updateUserProfile(result.user.email, { rol: "admin" });
+      result.user.rol = "admin";
     }
 
     const response = NextResponse.json({ user: result.user });

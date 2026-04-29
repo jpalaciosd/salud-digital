@@ -87,6 +87,7 @@ export type UserProfileUpdate = Partial<
     | "avatarUrl"
     | "descripcionProfesional"
     | "especialidad"
+    | "rol"
   >
 >;
 

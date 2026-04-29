@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { registerUser } from "@/lib/auth";
+import { isAdminEmail } from "@/lib/admin-emails";
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,6 +32,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const finalRol = isAdminEmail(email) ? "admin" : (rol || "paciente");
+
     const result = await registerUser({
       email,
       password,
@@ -38,7 +41,7 @@ export async function POST(req: NextRequest) {
       apellido,
       documento,
       tipoDocumento,
-      rol: rol || "paciente",
+      rol: finalRol,
       telefono: telefonoNormalizado,
       avatarUrl: avatarUrl || undefined,
       descripcionProfesional: descripcionProfesional || undefined,
